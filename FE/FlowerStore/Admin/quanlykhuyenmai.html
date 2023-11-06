@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Quản lý khuyến mãi</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center"></header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Quản lý khuyến mãi</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+          <li class="breadcrumb-item active">Quản lý khuyến mãi</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="col-12">
+        <div class="button-body">
+          <button data-bs-toggle="modal" data-bs-target="#ModalCreateVoucher" type="submit" id="addOrder" class="btn btn-primary mb-3" style="border-radius: 0.5rem; width: auto;">Tạo voucher</button>
+        </div>
+        <div class="card recent-sales overflow-auto">
+          <div class="card-body">
+            <h5 class="fw-bold mt-4" style="color: #012970;">Danh sách voucher</h5>
+  
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Mã voucher</th>
+                  <th>Tên voucher</th>
+                  <th>Điểm</th>
+                  <th>Giá trị</th>
+                  <th>Số lượng</th>
+                  <th>Ngày hết hạn</th>
+                  <th>Tùy chọn</th>
+                </tr>
+              </thead>
+              <tbody id="voucherTable">
+                
+              </tbody>
+            </table>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Create -->
+<div class="modal fade" id="ModalCreateVoucher" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelAddVoucher">Thêm Voucher</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="InputVoucherName" class="form-label">Tên voucher</label>
+            <input type="text" class="form-control" id="InputVoucherName" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherPoint" class="form-label">Điểm voucher</label>
+            <input type="number" class="form-control" id="InputVoucherPoint" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherValue" class="form-label">Giá trị voucher</label>
+            <input type="number" class="form-control" id="InputVoucherValue" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherQuantity" class="form-label">Số lượng voucher</label>
+            <input type="number" class="form-control" id="InputVoucherQuantity" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherExpire" class="form-label">Ngày hết hạn</label>
+            <input type="date" class="form-control" id="InputVoucherExpire" required>
+          </div>
+     
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+        <button type="button" id="add_voucher" class="btn btn-primary" data-bs-dismiss="modal">Thêm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End modal Create -->
+
+<!-- Modal Edit -->
+<div class="modal fade" id="ModalEditVoucher" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelEditVoucher">Sửa Voucher</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="mb-3">
+            <label for="InputVoucherName" class="form-label">Tên voucher</label>
+            <input type="text" class="form-control" id="InputVoucherNameEdit" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherPoint" class="form-label">Điểm voucher</label>
+            <input type="number" class="form-control" id="InputVoucherPointEdit" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherValue" class="form-label">Giá trị voucher</label>
+            <input type="number" class="form-control" id="InputVoucherValueEdit" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherQuantity" class="form-label">Số lượng voucher</label>
+            <input type="number" class="form-control" id="InputVoucherQuantityEdit" required>
+          </div>
+          <div class="mb-3">
+            <label for="InputVoucherExpire" class="form-label">Ngày hết hạn</label>
+            <input type="date" class="form-control" id="InputVoucherExpireEdit" required>
+          </div>
+     
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+        <button type="button" id="Edit_voucher" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Model edit -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script src="./assets/js/adminLayout.js"></script>
+  <script src="./assets/js/voucher.js"></script>
+
+</body>
+
+</html>

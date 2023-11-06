@@ -1,0 +1,89 @@
+:root{
+    --certificate-width: 100%;
+    --certificate-height: 23%;
+    --body-background: #FFF6F6;
+    --btn-bgColor: #9A2B41;
+    --btn-hover-bgColor: #9a2b43f1;
+}
+
+.body-certificate{
+    margin: 3% 0;
+    width: var(--certificate-width);
+    height: var(--certificate-height);
+    background-color: var(--body-background);
+}
+
+.body-certificate .certificate-body{
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.certificate-body .certificate-content{
+    width: 50%;
+    height: 100%;
+    padding-left: 8%;
+}
+
+.certificate-content .certificate-title{
+    width: 80%;
+    font-size: 40px;
+    margin: 5% 0;
+}
+
+.certificate-content .certificate-text{
+    width: 80%;
+    line-height: 2.5;
+}
+
+.certificate-body .certificate-img{
+    width: 30%;
+    height: 100%;
+    margin: 3% auto;
+}
+
+.certificate-body .certificate-img img{
+    width: 100%;
+    height: 50%;
+}
+
+.certificate-content .certificate-btn{
+    margin-top: 5%;
+}
+
+.certificate-content .certificate-btn a{
+    padding: 12px 15px;
+    background-color: var(--btn-bgColor);
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.certificate-content .certificate-btn a:hover{
+    background-color: var(--btn-hover-bgColor);
+}
+
+
+@media only screen and (max-width: 576px) {
+    .body-certificate{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .body-certificate{
+        display: none;
+    }
+   
+}
+
+@media only screen and (min-width: 1200px) {
+    .body-certificate{
+        display: block;
+    }
+   
+}

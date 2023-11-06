@@ -1,0 +1,263 @@
+#containerCardVoucher{
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.cardVoucher{
+    display: flex;
+    box-shadow: 1px 5px 10px 1px #888888;
+    width: 48%;
+    align-items: center;
+    margin: 5% 0;
+    border-radius: 2px;
+    position: relative;
+    height: 140px;
+}
+
+.cardVoucher .imgVoucher{
+    width: 35%;
+    height: 100%;
+    position: relative;
+    left: 0;
+}
+
+.cardVoucher .imgVoucher img{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.cardVoucher .contentVoucher{
+    width: 50%;
+    margin-left: 2%;
+    font-weight: 600;
+}
+
+.contentVoucher .pointVoucher{
+    color: red;
+    margin-top: 30px;
+}
+
+.contentVoucher .btnVoucher{
+    width: 20%;
+}
+
+.btnVoucher button{
+    background-color: #9a2b41;
+    border: 1px solid #9a2b41;
+    color: #fff;
+    padding: 10% 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    width: 75px;
+}
+
+.btnVoucher button:hover{
+    background-color:#872337;
+    border: 1px solid #872337;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.bannerVoucher{
+    width: 100%;
+}
+
+.bannerVoucher img{
+    width: 100%;
+}
+
+.textDealsHot{
+    text-align: center;
+    font-size: 40px;
+}
+
+@media screen and (max-width: 425px){
+
+    .textDealsHot{
+        font-size: 30px !important;
+    }
+
+    #containerCardVoucher{
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .cardVoucher{
+        width: 100%;
+        height: 90px;
+    }
+
+
+    .cardVoucher .contentVoucher{
+        width: 45% !important;
+        font-size: 12px;
+    }
+
+
+    .contentVoucher .pointVoucher{
+        margin-top: 20px;
+    }
+
+
+    .btnVoucher button{
+        padding: 8% 0;
+        font-size: 8px !important;
+        width: 45px !important;
+    }
+
+}
+
+@media screen and (max-width: 576px){
+
+    .textDealsHot{
+        font-size: 35px;
+    }
+
+    #containerCardVoucher{
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .cardVoucher{
+        width: 100%;
+        height: 110px;
+    }
+
+    .cardVoucher .imgVoucher{
+        width: 35%;
+    }
+
+    .cardVoucher .contentVoucher{
+        width: 45%;
+        font-size: 14px;
+    }
+
+
+    .contentVoucher .pointVoucher{
+        margin-top: 20px;
+    }
+
+    .contentVoucher .btnVoucher{
+        width: 25%;
+    }
+
+    .btnVoucher button{
+        padding: 10% 2%;
+        font-size: 12px;
+        width: 65px;
+    }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+
+    #containerCardVoucher{
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .cardVoucher{
+        width: 100%;
+        height: 110px;
+    }
+
+    .cardVoucher .imgVoucher{
+        width: 35%;
+    }
+
+    .cardVoucher .contentVoucher{
+        width: 45%;
+        font-size: 16px;
+    }
+
+
+    .contentVoucher .pointVoucher{
+        margin-top: 20px;
+    }
+
+    .contentVoucher .btnVoucher{
+        width: 25%;
+    }
+
+    .btnVoucher button{
+        padding: 12% 2%;
+        font-size: 14px;
+        width: 70px;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+
+    #containerCardVoucher{
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .cardVoucher{
+        width: 100%;
+        height: 150px;
+    }
+
+    .cardVoucher .imgVoucher{
+        width: 35%;
+    }
+
+    .cardVoucher .contentVoucher{
+        width: 45%;
+        font-size: 18px;
+        margin-left: 5%;
+    }
+
+
+    .contentVoucher .pointVoucher{
+        margin-top: 20px;
+    }
+
+    .contentVoucher .btnVoucher{
+        width: 25%;
+    }
+
+    .btnVoucher button{
+        padding: 12% 2%;
+        font-size: 14px;
+        width: 70px;
+    }
+
+}
+
+@media screen and (min-width: 992px){
+
+
+    .cardVoucher{
+        height: 140px;
+    }
+
+
+
+    .cardVoucher .contentVoucher{
+        width: 45%;
+        font-size: 18px;
+    }
+
+
+    .contentVoucher .pointVoucher{
+        margin-top: 20px;
+    }
+
+    .contentVoucher .btnVoucher{
+        width: 20%;
+    }
+
+    .btnVoucher button{
+        padding: 12% 0;
+        font-size: 13px;
+        width: 65px;
+    }
+
+}

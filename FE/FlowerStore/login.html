@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/login.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <form action="" class="login-form">
+            <div class="login-body">
+
+                <div class="login-left">
+                    <img class="login-img" src="imgs/login_img.svg" alt="">
+                </div>
+
+                <div class="login-right">
+
+                    <div class="login-logo">
+                        <img class="logo" src="imgs/logo.svg" alt="">
+                    </div>
+
+                    <div class="login-content">
+
+                        <div class="login-title">
+                            <span>Login</span>
+                        </div>
+
+                        <div class="login-text">
+                            <span>Welcome back!</span>
+                        </div>
+
+                        <div class="login-input">
+                            <div class="login-email">
+                                <label for="">UserName</label>
+                                <input type="text" id="UserName" />
+                            </div>
+                            <div class="login-password">
+                                <label for="">Password</label>
+                                <input type="password" id="Password" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-bottom">
+                        <div class="login-remember">
+                            <input type="checkbox">
+                            <label for="">Stay logged in</label>
+                        </div>
+
+                        <div class="login-forget">
+                            <a href="#">Forgot your password?</a>
+                        </div>
+                    </div>
+
+                    <div class="login-btn">
+                        <button type="button" id="loginButton">Login</button>
+                    </div>
+
+                    <div class="login-noAccount">
+                        <span>Don't you have an account?
+                            <a href="/signup.html">Sign up</a>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

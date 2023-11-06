@@ -1,0 +1,352 @@
+:root{
+    --products-height: 35%;
+    --products-width: 100%;
+    --products-font-family: Montserrat;
+}
+
+.body-products{
+    width: 100%;
+    height: var(--products-height);
+    font-family: var(--products-font-family);  
+    margin-bottom: 5%; 
+}
+
+.body-products .products-title{
+    text-align: center;
+    margin-top: 4%;
+}
+
+.body-products .products-list{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+}
+
+.products-list .products-card{
+    width: 100%;
+    height: 500px;   
+    margin: 8% 0;
+}
+
+.products-card .card-img{
+    height: 380px;
+    width: 70%;
+    margin: auto;
+}
+
+.products-card .card-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.products-card .card-content{
+    position: relative;
+    width: 70%;
+    height: 120px;
+    margin: auto;
+    border: 1px solid gainsboro;
+    border-top: none;
+}
+
+.card-content .card-name{
+    position: absolute;
+    left: 5%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+}
+
+.card-content .card-name a{
+    font-size: 23px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.card-content .card-body{
+    width: 90%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    bottom: 2%;
+}
+
+.card-body .card-price{
+    font-size: 18px;
+}
+
+.card-body .card-heart{
+    height: 20px;
+    width: 20px;
+}
+
+.card-body .card-heart img{
+    height: 100%;
+    width: 100%;
+}
+
+
+
+@media screen and (max-width: 576px){
+    .body-products{
+        margin-top: 0%;        
+        height: 33%;
+    }
+
+    .body-products .products-title{
+        font-size: 10px;
+        position: relative;
+        top: 8%;
+    }
+
+    
+    .body-products .products-list{
+        display: flex;   
+        flex-wrap: wrap;
+        position: relative;
+        top: 15%;
+    }
+
+    .products-list .products-card{
+        width: 50%;
+        height: 250px;  
+        margin: 4% 0; 
+    }
+    
+    .products-card .card-img{
+        height: 70%;
+        width: 85%;
+    }
+
+    .products-card .card-img img{
+        border-top-right-radius: 8%;
+        border-top-left-radius: 8%;
+        object-fit: cover;
+    }
+    
+    .products-card .card-content{
+        width: 85%;
+        height: 30%;
+        border-bottom-right-radius: 8%;
+        border-bottom-left-radius: 8%;
+        box-shadow: 0px 5px 9px gainsboro;
+    }
+
+    .card-content .card-name{
+        height: 30%;
+        width: 90%;
+    }
+    
+    .card-content .card-name a{
+        padding-top: 5%;
+        font-size: 11px;
+    }
+    
+    .card-content .card-body{
+        height: 70%;
+    }
+    
+    .card-body .card-price{
+        font-size: 12px;
+    }
+    
+    .card-body .card-heart{
+        height: 15px;
+        width: 15px;
+    }
+}
+
+
+@media screen and (max-width: 768px) and (min-width: 576px){
+    .body-products{  
+        height: 35%;
+    }
+
+    .body-products .products-title{
+        font-size: 15px;
+        position: relative;
+        top: 5%;
+    }
+
+    
+    .body-products .products-list{
+        display: flex;   
+        flex-wrap: wrap;
+        position: relative;
+        top: 10%;
+    }
+
+    .products-list .products-card{
+        width: 50%;
+        height: 280px;  
+        margin: 4% 0; 
+    }
+    
+    .products-card .card-img{
+        height: 70%;
+        width: 80%;
+    }
+
+    .products-card .card-img img{
+        border-top-right-radius: 8%;
+        border-top-left-radius: 8%;
+        
+    }
+    
+    .products-card .card-content{
+        width: 80%;
+        height: 30%;
+        border-bottom-right-radius: 8%;
+        border-bottom-left-radius: 8%;
+        box-shadow: 0px 5px 9px gainsboro;
+    }
+
+    .card-content .card-name{
+        height: 30%;
+        width: 90%;
+    }
+    
+    .card-content .card-name a{
+        padding-top: 5%;
+        font-size: 11px;
+    }
+    
+    .card-content .card-body{
+        height: 70%;
+    }
+    
+    .card-body .card-price{
+        font-size: 12px;
+    }
+    
+    .card-body .card-heart{
+        height: 15px;
+        width: 15px;
+    }
+
+}
+
+@media screen and (max-width: 992px) and (min-width: 768px){
+    .body-products{  
+        height: 35%;
+    }
+
+    .body-products .products-title{
+        font-size: 15px;
+        position: relative;
+        top: 3%;
+    }
+
+    
+    .body-products .products-list{
+        display: flex;   
+        flex-wrap: wrap;
+        position: relative;
+        top: 8%;
+    }
+
+    .products-list .products-card{
+        width: 50%;
+        height: 280px;  
+        margin: 4% 0; 
+    }
+    
+    .products-card .card-img{
+        height: 70%;
+        width: 70%;
+    }
+
+    .products-card .card-img img{
+        border-top-right-radius: 8%;
+        border-top-left-radius: 8%;
+        object-fit: fill;
+    }
+    
+    .products-card .card-content{
+        width: 70%;
+        height: 30%;
+        border-bottom-right-radius: 8%;
+        border-bottom-left-radius: 8%;
+        box-shadow: 0px 5px 9px gainsboro;
+    }
+
+    .card-content .card-name{
+        height: 30%;
+        width: 90%;
+    }
+    
+    .card-content .card-name a{
+        padding-top: 5%;
+        font-size: 16px;
+    }
+    
+    .card-content .card-body{
+        height: 70%;
+    }
+    
+    .card-body .card-price{
+        font-size: 15px;
+    }
+    
+    .card-body .card-heart{
+        height: 18px;
+        width: 18px;
+    }
+
+}
+
+@media screen and (max-width: 1440px) and (min-width: 992px){
+    .body-products{  
+        height: 20%;
+    }
+
+    .body-products .products-title{
+        position: relative;
+        top: 3%;
+    }
+
+    .body-products .products-list{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        margin: auto;
+        position: relative;
+        top: 8%;
+    }
+
+    .products-list .products-card{
+        width: 85%;
+        height: 85%;  
+        margin: 4% 0; 
+        margin: auto;
+    }
+    
+    .products-card .card-img{
+        height: 70%;
+        width: 85%;
+    }
+    
+    .products-card .card-content{
+        width: 85%;
+        height: 30%;
+    }
+
+    .card-content .card-name{
+        height: 30%;
+        width: 90%;
+    }
+    
+    .card-content .card-name a{
+        padding-top: 5%;
+        font-size: 16px;
+    }
+    
+    .card-content .card-body{
+        height: 70%;
+    }
+
+}

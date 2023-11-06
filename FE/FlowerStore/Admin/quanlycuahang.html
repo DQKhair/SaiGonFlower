@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Quản lý cửa hàng</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center"></header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Quản lý cửa hàng</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+          <li class="breadcrumb-item active">Quản lý cửa hàng</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+
+      <div style="cursor: pointer">
+        <button
+          id="btnAddForm"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#StoreForm"
+        >
+          Thêm cửa hàng
+        </button>
+      </div>
+    
+      <div class="col-12 mt-4">
+        <div class="card recent-sales overflow-auto">
+          <div class="card-body">
+            <h5 class="fw-bold mt-4" style="color: #012970;">Danh sách cửa hàng</h5>
+
+            <table class="table import-list">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">#</th>
+                  <th scope="col">Tên cửa hàng</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Địa chỉ quận</th>
+                  <th scope="col">Trạng thái hoạt động</th>
+                  <th scope="col">Nghỉ</th>
+                  <th scope="col">Tùy chọn</th>
+                </tr>
+              </thead>
+              <tbody id="Stores-list" class="text-center"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+  </footer>
+  <!-- End Footer -->
+
+  <!--  Add import form -->
+  <form
+  class="modal fade"
+  id="StoreForm"
+  tabindex="-1"
+  style="display: none"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="card p-2 p-lg-4">
+        <div class="text-center body_head">
+          <h3 class="mt-3 fw-bold">Thêm Cửa Hàng</h3>
+        </div>
+
+        <div class="row justify-content-center my-2">
+
+          <div
+            class="form-group col-sm-4"
+          >
+            <label class="form-label fw-semibold">Tên cửa hàng: </label>
+            <input
+              id="inputAddStoreName"
+              type="text"
+              class="form-control w-100"
+              required
+              placeholder="SaiGon Flower Store 1"
+            />
+          </div>
+  
+          <div
+            class="form-group col-sm-4"
+          >
+            <label class="form-label fw-semibold">Số điện thoại: </label>
+            <input
+              id="inputAddStorePhone"
+              type="tel"
+              class="form-control w-100"
+              pattern="^0[0-9]{9}$" placeholder="0123456789"
+              required
+            />
+          </div>
+
+        </div>
+        
+        <hr />
+
+        <div class="row justify-content-center my-2">
+
+          <div
+            class="form-group col-sm"
+          >
+            <label class="form-label fw-semibold">Địa chỉ (số, đường): </label>
+            <input
+              id="inputAddStoreStreet"
+              type="text"
+              class="form-control w-100"
+              placeholder="991 Cách Mạng Tháng Tám"
+              required
+            />
+          </div>
+  
+          <div
+            class="form-group col-sm"
+          >
+            <label class="form-label fw-semibold">Phường: </label>
+            <input
+              id="inputAddStoreWard"
+              type="text"
+              class="form-control w-100"
+              placeholder="Phường 1"
+              required
+            />
+          </div>
+
+          <div
+            class="form-group col-sm"
+          >
+            <label class="form-label fw-semibold">Quận: </label>
+            <input
+              id="inputAddStoreDistrict"
+              type="text"
+              class="form-control w-100"
+              placeholder="Quận 1"
+              required
+            />
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row justify-content-center my-2">
+
+          <div
+            class="form-group col-sm"
+          >
+            <label class="form-label fw-semibold">Tên tài khoản: </label>
+            <input
+              id="inputAddStoreUserName"
+              type="text"
+              class="form-control w-100"
+              placeholder="sgfcn1"
+              required
+            />
+          </div>
+  
+          <div
+            class="form-group col-sm"
+          >
+            <label class="form-label fw-semibold">Mật khẩu </label>
+            <input
+              id="inputAddStorePassword"
+              type="password"
+              class="form-control w-100"
+              placeholder="********"
+              required
+            />
+          </div>
+
+          <div
+          class="form-group col-sm"
+        >
+          <label class="form-label fw-semibold">Nhập lại mật khẩu: </label>
+          <input
+            id="inputAddStoreRePassword"
+            type="password"
+            class="form-control w-100"
+            placeholder="********"
+            required
+          />
+        </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center mx-auto mt-5">
+          <button
+            id="btnCancel"
+            type="button"
+            class="btn btn-outline-primary px-4 mx-3"
+            data-bs-dismiss="modal"
+          >
+            Hủy
+          </button>
+          <button
+            id="btnAddStore"
+            type="button"
+            class="btn btn-primary px-4"
+            data-bs-dismiss="modal"
+          >
+          Thêm
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- End add import form  -->
+
+<!-- Modal Store Detail -->
+<div class="modal fade"
+id="storeDetailModal"
+tabindex="-1"
+style="display: none">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-content">
+    <div class="card p-2 p-lg-4">
+      <div class="text-center body_head">
+        <h3 class="mt-3 fw-bold">Chi Tiết Cửa Hàng</h3>
+      </div>
+
+      <div class="row justify-content-center my-2">
+
+        <div
+          class="form-group col-sm-4"
+        >
+          <label class="form-label fw-semibold">Tên cửa hàng: </label>
+          <input
+            id="inputDetailStoreName"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+
+        <div
+          class="form-group col-sm-4"
+        >
+          <label class="form-label fw-semibold">Số điện thoại: </label>
+          <input
+            id="inputDetailStorePhone"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+
+        <div
+        class="form-group col-sm-4"
+      >
+        <label class="form-label fw-semibold">Tên tài khoản: </label>
+        <input
+          id="inputDetailStoreUserName"
+          type="text"
+          class="form-control w-100"
+          readonly
+        />
+      </div>
+
+      </div>
+      
+      <hr />
+
+      <div class="row justify-content-center my-2">
+
+        <div
+          class="form-group col-sm"
+        >
+          <label class="form-label fw-semibold">Địa chỉ đường: </label>
+          <input
+            id="inputDetailStoreStreet"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+
+        <div
+          class="form-group col-sm"
+        >
+          <label class="form-label fw-semibold">Phường: </label>
+          <input
+            id="inputDetailStoreWard"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+
+        <div
+          class="form-group col-sm"
+        >
+          <label class="form-label fw-semibold">Quận: </label>
+          <input
+            id="inputDetailStoreDistrict"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- <div class="row justify-content-center my-2">
+        <div
+          class="form-group col-sm-4"
+        >
+          <label class="form-label fw-semibold">Trạng thái: </label>
+          <input
+            id="inputDetailStoreStatus"
+            type="text"
+            class="form-control w-100"
+            readonly
+          />
+        </div>
+      </div> -->
+
+      <div class="d-flex w-75 justify-content-center mx-auto my-3">
+        <button
+          id="btnCancel"
+          type="button"
+          class="btn btn-outline-secondary px-4"
+          data-bs-dismiss="modal"
+        >
+          Hủy
+        </button>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- End Modal Store Detail -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script src="./assets/js/adminLayout.js"></script>
+  <script src="./assets/js//stores.js"></script>
+
+</body>
+
+</html>

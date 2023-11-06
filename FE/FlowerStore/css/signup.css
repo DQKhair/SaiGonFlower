@@ -1,0 +1,257 @@
+body{
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+:root{
+    --form-height: 462px;
+    --form-width: 920px;
+    --font-family: Montserrat;
+    --logo-height: 80px;
+    --logo-width:100px;
+}
+
+.signup-container{
+    height: var(--form-height);
+    width: var(--form-width);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.signup-container .signup-form{
+    height: 100%;
+    width: 100%;
+}
+
+.signup-form .signup-body{
+    height: var(--form-height);
+    width: var(--form-width);
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0px;
+}
+
+.signup-body .signup-left{
+    height: var(--form-height);
+    width: 100%;
+}
+
+.signup-left .signup-img{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 530px;
+    height: var(--form-height);
+}
+
+.signup-body .signup-right{
+    height: var(--form-height);
+    width: 390px;
+}
+
+.signup-right .signup-logo{
+    height: var(--logo-height);
+    width: var(--logo-width);
+    margin: auto;
+    margin-top: 15px;    
+}
+
+.signup-logo .logo{
+    height: 100%;
+    width: 100%;
+}
+
+.signup-content .signup-title{
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.signup-content .signup-input{
+    margin-top: 5px;
+}
+
+.signup-input .signup-top-form{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-top-form .signup-name, .signup-phone{
+    width: 48%;
+}
+
+.signup-top-form .signup-name label, .signup-phone label{
+    display: block;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.signup-top-form .signup-name input, .signup-phone input{
+    padding: 8px 6px;
+    margin-top: 3px;
+    width: 88%;
+    border: .5px solid gainsboro;
+    border-radius: 2px;
+}
+
+.signup-input .signup-email, .signup-password{
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.signup-input .signup-email label, .signup-password label{
+    display: block;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.signup-input .signup-email input, .signup-password input{
+    padding: 8px 6px;
+    margin-top: 3px;
+    width: 95%;
+    border: .5px solid gainsboro;
+    border-radius: 2px;
+}
+
+
+.signup-right .signup-btn {
+    width: 80%;
+    height: 35px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.signup-btn button{
+    height: 100%;
+    width: 100%;
+    border-radius: 0px;
+    border: none;
+    background-color: #9A2B41;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.signup-btn button:hover{
+    background-color: #9a2b43f1;
+    cursor: pointer;
+}
+
+.signup-right .signup-policy{
+    font-size: 8px;
+    color: #A3A0A0;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-right .signup-noAccount{
+    width: 80%;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.signup-noAccount span a{
+    text-decoration: none;
+    color: #2666E2;
+    font-weight: bold;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 576px) {
+    .signup-container{
+        width: 350px;
+        height: 512px;
+    }
+
+    .signup-body .signup-right{
+        width: 350px;
+    }
+    
+    .signup-body .signup-left{
+        display: none;
+    }    
+
+    .signup-input .signup-top-form{
+        display: block;
+    }
+
+    .signup-top-form .signup-name, .signup-phone{
+        width: 100%;
+        margin: auto;
+    }
+
+    .signup-top-form .signup-name label, .signup-phone label{
+        margin-top:9px;
+    }
+
+    .signup-top-form .signup-name input, .signup-phone input{
+        padding: 8px 6px;
+        margin-top: 3px;
+        width: 95%;
+        border: .5px solid gainsboro;
+        border-radius: 2px;
+    }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 576px) {
+    .signup-container{
+        width: 450px;        
+    }
+
+    .signup-body .signup-right{
+        width: 450px;        
+    }
+    
+    .signup-body .signup-left{
+        display: none;
+    } 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .signup-container{
+        width: 450px;
+        
+    }
+
+    .signup-body .signup-right{
+        width: 450px;        
+    }
+    
+    .signup-body .signup-left{
+        display: none;
+    } 
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .signup-container{
+        width: 920px;        
+    }
+
+    .signup-body .signup-right{
+        width: 390px;        
+    }
+    
+    .signup-body .signup-left{
+        display: block;
+    } 
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

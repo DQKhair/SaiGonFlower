@@ -1,0 +1,358 @@
+
+:root{
+    --common-color: #9A2B41;
+}
+
+.body{
+    height: 100%;
+}
+
+.body-top{
+    display: flex;
+    width: 100%;
+    height: 75%;
+    margin: auto;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.body-top .top-left{
+    width: 40%;  
+    height: 550px; 
+    text-align: center;
+}
+
+.body-top .top-left img{
+    width: 90%; 
+    height: 100%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    object-fit: cover;
+}
+
+.body-top .top-right{
+    width: 40%;   
+    height: 100%;
+}
+
+.top-right .content .content-title{
+    font-size: 20px;
+}
+
+.content-title h1{
+    margin: 0;
+}
+
+.top-right .content .content-price{
+    font-size: 25px;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.top-right .content hr{
+    width: 90%;
+    margin-left: 0;
+}
+
+.top-right .content .content-details{
+    font-weight: 600;  
+    margin: 5% 0; 
+    font-size: 18px;
+}
+
+.top-right .content .content-info{
+    line-height: 2;
+    font-size: 16px;
+    width: 90%;
+}
+
+.top-right .content .content-quantity{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-quantity .quantity-title{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.content-quantity .quantity-change{
+    position: relative;
+    width: 60%;
+    margin: 10%;
+}
+
+.quantity-change input{
+    width: 50%;
+    padding: 5% 2%;
+    border: 1px solid gainsboro;
+    text-align: center;
+    outline: none;
+}
+
+
+.quantity-change .btn-increase{
+    width: 15%;
+    height: 100%;
+    padding: 2%;
+    position: absolute;
+    left: 40%;
+    border: 1px solid gainsboro;
+    border-left: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.quantity-change .btn-decrease{
+    height: 100%;
+    width: 15%;
+    padding: 2%;
+    position: absolute;
+    left: 0;
+    border: 1px solid gainsboro;
+    border-right: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+
+.top-right .content .content-btn{
+    margin-top: 5%;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-btn .btn-add{
+   padding: 4% 8%;
+   border-radius: 5px;
+   background-color: white;
+   border: 1.5px solid var(--common-color);
+   color: var(--common-color);
+   font-weight: 600;
+   cursor: pointer;
+}
+
+.content-btn .btn-add:hover{
+    background-color: var(--common-color);
+    color: white;
+ }
+
+.content-btn .btn-order{
+    padding: 4% 8%;
+    border-radius: 5px;
+    background-color: var(--common-color);
+    border: 1.5px solid var(--common-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+ }
+
+ .content-btn .btn-order:hover{
+    background-color: white;
+    color: var(--common-color);
+ }
+
+
+@media only screen and (max-width: 576px) {
+.body-top .top-left{
+    width: 100%;  
+    height: 500px !important; 
+}
+
+.top-right .content .content-title{
+    font-size: 16px !important;
+}
+
+.top-right .content .content-price{
+    font-size: 20px !important;
+}
+
+.top-right .content .content-details{ 
+    font-size: 16px !important;
+}
+
+.top-right .content .content-info{
+    font-size: 14px !important;
+}
+
+.top-right .content .content-quantity{
+    width: 80% !important;
+}
+
+.content-quantity .quantity-title{
+    font-size: 16px !important;
+}
+
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    .body-top{
+        display: block;
+      }
+    
+    .body-top .top-left{
+        width: 100%;  
+        height: 550px; 
+    }
+    
+    .body-top .top-left img{
+        width: 100%; 
+        height: 100%;
+        border-radius: 0;
+    }
+    
+    .body-top .top-right{
+        width: 100%;   
+        padding-top: 5%;
+    }
+    
+    .top-right .content .content-title{
+        font-size: 18px;
+        width: 95%;
+        padding-left: 5%;
+    }
+    
+    .top-right .content .content-price{
+        font-size: 22px;
+        width: 95%;
+        padding-left: 5%;
+        color: var(--common-color);
+        font-weight: 600;
+    }
+    
+    .top-right .content hr{
+        margin: auto;
+    }
+    
+    .top-right .content .content-details{ 
+        font-size: 18px;
+        width: 95%;
+        padding-left: 5%;
+    }
+    
+    .top-right .content .content-info{
+        line-height: 2;
+        font-size: 16px;
+        margin: auto;
+    }
+    
+    .top-right .content .content-quantity{
+        width: 60%;
+        padding-left: 5%;
+    }
+    
+    .content-quantity .quantity-title{
+        font-size: 18px;
+    }
+    
+    .top-right .content .content-btn{
+        margin-top: 0;
+        width: 90%;
+        padding: 0 5%;
+    }
+    
+    .content-btn .btn-add{
+       padding: 3% 6%;
+       width: 45%;
+       font-size: 12px;
+    }
+    
+    .content-btn .btn-add:hover{
+        background-color: white;
+        color: var(--common-color);
+     }
+    
+    .content-btn .btn-order{
+        padding: 3% 6%;
+        width: 45%;
+        font-size: 12px;
+     }
+    
+     .content-btn .btn-order:hover{
+        background-color: var(--common-color);
+        color: white;
+     }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    .body-top .top-left{
+        width: 70%;  
+        height: 550px; 
+        text-align: center;
+    }
+
+    .top-right .content .content-title{
+        font-size: 14px;
+    }
+
+        
+    .top-right .content .content-price{
+        font-size: 18px;
+    }
+    
+    .top-right .content .content-quantity{
+        width: 95%;
+    }
+    
+    .top-right .content .content-btn{
+        margin-top: 0;
+        width: 90%;
+    }
+    
+    .content-btn .btn-add{
+       padding: 4% 6%;
+       width: 45%;
+       font-size: 11px;
+    }
+    
+    .content-btn .btn-add:hover{
+        background-color: white;
+        color: var(--common-color);
+     }
+    
+    .content-btn .btn-order{
+        padding: 4% 6%;
+        width: 45%;
+        font-size: 12px;
+     }
+    
+     .content-btn .btn-order:hover{
+        background-color: var(--common-color);
+        color: white;
+     }
+   
+}
+
+@media screen and (min-width: 992px) and (max-width: 1400px){
+    .body-top .top-left{
+        width: 45%;  
+        height: 550px; 
+        text-align: center;
+    }
+    
+    .body-top .top-left img{
+        width: 100%; 
+        height: 100%;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+        object-fit: cover;
+    }
+
+    .top-right .content .content-quantity{
+        width: 70%;
+        height: 70px;
+    }
+
+    .top-right .content .content-btn{
+        width: 80%;
+    }
+   
+}

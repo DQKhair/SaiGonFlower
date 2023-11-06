@@ -1,0 +1,238 @@
+body{
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+:root{
+    --form-height: 462px;
+    --form-width: 920px;
+    --font-family: Montserrat;
+    --logo-height: 80px;
+    --logo-width:100px;
+    --common-btn-color: #9A2B41;
+}
+
+.login-container{
+    height: var(--form-height);
+    width: var(--form-width);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.login-container .login-form{
+    height: 100%;
+    width: 100%;
+}
+
+.login-form .login-body{
+    height: var(--form-height);
+    width: var(--form-width);
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0px;
+}
+
+.login-body .login-left{
+    height: var(--form-height);
+    width: 100%;
+}
+
+.login-left .login-img{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 530px;
+    height: var(--form-height);
+}
+
+.login-body .login-right{
+    height: var(--form-height);
+    width: 390px;
+}
+
+.login-right .login-logo{
+    height: var(--logo-height);
+    width: var(--logo-width);
+    margin: auto;
+    margin-top: 10px;    
+}
+
+.login-logo .logo{
+    height: 100%;
+    width: 100%;
+}
+
+.login-content .login-title{
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.login-content .login-text{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.login-content .login-input{
+    margin-top: 5px;
+}
+
+.login-input .login-email, .login-password{
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.login-input .login-email label, .login-password label{
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.login-input .login-email input, .login-password input{
+    padding: 10px 6px;
+    margin-top: 3px;
+    width: 95%;
+    border: .5px solid gainsboro;
+    border-radius: 2px;
+}
+
+.login-right .login-bottom{
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.login-bottom .login-remember{  
+    display: flex;
+    align-items: center;
+   
+}
+
+.login-bottom .login-remember input{
+    margin: 0;
+}
+
+.login-bottom .login-remember label{
+    margin: 0px 2px;
+    color: gray;
+}
+
+.login-bottom .login-forget a{
+    text-decoration: underline;
+    color: gray;
+}
+
+.login-right .login-btn {
+    width: 80%;
+    height: 35px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.login-btn button{
+    height: 100%;
+    width: 100%;
+    border-radius: 0px;
+    border: none;
+    background-color: var(--common-btn-color);
+    color: white;
+    font-size: 15px;
+    border-radius: 2px;
+    margin-top: 10px;
+}
+
+.login-btn button:hover{
+    background-color: #9a2b43f1;
+    cursor: pointer;
+}
+
+.login-right .login-noAccount{
+    width: 80%;
+    margin: auto;
+    margin-top: 45px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.login-noAccount span a{
+    text-decoration: none;
+    color: #2666E2;
+    font-weight: bold;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 576px) {
+    .login-container{
+        width: 350px;
+    }
+
+    .login-body .login-right{
+        width: 350px;
+    }
+    
+    .login-body .login-left{
+        display: none;
+    }    
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 576px) {
+    .login-container{
+        width: 450px;        
+    }
+
+    .login-body .login-right{
+        width: 450px;        
+    }
+    
+    .login-body .login-left{
+        display: none;
+    } 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .login-container{
+        width: 450px;
+        
+    }
+
+    .login-body .login-right{
+        width: 450px;        
+    }
+    
+    .login-body .login-left{
+        display: none;
+    } 
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .login-container{
+        width: 920px;        
+    }
+
+    .login-body .login-right{
+        width: 390px;        
+    }
+    
+    .login-body .login-left{
+        display: block;
+    } 
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
+
+

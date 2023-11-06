@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Quản lý nhập xuất</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/pagination/pagination.css" />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+      /* .option-item{
+        .quantity::-webkit-inner-spin-button, 
+        .quantity::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+        }
+      } */
+    </style>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header
+      id="header"
+      class="header fixed-top d-flex align-items-center"
+    ></header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar"></aside>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Quản lý nhập xuất</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+            <li class="breadcrumb-item active">Quản lý nhập xuất</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section dashboard">
+        <div style="cursor: pointer">
+          <button
+            id="btn-import"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#importForm"
+          >
+            Lập phiếu nhập
+          </button>
+        </div>
+
+        <div class="col-12 mt-4">
+          <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="fw-bold mt-4" style="color: #012970;">
+                Danh sách phiếu nhập
+              </h5>
+
+              <div id="list-option" class="d-flex justify-content-around w-50 pb-3 ps-1 my-3" style="margin-left: -2%;">
+                <div class="d-flex align-items-center ms-1">
+                  <input id="waitImport" value="1" type="checkbox">
+                  <label id="labelWait" for="waitImport" class="ms-2">Chờ xử lý</label>
+                </div>
+  
+                <div class="d-flex align-items-center">
+                  <input id="doneImport" value="2" class="" type="checkbox">
+                  <label id="labelDone"  for="doneImport"class="ms-2">Chờ xác nhận</label>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <input id="acceptImport" value="3" class="" type="checkbox">
+                  <label id="labelAccept"  for="doneImport"class="ms-2">Đã nhập hàng</label>
+                </div>
+              </div>
+
+              <table class="table import-list">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Ngày tạo phiếu</th>
+                    <th scope="col">Tổng nguyên liệu</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Tùy chọn</th>
+                  </tr>
+                </thead>
+                <tbody id="import-list"></tbody>
+              </table>
+
+              <div id="pagination">
+                <div id="import-pagination" class="ms-3 border-2"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer"></footer>
+    <!-- End Footer -->
+
+    <!--  Add import form -->
+    <form
+      enctype="multipart/form-data"
+      class="modal fade"
+      id="importForm"
+      tabindex="-1"
+      style="display: none"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="card p-2 p-lg-4">
+            <div class="text-center body_head">
+              <h3 class="mt-3 fw-bold">Phiếu Nhập</h3>
+            </div>
+            <div
+              class="form-group col-lg-6 col-sm-12 w-lg-50 w-sm-75"
+              style="margin-left: 5%"
+            >
+              <label for="">Chọn số lượng nguyên liệu:</label>
+              <select
+                value=""
+                class="form-select w-50 my-2"
+                id="select-quantity"
+              ></select>
+            </div>
+            <hr />
+
+            <form
+              id="addImport"
+              enctype="multipart/form-data"
+              class="mx-auto"
+              style="width: 90%"
+            >
+              <!-- Handle option by select -->
+              <div id="changeForm" class="form-group row"></div>
+
+              <div class="d-flex w-75 justify-content-center mx-auto my-3">
+                <button
+                  id="btnCancel"
+                  type="button"
+                  class="btn btn-outline-primary px-4 mx-3"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  id="btnAddImport"
+                  type="button"
+                  class="btn btn-primary px-4"
+                  data-bs-dismiss="modal"
+                >
+                  Lưu
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- End add import form  -->
+
+    <!-- Detail form  -->
+    <div
+      class="modal fade"
+      id="detailModal"
+      tabindex="-1"
+      style="display: none"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="card p-2 p-lg-4">
+            <div class="body_head text-center">
+              <h3 class="mt-3 fw-bold">Chi tiết</h3>
+            </div>
+              <div class="d-flex justify-content-between w-100 modal-header">
+                <input type="hidden" id="iestatusId" name="iestatusIdName">
+                <div
+                  class="p-3 d-flex w-25 ms-4 align-items-center justify-content-between"
+                >
+                  <span class="fw-semibold w-100">Mã phiếu: </span>
+                  <input class="w-50 form-control text-center" type="text" id="importIdInput" readonly></input>
+                </div>
+                <div
+                  class="p-3 d-flex ms-3 align-items-center justify-content-around"
+                  style="width: 60%;"
+                >
+                  <span class="fw-semibold">Ngày tạo phiếu: </span>
+                  <span id="createdDate"></span>
+                </div>
+              </div>
+              <!-- Render details -->
+              <div id="detailInfo" class="d-flex flex-wrap w-100 p-3">
+              </div>
+              <!-- End render  -->
+            <div class="w-50 mx-auto my-3 text-center d-flex justify-content-between">
+              <button
+                id="detailClose"
+                type="button"
+                class="btn btn-outline-primary px-4"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+
+              <button  id='btnAccept' class='btn btn-primary'
+              data-bs-toggle="modal" data-bs-target='#exportForm'>
+                  Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End detail form  -->
+
+
+    <!-- Valid export form -->
+    <div class="modal fade" id="exportForm" tabindex="-1" style="display: none">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="card p-2 p-lg-4">
+            <div class="text-center body_head">
+              <h3 id="exportTitle" class="mt-3 fw-bold">Xác nhận xuất nguyên liệu</h3>
+            </div>
+            <form enctype="multipart/form-data">
+              <div class="p-3">
+                <input type="text" class="form-control w-25 mx-auto text-center" name="exportId" id="exportIdInput" readonly>
+              </div>
+              <div class="d-flex justify-content-center mx-auto my-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary px-4 mx-3"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button id="exportBtn" type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">
+                  Xác nhận
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End valid export form -->
+
+    <!-- Valid accept form -->
+    <div class="modal fade" id="acceptForm" tabindex="-1" style="display: none">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="card p-2 p-lg-4">
+            <div class="text-center body_head">
+              <h1 id="exportTitle" class="mb-3 pt-3 h4">Xác nhận đã nhập đủ hàng ?</h1>
+            </div>
+            <form enctype="multipart/form-data">
+              <div class="p-3">
+                <input type="text" class="form-control w-25 mx-auto text-center" name="exportId" id="exportIdInput" readonly>
+              </div>
+              <div class="d-flex w-75 justify-content-between mx-auto my-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary px-4 mx-3"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button id="acceptBtn" type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">
+                  Xác nhận
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End valid accept form -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="./assets/vendor/pagination/pagination.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="./assets/js/adminLayout.js"></script>
+    <script src="./assets/js/import.js"></script>
+    <script src="./assets/js/export.js"></script>
+  </body>
+</html>

@@ -1,0 +1,440 @@
+:root{
+    --services-height: 27%;
+    --service-width: 100%;
+    --common-btn-color: #9A2B41;
+    --font-size: 12px;
+    --font-family: Montserrat;
+    --btn-border-radius: 5px;
+    --btn-hover: #9a2b43f1;
+}
+
+.body-services{
+    height: var(--services-height);
+    width: var(--service-width);
+    font-family: var(--font-family);
+}
+
+.body-services .services-title{
+    text-align: center;
+    margin: 3% 0;
+}
+
+.body-services .services-content{
+    width: var(--service-width);
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.services-content .premade, .custom, .gifts{
+    text-align: center;
+    width: 30%;
+    height: 100%;
+    margin: auto;
+}
+
+.premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+    width: 85%;
+    height: 70%;
+    margin: auto;
+}
+
+.premade img, .custom img, .gifts img{
+    border-top-left-radius: 48%;
+    border-top-right-radius: 48%;  
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+}
+
+.premade .premade-mobile,.custom .custom-mobile, .gifts .gifts-mobile{
+    width: 85%;
+    height: 100%;
+    margin: auto;
+
+}
+
+.premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+    font-size: 13px;
+}
+
+
+.premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+    width: 100%;
+    margin: auto;
+    font-size: 13px;
+}
+
+.premade .premade-text p, .custom .custom-text p, .gifts .gifts-text p{
+    margin: 0;
+}
+
+.premade .premade-btn, .custom .custom-btn , .gifts .gifts-btn{
+    margin-top: 5%;
+}
+
+.premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+    text-decoration: none;
+    padding: 3% 5%;
+    color: white;
+    background-color: var(--common-btn-color);
+    font-size: var(--font-size);
+    font-weight: 600;
+    border-radius: var(--btn-border-radius);
+    
+}
+
+.premade-btn a:hover, .custom .custom-btn a:hover, .gifts .gifts-btn a:hover{
+    background-color: var(--btn-hover);
+}
+
+@media screen and (max-width: 375px){
+
+    .body-services{
+        height: 20% !important;
+        padding: 0 !important;
+    }
+
+    .body-services .services-title{
+        font-size: 10px !important;
+        padding: 3% 0;
+        margin: 0 !important;
+    }
+
+    .services-content .premade, .custom, .gifts{
+        width: 100%;
+        display: flex !important;      
+        padding: 2% 0 !important;
+        align-items: center !important;
+    }
+
+    .services-content .custom{
+        display: flex !important;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    .premade .premade-img,.custom .custom-img, .gifts .gifts-img{      
+        width: 45% !important;
+        height: 100%;
+    }
+
+    .premade img, .custom img, .gifts img{
+        width: 100%; 
+        height: 50% !important;
+    }
+
+    .premade .premade-mobile,.custom .custom-mobile, .gifts .gifts-mobile{
+        width: 45% !important;
+        height: 85%;
+        margin-top: 2% !important;
+    }
+
+    .custom .custom-mobile{
+        margin-left: 5%;
+    }
+
+    .premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+        font-size: 5px !important;
+        text-align: left;
+        width: 100%;
+    }
+
+    .premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+        text-align: left;
+        width: 100%;
+        font-size: 9px !important;
+    }
+
+    .premade .premade-text p, .custom .custom-text p , .gifts .gifts-text p{
+        margin: 0;
+    }
+
+    .premade .premade-btn, .custom .custom-btn , .gifts .gifts-btn{
+        margin: 2% 0 !important;
+        text-align: left;
+        width: 60% !important;
+    }
+
+    .premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+        padding: 4% 8% !important;
+        font-size: 8px;
+    }
+}
+
+
+@media screen and (max-width: 575px) {
+    .body-services{
+        height: 26%;
+        padding-top: 5%;
+        padding-bottom: 0;
+    }
+
+    .body-services .services-title{
+        font-size: 10px !important;
+    }
+
+    .body-services .services-content{
+        display: block;
+        height: 90%;
+    }
+
+    .services-content .premade, .custom, .gifts{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 5% 0;
+    }
+
+    .services-content .custom{
+        flex-direction: row-reverse;
+    }
+
+    .premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+        width: 45%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .premade img, .custom img, .gifts img{
+        width: 100%; 
+        height: 90%;
+        object-fit: cover;
+    }
+
+    .premade .premade-mobile, .custom .custom-mobile, .gifts .gifts-mobile{
+        width: 45%;
+        height: 85%;
+        margin-top: 10%;
+    }
+
+    .custom .custom-mobile{
+        margin-left: 5%;
+    }
+
+    .premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+        font-size: 7px;
+        text-align: left;
+        width: 100%;
+        margin-bottom: 10%;
+    }
+
+    .premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+        text-align: left;
+        width: 100%;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .premade .premade-btn, .custom .custom-btn , .gifts .gifts-btn{
+        margin-top: 8%;
+        text-align: left;
+        width: 50%;
+    }
+
+    .premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+        padding: 8% 10%;
+        font-size: 8px;
+    }
+}
+
+@media screen and (min-width: 575px) and (max-width: 768px) {
+    .body-services{
+        height: 1300px;
+    }
+
+    .body-services .services-title{
+        margin: 0;
+        padding-top: 5%;
+        font-size: 15px;
+    }
+
+    .body-services .services-content{
+        display: block;
+        height: 90%;
+    }
+
+    .services-content .premade, .custom, .gifts{
+        width: 100%;
+        height: 380px;
+        display: flex;
+        align-items: center;
+        padding: 2% 0;
+    }
+
+    .services-content .custom{
+        flex-direction: row-reverse;
+    }
+
+    .premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+        width: 45%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .premade img, .custom img, .gifts img{
+        width: 90%; 
+        height: 85%;
+        object-fit: cover;
+    }
+
+    .premade .premade-mobile, .custom .custom-mobile, .gifts .gifts-mobile{
+        width: 45%;
+        height: 50%;
+        margin-top: 5%;
+    }
+
+    .custom .custom-mobile{
+        margin-left: 8%;
+    }
+
+    .premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+        font-size: 11px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+        text-align: left;
+        width: 90%;
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .premade .premade-btn, .custom .custom-btn , .gifts .gifts-btn{
+        margin-top: 8%;
+        text-align: left;
+        width: 50%;
+    }
+
+    .premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+        padding: 8% 12%;
+        font-size: 8px;
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .body-services{
+        height: 1400px;
+    }
+
+    .body-services .services-title{
+        font-size: 18px;
+    }
+
+    .body-services .services-content{
+        display: block;
+        height: 95%;
+    }
+
+    .services-content .premade, .custom, .gifts{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 3% 0;
+        height: 400px;
+    }
+
+    .services-content .custom{
+        flex-direction: row-reverse;
+    }
+
+    .premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+        width: 45%;
+        height: 100%;
+        margin: auto;
+    }
+
+    .premade img, .custom img, .gifts img{
+        object-fit:cover;
+        width: 80%; 
+        height: 85%;
+    }
+
+    .premade .premade-mobile, .custom .custom-mobile, .gifts .gifts-mobile{
+        width: 45%;
+        height: 80%;
+    }
+
+    .custom .custom-mobile{
+        margin-left: 10%;
+    }
+
+    .premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+        font-size: 14px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+        text-align: left;
+        width: 80%;
+        font-size: 16px;
+        margin-left: 0;
+        margin-top: 10%;
+        line-height: 1.5;
+    }
+
+    .premade .premade-btn, .custom .custom-btn , .gifts .gifts-btn{
+        margin-top: 10%;
+        text-align: left;
+        width: 50%;
+    }
+
+    .premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+        padding: 8% 12%;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 992px){
+
+    .body-services{
+        height: 25%;
+    }
+
+    .body-services .services-content{
+        display: flex;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+       margin: auto;
+    }
+
+    .premade .premade-mobile, .custom .custom-mobile, .gifts .gifts-mobile{
+        width: 90%;
+        height: 80%;
+    }
+
+    .premade .premade-title, .custom .custom-title, .gifts .gifts-title{
+        font-size: 10px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .premade .premade-text, .custom .custom-text, .gifts .gifts-text{
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .premade .premade-img, .custom .custom-img, .gifts .gifts-img{      
+        width: 90%;
+        height: 60%;
+    }
+
+    .premade img, .custom img, .gifts img{
+        width: 100%; 
+        height: 85%;
+    }
+
+    .premade .premade-btn a, .custom .custom-btn a, .gifts .gifts-btn a{
+        padding: 3% 6%;
+        font-size: 10px;
+    }
+}

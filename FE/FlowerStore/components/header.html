@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/header.css">
+</head>
+<body>
+    <header>
+        <nav class="header">
+          <input type="checkbox" id="check" />
+          <label for="check" class="header-menu">
+            <i class="fas fa-bars"></i>
+          </label>
+          <div class="header-logo">
+            <img src="imgs/logo.svg" alt="" />
+          </div>
+          <div class="header-bgTitle"></div>
+          <div class="header-title">
+            <div class="scroll">
+              <ul class="list-title">
+                <li class="list-item">
+                  <a class="item-title" href="./index.html">HOME</a>
+                </li>
+                <li class="list-item">
+                  <div class="dropdown">
+                    <a class="item-title" href="./categories.html">COLLECTIONS</a>
+                    <i class="fas fa-chevron-right dropdown-btn"></i>
+                  </div>
+                  <div class="dropdown-list">
+                    <ul>
+                      <li id=""><a href="">ITEM1</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="list-item ">
+                  <div class="dropdown">
+                    <a class="item-title" href="">SERVICES</a>
+                    <i class="fas fa-chevron-right dropdown-btn"></i>
+                  </div>
+                  <div class="dropdown-list">
+                    <ul>
+                      <li id=""><a href="">ITEM1</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="list-item">
+                  <a class="item-title" href="../deals.html">DEALS</a>
+                </li>
+                <li class="list-item">
+                  <a class="item-title" href="./news.html">NEWS</a>
+                </li>
+                <li class="list-item">
+                  <a class="item-title" href="">CONTACT</a>
+                </li>
+                <li class="mobile-item">
+                  <a class="item-title" href="">LOGIN</a>
+                </li>
+                <li class="mobile-item">
+                  <a class="item-title" href="">ACCOUNT</a>
+                </li>
+                <li class="mobile-item">
+                  <a class="item-title" href="">LOGOUT</a>
+                </li>
+                <li class="line"></li>
+              </ul>
+            </div>
+          </div>
+          <div class="header-icon">
+            <ul class="list-icon">
+              <li class="search-icon">
+                <img src="imgs/icons/search.svg" alt="" />
+              </li>
+              <li class="cart-icon">
+                <a href="cart.html">
+                  <img src="imgs/icons/cart.svg" alt="" />
+                  <span id="totalItemCart"></span>
+                </a>
+              </li>
+              <li class="heart-icon">
+                <img src="imgs/icons/heart.svg" alt="" />
+              </li>
+              <li class="profile-icon">
+                <img src="imgs/icons/profile.svg" alt="" />
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <script src="./js/header.js"></script>
+      <script src="./js/cart.js"></script>
+</body>
+</html>
