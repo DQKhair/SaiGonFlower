@@ -101,5 +101,27 @@ namespace FlowerStore.Controllers
             return Ok(detailVoucherForUser);
         }
 
+        [HttpPut("/UpdateVoucherForCus/voucherId={voucherId}&&customerId={customerId}")]
+        public async Task<IActionResult> UpdateVoucherForCus(int voucherId, int customerId, DetailVoucher detailVoucher)
+        {
+            var _detailVoucher = await _context.DetailVouchers.SingleOrDefaultAsync(dv => dv.VoucherId == voucherId && dv.CustomerId == customerId);
+            try
+            {
+                if(_detailVoucher == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _detailVoucher!.Quantity -= 1;
+                    await _context.SaveChangesAsync();
+                    return NoContent();
+                }    
+            }catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
     }
 }

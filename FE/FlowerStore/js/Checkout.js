@@ -99,7 +99,7 @@ $(document).ready(()=>{
     // end handle submit order
 
     function HandlePostNonAccount()
-            {
+    {
                 const dataLocalStorage = localStorage.getItem("userCheckout");
                 const userData = JSON.parse(dataLocalStorage);
                 
@@ -176,6 +176,90 @@ $(document).ready(()=>{
         const decodedToken = parseJwt(token);
         const role = decodedToken.role;
         const userId = decodedToken.UserId;
+
+        const dataLocalStorage = localStorage.getItem("userCheckout");
+        const userData = JSON.parse(dataLocalStorage);
+                
+        const totalMoneyPayCheckoutNotMatch = $("#totalMoneyPayCheckout").text();
+        const totalMoneyPayCheckout = MatchesMethod(totalMoneyPayCheckoutNotMatch);
+
+        console.log(userData)
+        const dataJson = {
+            "totalQuantity":userData.totalQuantity,
+            "totalPrice": totalMoneyPayCheckout,
+            "nameCusNonAccount": userData.customerNameNonAccount,
+            "phoneCusNonAccount": userData.customerPhoneNonAccount,
+            "addressCusNonAccount": userData.customerAddressNonAccount,
+            "customerId": userId,
+            "orderMethodId": userData.methodPayNonAccount
+        };
+
+        createOrder();
+                async function createOrder()
+                {
+                    try
+                    {
+                        const response1 = await $.ajax({
+                            type:"POST",
+                            url:"https://localhost:7126/api/Orders/PostOrderForCus",
+                            contentType: "application/json",
+                            dataType:"json",
+                            data: JSON.stringify(dataJson)
+                        });
+
+                        const orderId = response1.orderId;
+                        let retrievedObject = localStorage.getItem("cart");
+                        let parsedObject = JSON.parse(retrievedObject);
+
+                        let listCartItem = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                            var CartItem = {
+                                "quantity": parseInt(cartItem.quantity),
+                                "price": cartItem.Price,
+                                "productId": index,
+                            }
+                            listCartItem.push(CartItem);
+                        })
+                        
+                        const dataJson2 = {
+                            "orderId": orderId,
+                            "listCartItem": listCartItem
+                         };
+
+                        const response2 = await $.ajax({
+                            type:"POST",
+                            url:"https://localhost:7126/api/Orders/PostOrderDetailForCus",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJson2)
+                        });
+
+                        const codeVoucher = parseInt(userData.codeVoucher);
+                        console.log("codevc"+codeVoucher)
+                        if(codeVoucher != null && codeVoucher != "" && codeVoucher != NaN && codeVoucher && "NaN")
+                        {
+                            const customerId = parseInt(userId);
+                            const dataJson3 = {
+                                
+                             };
+                            const response3 = await $.ajax({
+                                type:"PUT",
+                                url: `https://localhost:7126/UpdateVoucherForCus/voucherId=${codeVoucher}&&customerId=${customerId}`,
+                                contentType:"application/json",
+                                dataType: "json",
+                                data: JSON.stringify(dataJson3)
+                            });
+                        }
+                            console.log(response2);
+                            alert("Đặt hàng thành công");
+                            localStorage.removeItem('cart');
+                            localStorage.removeItem('userCheckout');
+                            window.location.href="../checkoutSuccess.html";
+                    }catch(error)
+                    {
+                        console.error("Lỗi thanh toánh",error);
+                    }
+                }
     }
 
 

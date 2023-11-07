@@ -31,7 +31,6 @@ $(document).ready(()=>{
                 var jsonString = JSON.stringify(dataLocalStorage);
                 localStorage.setItem("cart", jsonString);
             }
-
             if(parsedObject.hasOwnProperty(productId))
             {
                 console.log(typeof(parsedObject[productId].quantity ))
@@ -196,6 +195,7 @@ $(document).ready(()=>{
             $("#btnLoadCheckOut").click((e)=>{
                
                 e.preventDefault();
+                
             //Begin add vào localStorage
             const nameCus = $("#inputName").val();
             const phoneCus = $("#inputPhoneNumber").val();
