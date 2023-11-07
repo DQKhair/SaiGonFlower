@@ -213,6 +213,60 @@ namespace FlowerStore.Controllers
             return NoContent();
         }
 
+        [HttpPost("PostOrderForCus")]
+        public async Task<ActionResult<IEnumerable<Order>>> PostOrderForCus(Order order)
+        {
+            try
+            {
+                var _order = new Order();
+                _order.OrderDate = DateTime.Now;
+                _order.TotalQuantity = order.TotalQuantity;
+                _order.TotalPrice = order.TotalPrice;
+                _order.NameCusNonAccount = order.NameCusNonAccount;
+                _order.PhoneCusNonAccount = order.PhoneCusNonAccount;
+                _order.AddressCusNonAccount = order.AddressCusNonAccount;
+                _order.CustomerId = order.CustomerId;
+                _order.OrderStatusId = 1;
+                _order.OrderMethodId = order.OrderMethodId;
+                _context.Add(_order);
+                await _context.SaveChangesAsync();
+                return Ok(_order);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        [HttpPost("PostOrderDetailForCus")]
+        public async Task<ActionResult<IEnumerable<DetailOrderVM>>> PostOrderDetailForCus(DetailOrderVM detailOrderVM)
+        {
+            try
+            {
+                if(detailOrderVM != null)
+                {
+                        
+                        foreach (var item in detailOrderVM.listCartItem)
+                        {
+                             var _orderDetail = new OrderDetail();
+                            _orderDetail.OrderDetailId = 0;
+                            _orderDetail.OrderId = Convert.ToInt32(detailOrderVM.OrderId);
+                            _orderDetail.Quantity = Convert.ToInt32(item.Quantity);
+                            _orderDetail.Price = Convert.ToDouble(item.Price);
+                            _orderDetail.ProductId = Convert.ToInt32(item.ProductId);
+                            _context.OrderDetails.Add(_orderDetail);
+                        } 
+                       await _context.SaveChangesAsync();
+                    return Ok(detailOrderVM);
+                }else
+                {
+                    return BadRequest();
+                }    
+            }catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         private bool OrderExists(int id)
         {
             return (_context.Orders?.Any(e => e.OrderId == id)).GetValueOrDefault();

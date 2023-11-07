@@ -80,10 +80,124 @@ $(document).ready(()=>{
     // Handle Submit order
     function HandleSubmitOrder()
     {
+        const token = localStorage.getItem('token');
+
+        
+        
+
         $("#SubmitOrder").click(()=>{
-            alert("Thanh toán Thành công")
+
+            if(token == null || token == {})
+            {
+                HandlePostNonAccount();
+            }else
+            {
+                HandlePostIsAccount(token);
+            }
         })
     }
     // end handle submit order
+
+    function HandlePostNonAccount()
+            {
+                const dataLocalStorage = localStorage.getItem("userCheckout");
+                const userData = JSON.parse(dataLocalStorage);
+                
+                const totalMoneyPayCheckoutNotMatch = $("#totalMoneyPayCheckout").text();
+                const totalMoneyPayCheckout = MatchesMethod(totalMoneyPayCheckoutNotMatch);
+
+                console.log(userData)
+                const dataJson = {
+                    "totalQuantity":userData.totalQuantity,
+                    "totalPrice": totalMoneyPayCheckout,
+                    "nameCusNonAccount": userData.customerNameNonAccount,
+                    "phoneCusNonAccount": userData.customerPhoneNonAccount,
+                    "addressCusNonAccount": userData.customerAddressNonAccount,
+                    "customerId": null,
+                    "orderMethodId": userData.methodPayNonAccount
+                };
+
+                
+                
+                
+                createOrder();
+                async function createOrder()
+                {
+                    try
+                    {
+                        const response1 = await $.ajax({
+                            type:"POST",
+                            url:"https://localhost:7126/api/Orders/PostOrderForCus",
+                            contentType: "application/json",
+                            dataType:"json",
+                            data: JSON.stringify(dataJson)
+                        });
+
+                        const orderId = response1.orderId;
+                        let retrievedObject = localStorage.getItem("cart");
+                        let parsedObject = JSON.parse(retrievedObject);
+
+                        let listCartItem = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                            var CartItem = {
+                                "quantity": parseInt(cartItem.quantity),
+                                "price": cartItem.Price,
+                                "productId": index,
+                            }
+                            listCartItem.push(CartItem);
+                        })
+                        
+                        const dataJson2 = {
+                            "orderId": orderId,
+                            "listCartItem": listCartItem
+                         };
+
+                        const response2 = await $.ajax({
+                            type:"POST",
+                            url:"https://localhost:7126/api/Orders/PostOrderDetailForCus",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJson2)
+                        });
+                            console.log(response2);
+                            alert("Đặt hàng thành công");
+                            localStorage.removeItem('cart');
+                            localStorage.removeItem('userCheckout');
+                            window.location.href="../checkoutSuccess.html";
+                    }catch(error)
+                    {
+                        console.error("Lỗi thanh toánh",error);
+                    }
+                }
+    }
+
+    function HandlePostIsAccount(token)
+    {
+        const decodedToken = parseJwt(token);
+        const role = decodedToken.role;
+        const userId = decodedToken.UserId;
+    }
+
+
+
+
+
+
+    function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(atob(base64));
+    }
+
+    function MatchesMethod(valueMatch)
+    {
+        // Sử dụng biểu thức chính quy để tìm số trong chuỗi
+        const matches = valueMatch.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
+
+            // Lấy số từ kết quả tìm được và chuyển đổi thành số
+            // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
+        const valueReturn = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
+        return parseInt(valueReturn);
+    }
 
 })

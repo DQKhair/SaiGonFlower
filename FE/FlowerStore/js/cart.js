@@ -20,11 +20,12 @@ $(document).ready(()=>{
             console.log(data);
             
             var retrievedObject = localStorage.getItem("cart");
+            
             var parsedObject = JSON.parse(retrievedObject);
             var productId = data.productId;
             
 
-            if(!parsedObject)
+            if(retrievedObject == null)
             {
                 var dataLocalStorage = { [productId]: { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity } };
                 var jsonString = JSON.stringify(dataLocalStorage);
@@ -204,7 +205,8 @@ $(document).ready(()=>{
             const codeVoucherSpan = $("#codeVoucherSpan").text();
             const valueVoucherNotMathch = $("#codeVoucherValue").text();
             const valueVoucher = MatchesMethod(valueVoucherNotMathch)
-
+            const totalQuantityProductNotMatch = $("#TotalQuantityPay").text();
+            const totalQuantityProduct = MatchesMethod(totalQuantityProductNotMatch);
             // Sử dụng biểu thức chính quy để tìm số trong chuỗi
             var matches = totalMoneyPay.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
 
@@ -221,7 +223,8 @@ $(document).ready(()=>{
                  "methodPayNonAccount": methodPay,
                  "totalMoney": totalPrice,
                  "codeVoucher": codeVoucherSpan,
-                 "valueVoucher": valueVoucher
+                 "valueVoucher": valueVoucher,
+                 "totalQuantity":totalQuantityProduct
                 }
             const checkLocalStorage = localStorage.getItem("userCheckout");
             if(checkLocalStorage == null || !checkLocalStorage)
