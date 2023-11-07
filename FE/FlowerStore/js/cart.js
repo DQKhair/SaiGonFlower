@@ -1,5 +1,10 @@
 $(document).ready(()=>{
 
+    // Begin call Func
+    reFreshDisplay();
+    ClickBtnCheckOut();
+    // End call Func
+
     //Begin add product vào local storage
     
     $("#btn_addToCart").click(()=>{
@@ -36,7 +41,7 @@ $(document).ready(()=>{
                 parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantityExists };
 
             }else
-            {
+            { 
                 parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity };
             }
             var jsonString = JSON.stringify(parsedObject);
@@ -157,7 +162,7 @@ $(document).ready(()=>{
             })
 
     }
-    reFreshDisplay();
+
     //End show cart
 
     //Begin delete item cart
@@ -180,5 +185,50 @@ $(document).ready(()=>{
     }
     //End delete item cart
 
+  
+        // click btn checkout
+        function ClickBtnCheckOut()
+        {
+            $("#btnLoadCheckOut").click((e)=>{
+               
+                e.preventDefault();
+            //Begin add vào localStorage
+            const nameCus = $("#inputName").val();
+            const phoneCus = $("#inputPhoneNumber").val();
+            const addressCus = $("#inputAddress").val();
+            const methodPay = $("input[name='PaymentMethod']:checked").val();
+            const totalMoneyPay = $("#TotalMoneyPay").text();
+
+            // Sử dụng biểu thức chính quy để tìm số trong chuỗi
+            var matches = totalMoneyPay.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
+
+                // Lấy số từ kết quả tìm được và chuyển đổi thành số
+                // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
+            var totalPrice = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
+              
     
+            console.log("methodPay data: "+nameCus,methodPay,phoneCus,addressCus)
+            const dataLocalStorageUserCheckout = {
+                "customerNameNonAccount": nameCus,
+                 "customerPhoneNonAccount": phoneCus,
+                 "customerAddressNonAccount": addressCus,
+                 "methodPayNonAccount": methodPay,
+                 "totalMoney": totalPrice
+                }
+            const checkLocalStorage = localStorage.getItem("userCheckout");
+            if(checkLocalStorage == null || !checkLocalStorage)
+            {
+                dataJson = JSON.stringify(dataLocalStorageUserCheckout);
+                localStorage.setItem("userCheckout",dataJson)
+            }else
+            {
+                localStorage.removeItem("userCheckout");
+                dataJson = JSON.stringify(dataLocalStorageUserCheckout);
+                localStorage.setItem("userCheckout",dataJson)
+            }
+            //End add vào localStorage
+            window.location.href = "../checkout.html";
+            })
+        }
+        // end click btn checkout
 })

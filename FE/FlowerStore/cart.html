@@ -73,14 +73,13 @@
       {
         flex: 4;
         display: flex;
-        justify-content: flex-start;
-        margin-left: 10%;
+        justify-content: center;
         align-items: center;
       }
 
       .cartItem_img{
         width: 20%;
-        margin-right: 10%;
+        margin-right: 5%;
       }
       .cartItem_img img{
         width: 100%;
@@ -127,6 +126,80 @@
       .voucherApply .footerVoucherApply #AddVoucherApply{
         text-align: center;
         color: blue;
+        cursor: pointer;
+      }
+
+      /* form choose voucher */
+      .containerFormChooseVoucher
+      {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        width: 100%;
+        height: 139%;
+        left: 0;
+        top: 0;
+      }
+      .containerFormChooseVoucher .formChooseVoucher{
+        width: 50%;
+        background-color: #fff;
+        margin: auto;
+        margin-top: 10%;
+        padding: 20px;
+      }
+      .containerFormChooseVoucher .applyCodeVoucher{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .listMyVoucher .cartVoucher{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #ccc;
+        margin: 20px 0;
+      }
+      .cartVoucher .imgVoucher{
+        width: 30%;
+      }
+      .cartVoucher .imgVoucher img{
+        width: 100%;
+      }
+      .cartVoucher .infVoucher{
+        margin-left: 20px;
+      }
+      .cartVoucher .getCodeVoucher{
+        margin-left: 35%;
+      }
+      .btnApplyVoucher button,
+      .cartVoucher .btnGetCodeVoucher
+      {
+        border: 1px solid #9a2b41;
+        background-color: #9a2b41;
+        color: #fff;
+        border-radius: 5px;
+        width: 100%;
+        height: 35px;
+      }
+      .btnApplyVoucher button:hover,
+      .cartVoucher .btnGetCodeVoucher:hover
+      {
+        border: 1px solid #820e25;
+        background-color: #820e25;
+        color: #fff;
+      }
+      .header_formVoucher{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+      }
+      .header_formVoucher div{
+        flex: 4;
+      }
+      .header_formVoucher div:nth-child(2){
+        text-align: end;
         cursor: pointer;
       }
     </style>
@@ -195,27 +268,27 @@
                 <form>
                   <div class="mb-3">
                     <label for="InputName" class="form-label">Tên khách hàng</label>
-                    <input type="text" class="form-control" id="InputName" required>
+                    <input type="text" class="form-control" id="inputName" required>
                   </div>
                   <div class="mb-3">
                     <label for="InputPhoneNumber" class="form-label">Số điện thoaị</label>
-                    <input type="tel" class="form-control" id="InputPhoneNumber" required>
+                    <input type="tel" class="form-control" id="inputPhoneNumber" required>
                   </div>
                   <div class="mb-3">
                     <label for="InputAddress" class="form-label">Địa chỉ giao hàng</label>
-                    <input type="tel" class="form-control" id="InputAddress" required>
+                    <input type="tel" class="form-control" id="inputAddress" required>
                   </div>
 
                  <!-- check raido -->
                  <h5>Phương thức thanh toán: </h5>
                  <div class="form-check">
-                  <input class="form-check-input" type="radio" name="PaymentMethod" id="ThanhToanKhiNhanHang" checked>
+                  <input class="form-check-input" type="radio" value="1" name="PaymentMethod" id="ThanhToanKhiNhanHang" checked>
                   <label class="form-check-label" for="ThanhToanKhiNhanHang">
                     Thanh toán khi nhận hàng
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="PaymentMethod" id="ThanhToanVNPay">
+                  <input class="form-check-input" type="radio" value="2" name="PaymentMethod" id="ThanhToanVNPay">
                   <label class="form-check-label" for="ThanhToanVNPay">
                     Thanh toán VNPay
                   </label>
@@ -226,7 +299,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                <button type="button" class="btn btn-danger">Thanh toán</button>
+                <button id="btnLoadCheckOut" type="button" class="btn btn-danger">Thanh toán</button>
               </div>
             </div>
           </div>
@@ -236,6 +309,63 @@
     </main>
 
     <footer></footer>
+
+    <!--Begin form voucher apply -->
+    <div class="containerFormChooseVoucher">
+
+      <div class="formChooseVoucher">
+
+        <div class="header_formVoucher">
+          <div><h5>Chọn Voucher</h5></div>
+          <div><h5 id="closeFormVoucher">X</h5></div>
+          <hr>
+        </div>
+        <br>
+
+        <div class="applyCodeVoucher">
+          <div><p>Mã Voucher</p></div>
+          <div><input type="text" placeholder="Mã voucher"></div>
+          <div class="btnApplyVoucher"><button>Áp dụng</button></div>
+        </div>
+
+        <div class="listMyVoucher">
+          
+          <div class="cartVoucher">
+            <div class="imgVoucher"><img src="https://www.insparations.com.au/wp-content/uploads/2021/03/gift-img.jpg" alt="Ảnh voucher"></div>
+            <div class="infVoucher">
+              <p>Tên</p>
+              <p>Value giảm</p>
+            </div>
+            <div class="getCodeVoucher">
+              <button class="btnGetCodeVoucher">Lấy mã</button>
+            </div>
+          </div>
+
+          <div class="cartVoucher">
+            <div class="imgVoucher"><img src="https://www.insparations.com.au/wp-content/uploads/2021/03/gift-img.jpg" alt="Ảnh voucher"></div>
+            <div class="infVoucher">
+              <p>Tên</p>
+              <p>Value giảm</p>
+            </div>
+            <div class="getCodeVoucher">
+              <button class="btnGetCodeVoucher">Lấy mã</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+     <!--End form voucher apply -->
+    <Script>
+      $(".containerFormChooseVoucher").hide();
+      $("#closeFormVoucher").click(()=>{
+        $(".containerFormChooseVoucher").hide();
+      })
+      $("#AddVoucherApply").click(()=>{
+        $(".containerFormChooseVoucher").show();
+      })
+    </Script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -243,6 +373,6 @@
     ></script>
     <script src="./js/category-list.js"></script>
     <script src="./js/commonLayout.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="/js/cart.js"></script>
   </body>
 </html>
