@@ -3,6 +3,7 @@ $(document).ready(()=>{
     // Begin Call func
     DisplayCheckout()
     reFreshDisplay()
+    HandleSubmitOrder()
     //End call Func 
 
     function DisplayCheckout()
@@ -19,9 +20,11 @@ $(document).ready(()=>{
         $("#actionChangeInfo").click(()=>{
         
         })
+        $("#codeVoucher_p").text(`Mã: 0${userData.codeVoucher}`)
         $("#methodPay").text(valueMethod==1? "Thanh toán khi nhận hàng" : "Thanh toán VNPay")
         $("#totalMoneyCheckout").text(`${userData.totalMoney.toLocaleString("vi-VN")} VNĐ`);
-        $("#totalMoneyPayCheckout").text(`${(parseInt(userData.totalMoney) - 32000).toLocaleString("vi-VN")} VNĐ`);
+        $("#ValueVoucher").text(`${(userData.valueVoucher).toLocaleString("vi-VN")} VNĐ`)
+        $("#totalMoneyPayCheckout").text(`${(parseInt(userData.totalMoney) - 32000 - parseInt(userData.valueVoucher)).toLocaleString("vi-VN")} VNĐ`);
     }
 
     function reFreshDisplay()
@@ -73,5 +76,14 @@ $(document).ready(()=>{
         })
 
     }
+
+    // Handle Submit order
+    function HandleSubmitOrder()
+    {
+        $("#SubmitOrder").click(()=>{
+            alert("Thanh toán Thành công")
+        })
+    }
+    // end handle submit order
 
 })

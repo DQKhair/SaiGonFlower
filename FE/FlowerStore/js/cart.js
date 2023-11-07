@@ -3,6 +3,7 @@ $(document).ready(()=>{
     // Begin call Func
     reFreshDisplay();
     ClickBtnCheckOut();
+    HandleClickShowAndHide()
     // End call Func
 
     //Begin add product vào local storage
@@ -155,11 +156,13 @@ $(document).ready(()=>{
 
                 //End handle all quantity item cart
 
-                //Show Total Pay
-                TotalMoneyPay.text(`Tổng tiền đơn hàng: ${totalMoneyMethodPay.toLocaleString("vi-VN")} VNĐ`).attr("style","color:red");
-                TotalQuantityPay.text(`Tổng thanh toán ( ${countQuantityItemCart} sản phẩm )`);
+                
                 
             })
+            //Show Total Pay
+
+            TotalMoneyPay.text(`Tổng tiền đơn hàng: ${(totalMoneyMethodPay).toLocaleString("vi-VN")} VNĐ`).attr("style","color:red");
+            TotalQuantityPay.text(`Tổng thanh toán ( ${countQuantityItemCart} sản phẩm )`);
 
     }
 
@@ -198,6 +201,9 @@ $(document).ready(()=>{
             const addressCus = $("#inputAddress").val();
             const methodPay = $("input[name='PaymentMethod']:checked").val();
             const totalMoneyPay = $("#TotalMoneyPay").text();
+            const codeVoucherSpan = $("#codeVoucherSpan").text();
+            const valueVoucherNotMathch = $("#codeVoucherValue").text();
+            const valueVoucher = MatchesMethod(valueVoucherNotMathch)
 
             // Sử dụng biểu thức chính quy để tìm số trong chuỗi
             var matches = totalMoneyPay.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
@@ -213,7 +219,9 @@ $(document).ready(()=>{
                  "customerPhoneNonAccount": phoneCus,
                  "customerAddressNonAccount": addressCus,
                  "methodPayNonAccount": methodPay,
-                 "totalMoney": totalPrice
+                 "totalMoney": totalPrice,
+                 "codeVoucher": codeVoucherSpan,
+                 "valueVoucher": valueVoucher
                 }
             const checkLocalStorage = localStorage.getItem("userCheckout");
             if(checkLocalStorage == null || !checkLocalStorage)
@@ -231,4 +239,97 @@ $(document).ready(()=>{
             })
         }
         // end click btn checkout
+
+        // handle Click Show Hide
+        function HandleClickShowAndHide()
+        {
+            const token = localStorage.getItem('token');
+            
+                $("#closeFormVoucher").click(()=>{
+                    $(".containerFormChooseVoucher").hide();
+                })
+                $("#AddVoucherApply").click(()=>{
+
+                    if(token == null || token == {})
+                    {
+                        alert("Bạn cần đăng nhập để có thể lấy voucher");
+                    }else
+                    {
+                        const decodedToken = parseJwt(token);
+                        const role = decodedToken.role;
+                        const userId = decodedToken.UserId;
+                        $(".containerFormChooseVoucher").show();
+                        LoadListVoucherForCustomer(role,userId)
+                        HandleApplyCodeVoucher();
+                    }
+
+                })
+                
+        }
+        // End handle click show hide
+        // load list voucher for customer
+        function LoadListVoucherForCustomer(role,userId)
+        {
+            $("#listMyVoucher").empty();
+            $.get("https://localhost:7126/api/DetailVouchers/"+userId,(data)=>{
+                $.each(data,(index,detailVoucher)=>{
+                    const div_cartVoucher = $("<div></div>").addClass("cartVoucher");
+                        const div_imgVoucher = $("<div></div>").addClass("imgVoucher");
+                            const img_imgVoucher = $("<img />").attr({"src":"https://www.insparations.com.au/wp-content/uploads/2021/03/gift-img.jpg","alt":"ảnh voucher"})
+                        const div_infVoucher = $("<div></div>").addClass("infVoucher");
+                            const p1_infVoucher =$("<p></p>").text(detailVoucher.voucherName);
+                            const p2_infVoucher = $("<p></p>").text(`Giảm ${detailVoucher.voucherValue.toLocaleString("vi-VN")} VNĐ`);
+                        const div_getCodeVoucher = $("<div></div>").addClass("getCodeVoucher");
+                            const btn_btnGetCodeVoucher = $("<button></button>").addClass("btnGetCodeVoucher").text("Lấy mã");
+                            
+                            // handle click get code
+                            btn_btnGetCodeVoucher.click(()=>{
+                                HandleClickGetCodeVoucher(detailVoucher.voucherId,detailVoucher);
+                            })
+                            // end handle click get code
+
+                            div_imgVoucher.append(img_imgVoucher);
+                            div_infVoucher.append(p1_infVoucher,p2_infVoucher);
+                            div_getCodeVoucher.append(btn_btnGetCodeVoucher);
+                            div_cartVoucher.append(div_imgVoucher,div_infVoucher,div_getCodeVoucher);
+                            $("#listMyVoucher").append(div_cartVoucher);
+                })
+            })
+        }
+        // end load list voucher for customer
+
+        // get code voucher
+        function HandleClickGetCodeVoucher(voucherId,voucherData){
+            $("#codeVoucher").val(voucherId)
+            $("#codeVoucherValue").text((voucherData.voucherValue).toLocaleString("vi-VN"));
+        }
+        // get code voucher
+
+        // handle apply code voucher
+        function HandleApplyCodeVoucher()
+        {
+            $("#btnApplyVoucher").click(()=>{
+                const inputCodeVoucher = $("#codeVoucher").val();
+                $("#codeVoucherSpan").text(inputCodeVoucher)
+                $(".containerFormChooseVoucher").hide();
+            })
+        }
+        // end handle apply code voucher
+
+        function parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(atob(base64));
+        }
+    
+        function MatchesMethod(valueMatch)
+        {
+            // Sử dụng biểu thức chính quy để tìm số trong chuỗi
+            const matches = valueMatch.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
+
+                // Lấy số từ kết quả tìm được và chuyển đổi thành số
+                // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
+            const valueReturn = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
+            return parseInt(valueReturn);
+        }
 })

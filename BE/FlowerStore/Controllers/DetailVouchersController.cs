@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowerStore.Models;
+using FlowerStore.Temp;
 
 namespace FlowerStore.Controllers
 {
@@ -80,6 +81,24 @@ namespace FlowerStore.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
+        }
+
+        [HttpGet("{customerId}")]
+        public async Task<ActionResult<IEnumerable<DetailVoucherForUser>>> getVoucherForUser(int customerId)
+        {
+            var _detailVoucher = await _context.DetailVouchers.Where(d => d.CustomerId == customerId).Include(v => v.Voucher).ToListAsync();
+            var detailVoucherForUser = _detailVoucher.Select(dv => new DetailVoucherForUser
+            {
+                DetailVoucherId = dv.DetailVoucherId,
+                Quantity = dv.Quantity,
+                VoucherId = dv.VoucherId,
+                CustomerId = dv.CustomerId,
+                VoucherName = dv.Voucher!.VoucherName,
+                VoucherPoint = dv.Voucher.VoucherPoint,
+                VoucherValue = dv.Voucher.VoucherValue,
+                DateExpire = dv.Voucher.DateExpire
+            }).ToList();
+            return Ok(detailVoucherForUser);
         }
 
     }
