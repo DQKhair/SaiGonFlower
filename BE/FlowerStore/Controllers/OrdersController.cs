@@ -244,7 +244,6 @@ namespace FlowerStore.Controllers
             {
                 if(detailOrderVM != null)
                 {
-                        
                         foreach (var item in detailOrderVM.listCartItem)
                         {
                              var _orderDetail = new OrderDetail();

@@ -1946,3 +1946,4 @@ C:\Users\Asus\Downloads\saigonflowerstore\saigonflowerstore\BE\FlowerStore\obj\D
 C:\Users\Asus\Downloads\saigonflowerstore\saigonflowerstore\BE\FlowerStore\obj\Debug\net6.0\ref\FlowerStore.dll
 C:\Users\Asus\Downloads\saigonflowerstore\saigonflowerstore\BE\FlowerStore\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\2023-2024\HK1\ecommerce\DoAn\saigonflowerstore\BE\FlowerStore\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\2023-2024\HK1\ecommerce\DoAn\saigonflowerstore\BE\FlowerStore\bin\Debug\net6.0\VNPayPackage.dll

@@ -25,30 +25,35 @@ $(document).ready(()=>{
             var productId = data.productId;
             
 
-            if(retrievedObject == null)
+            if(retrievedObject == null || retrievedObject == undefined || retrievedObject == "null" || retrievedObject == "undefined")
             {
                 var dataLocalStorage = { [productId]: { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity } };
                 var jsonString = JSON.stringify(dataLocalStorage);
                 localStorage.setItem("cart", jsonString);
-            }
-            if(parsedObject.hasOwnProperty(productId))
-            {
-                console.log(typeof(parsedObject[productId].quantity ))
-                
-                let quantityExists = parseInt(parsedObject[productId].quantity) + parseInt(quantity)
-
-                console.log(quantityExists);
-
-                parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantityExists };
-
+                alert("Thêm thành công sản phẩm "+ data.productName);
             }else
-            { 
-                parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity };
+            {
+
+                if(parsedObject && parsedObject.hasOwnProperty(productId))
+                {
+                    console.log(typeof(parsedObject[productId].quantity ))
+                    
+                    let quantityExists = parseInt(parsedObject[productId].quantity) + parseInt(quantity)
+    
+                    console.log(quantityExists);
+    
+                    parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantityExists };
+    
+                }else
+                { 
+                    parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity };
+                }
+                var jsonString = JSON.stringify(parsedObject);
+                localStorage.setItem("cart", jsonString);
+                alert("Thêm thành công sản phẩm "+ data.productName);
+                reFreshDisplay()
             }
-            var jsonString = JSON.stringify(parsedObject);
-            localStorage.setItem("cart", jsonString);
-            alert("Thêm thành công sản phẩm "+ data.productName);
-            reFreshDisplay()
+            
         })
     })
 
@@ -214,8 +219,12 @@ $(document).ready(()=>{
                 // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
             var totalPrice = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
               
-    
-            console.log("methodPay data: "+nameCus,methodPay,phoneCus,addressCus)
+            if(nameCus == "" || phoneCus == "" || addressCus == "")
+            {
+                $("#alert_error").text("Vui lòng điền đủ thông tin!")
+            }else
+            {
+                console.log(nameCus)
             const dataLocalStorageUserCheckout = {
                 "customerNameNonAccount": nameCus,
                  "customerPhoneNonAccount": phoneCus,
@@ -239,6 +248,9 @@ $(document).ready(()=>{
             }
             //End add vào localStorage
             window.location.href = "../checkout.html";
+            }
+    
+            
             })
         }
         // end click btn checkout

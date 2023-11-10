@@ -16,10 +16,10 @@
   />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-  <script
+  <!-- <script
   src="https://kit.fontawesome.com/fbda8849fb.js"
   crossorigin="anonymous"
-  ></script>
+  ></script> -->
   </head>
   <body>
     <style>
@@ -220,6 +220,25 @@
       .container__content_body_FooterCheckout div{
         margin-bottom: 20px;
       }
+      #listTypePayment{
+        background-color: #fff;
+        margin: 20px 0;
+        padding: 20px;
+      }
+      .containerTypePayment h4{
+        font-size: 1.2rem;
+        margin: 10px 0;
+      }
+      .containerTypePayment .bodyTypePayments{
+        margin: 10px 0;
+      }
+      .containerTypePayment .bodyTypePayments h5{
+        margin: 10px 0;
+        font-size: 1rem;
+      }
+      .bodyTypePayments .custom-control{
+        margin: 10px 0;
+      }
     </style>
     <header></header>
 
@@ -282,6 +301,48 @@
                     <p id="codeVoucher_p">Chọn voucher</p>
                 </div>
             </div>
+        </div>
+
+        <div id="listTypePayment">
+          <div class="containerTypePayment">
+
+            <h4>Chọn phương thức thanh toán:</h4>
+
+            <div class="bodyTypePayments">
+                 <h5 class="mb-3">Cách 1: Chuyển hướng sang VNPAY chọn phương thức thanh toán</h5>
+                <div class="custom-control custom-radio">
+                  <input name="typePayments" type="radio" id="bankcode_Default" value="0" checked>
+                  <label for="bankcode_Default">Cổng thanh toán VNPAYQR</label>
+                </div>
+
+                <h5 class="mb-3">Cách 2: Tách phương thức thanh toán tại site của Merchant</h5>
+                <div class="custom-control custom-radio">
+                  <input name="typePayments" type="radio" id="bankcode_Vnpayqr" value="1" >
+                  <label for="bankcode_Vnpayqr">Thanh toán qua ứng dụng hỗ trợ VNPAYQR</label>
+                   
+                </div>
+                <div class="custom-control custom-radio">
+                  <input name="typePayments" type="radio" id="bankcode_Vnbank" value="2" >
+                  <label for="bankcode_Vnbank">ATM-Tài khoản ngân hàng nội địa</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input name="typePayments" type="radio" id="bankcode_Intcard" value="3" >
+                  <label for="bankcode_Intcard">Thanh toán qua thẻ quốc tế</label>
+                </div>
+
+                <h4>Chọn ngôn ngữ thanh toán:</h4>
+                 <div class="custom-control custom-radio">
+                  <input name="typeLanguage" type="radio" id="locale_Vn" value="1" checked>
+                  <label for="locale_Vn">Tiếng việt</label>
+                  <br>
+                  <br>
+                  <input name="typeLanguage" type="radio" id="locale_En" value="2">
+                  <label for="locale_En">Tiếng anh</label>
+                </div>
+
+            </div>
+
+        </div>
         </div>
 
         <div class="footerCheckout">

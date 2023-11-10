@@ -86,7 +86,7 @@ namespace FlowerStore.Controllers
         [HttpGet("{customerId}")]
         public async Task<ActionResult<IEnumerable<DetailVoucherForUser>>> getVoucherForUser(int customerId)
         {
-            var _detailVoucher = await _context.DetailVouchers.Where(d => d.CustomerId == customerId).Include(v => v.Voucher).ToListAsync();
+            var _detailVoucher = await _context.DetailVouchers.Where(d => d.CustomerId == customerId && d.Quantity > 0).Include(v => v.Voucher).ToListAsync();
             var detailVoucherForUser = _detailVoucher.Select(dv => new DetailVoucherForUser
             {
                 DetailVoucherId = dv.DetailVoucherId,

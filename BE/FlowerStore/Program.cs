@@ -1,6 +1,8 @@
 ﻿using FlowerStore.Models;
+using FlowerStore.MyConfiguration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using System.Security.Cryptography;
@@ -18,7 +20,12 @@ builder.Services.AddDbContext<FlowerStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlowerStore"));
 });
 
+//builder.Services.Configure<MyConfiguration>(builder.Configuration.GetConnectionString("AppSettingsVNPay"));
+
 builder.Services.AddCors();
+
+//Thêm VNPayLibrary
+builder.Services.AddHttpContextAccessor();
 
 // Đọc các cài đặt từ appsettings.json hoặc nơi bạn lưu cài đặt
 byte[] secretKeyBytes;
@@ -43,6 +50,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false // Có thể đặt theo nơi bạn phát hành token
         };
     });
+
+
 
 var app = builder.Build();
 

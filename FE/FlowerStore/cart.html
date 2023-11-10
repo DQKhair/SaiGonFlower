@@ -270,6 +270,7 @@
               </div>
               <div class="modal-body">
                 <form>
+                  <span id="alert_error" style="color: red;"></span>
                   <div class="mb-3">
                     <label for="InputName" class="form-label">Tên khách hàng</label>
                     <input type="text" class="form-control" id="inputName" required>
@@ -298,12 +299,11 @@
                   </label>
                 </div>
                  <!-- end check radio -->
-                 
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                <button id="btnLoadCheckOut" type="button" class="btn btn-danger">Thanh toán</button>
+                <button id="btnLoadCheckOut" type="submit" class="btn btn-danger">Thanh toán</button>
               </div>
             </div>
           </div>
