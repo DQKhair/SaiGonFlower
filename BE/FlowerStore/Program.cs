@@ -1,8 +1,7 @@
-﻿using FlowerStore.Models;
-using FlowerStore.MyConfiguration;
+﻿using FlowerStore.Hubs;
+using FlowerStore.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using System.Security.Cryptography;
@@ -14,18 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<FlowerStoreContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlowerStore"));
 });
 
-//builder.Services.Configure<MyConfiguration>(builder.Configuration.GetConnectionString("AppSettingsVNPay"));
-
 builder.Services.AddCors();
-
-//Thêm VNPayLibrary
-builder.Services.AddHttpContextAccessor();
 
 // Đọc các cài đặt từ appsettings.json hoặc nơi bạn lưu cài đặt
 byte[] secretKeyBytes;
@@ -51,8 +46,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
-
 var app = builder.Build();
 
 
@@ -62,8 +55,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseCors(builder =>
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+        builder.WithOrigins("http://127.0.0.1:5501", "https://flowerstore.bsite.net").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 }
+
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
@@ -74,5 +69,10 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.MapControllers();
+
+app.MapControllerRoute(name: "api",
+        pattern: "api/{controller}/{action}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

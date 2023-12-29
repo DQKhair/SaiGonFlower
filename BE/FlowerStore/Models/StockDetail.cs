@@ -11,6 +11,7 @@ namespace FlowerStore.Models
         public int? MaterialId { get; set; }
 
         public virtual Material? Material { get; set; }
+
         public virtual Store? Store { get; set; }
     }
 }

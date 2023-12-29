@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\banner-deals.png",
-      "PackagePath": "staticwebassets\\images\\banner-deals.png"
-    },
-    {
       "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_1.png",
       "PackagePath": "staticwebassets\\images\\flo_1.png"
     },
@@ -27,6 +23,14 @@
     {
       "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_14.png",
       "PackagePath": "staticwebassets\\images\\flo_14.png"
+    },
+    {
+      "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_15.png",
+      "PackagePath": "staticwebassets\\images\\flo_15.png"
+    },
+    {
+      "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_16.png",
+      "PackagePath": "staticwebassets\\images\\flo_16.png"
     },
     {
       "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_2.png",
@@ -63,6 +67,10 @@
     {
       "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\sale_1.jpg",
       "PackagePath": "staticwebassets\\images\\sale_1.jpg"
+    },
+    {
+      "Id": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\sale_2.png",
+      "PackagePath": "staticwebassets\\images\\sale_2.png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.FlowerStore.Microsoft.AspNetCore.StaticWebAssets.props",

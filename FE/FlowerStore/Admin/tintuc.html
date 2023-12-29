@@ -15,7 +15,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-
+  <link rel="stylesheet" href="./assets/css/pagination/pagination.css" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -30,6 +30,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/chat.css">
 
 </head>
 
@@ -55,9 +56,20 @@
       </nav>
     </div><!-- End Page Title -->
 
+  <div class="row">
+    <div class="my-3 col-6">
+      <label for="" class="form-label">Tiêu đề</label>
+      <input id="newsTitle" type="text" class="form-control w-50">
+    </div>
+
+    <div class="my-3 col-6">
+      <label for="" class="form-label">Ngày hết hạn</label>
+      <input id="newsExpire" type="date" class="form-control w-50" >
+    </div>
+  </div>
+
     <section class="section dashboard">
-
-
+      <h5>Nội dung</h5>
       <div class="my-3">
         <form action="" method="post">
   
@@ -68,15 +80,43 @@
         </form>
       </div>
 
-
-
       <div class="text-end">
         <button id="btnAddNew" class="btn btn-primary"  >Thêm tin tức</button>
       </div>
 
     </section>
 
+    <div  class="col-12 my-3">
+      <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+          <h5 class="fw-bold mt-4" style="color: #012970;">Danh sách tin tức</h5>
+          
+          <table id="list-table" class="table">
+            <thead>
+              <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Ngày hết hạn</th>
+                    <th scope="col">Trạng thái</th>
+                    <th class="text-center" scope="col">Tùy chọn</th>
+              </tr>
+            </thead>
+            <tbody id="new-list">
+              
+            </tbody>
+          </table>
+
+          <div id="pagination">
+            <div id="news-pagination" class="ms-3 border-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main><!-- End #main -->
+
+  <div id="chat"></div>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -87,63 +127,20 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <!-- <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script> -->
   <script src="./assets/vendor/ckeditor/ckeditor.js"></script>
+  <script
+  src="https://kit.fontawesome.com/fbda8849fb.js"
+  crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.12/signalr.min.js"></script> 
 
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="./assets/vendor/pagination/pagination.min.js"></script>
+  <script src="./assets/js/main.js"></script>
   <script src="./assets/js/adminLayout.js"></script>
-
-  <script>
-    var token = localStorage.getItem("token");
-    var decodedToken = parseJwt(token);
-    var userRole = decodedToken.role;
-    var userId = decodedToken.UserId;
-
-
-    
-    var editor = CKEDITOR.replace('editor', {
-      exportPdf_tokenUrl: './assets/vendor/ckeditor/plugins/exportpdf/plugin.js',
-    })
-
-    const editorId = document.getElementById('editor').id;
-    var content = '';
-    editor.on('change', (e) =>{
-        content = e.editor.getData();
-
-    })
-
-    $('#btnAddNew').click(() => {
-      postNews();
-    })
-
-    function postNews(){
-        let data = {
-          companyId : userId,
-          content : content
-        }
-
-        $.ajax({
-        url: `https://localhost:7126/api/News`,
-        type: "POST",
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        dataType: "json",
-        success: (res) => {
-          CKEDITOR.instances['editor'].setData('');
-        },
-        error: function (status, error) {
-          alert("Lỗi vui lòng kiểm tra lại");
-        },
-      });
-    }
-
-   
-
-</script>    
+  <script src="./assets/js/new.js"></script>
    
 
 </body>

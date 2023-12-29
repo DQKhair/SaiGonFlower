@@ -1,0 +1,76 @@
+.body{
+    height: 100%;
+}
+
+.body .body-header{
+    text-align: center;
+    margin: 3% 0;
+    word-spacing: .5em;
+}
+
+.body .body-content{
+    width: 90%;
+    margin: 3% auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.body-content .like-card{
+    width: 25%;
+    height: 100%;
+    margin: 2% 0;
+}
+
+.like-card .card-img{
+    width: 90%;
+    height: 320px;
+    margin: auto;
+}
+
+.like-card .card-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.like-card .card-content{
+    width: 90%;
+    margin: auto;
+    border: 1px solid gainsboro;
+    border-top: none;
+}
+
+.card-content .card-name{
+    width: 95%;
+    padding: 2% 0;
+    padding-left: 5%;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-content .card-name a{
+    text-decoration: none;
+    color: black;
+}
+
+.card-content .card-body{
+    width: 90%;
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-body .card-price{
+    font-size: 18px;
+}
+
+.card-body .card-heart{
+    height: 20px;
+    width: 20px;
+}
+
+.card-body .card-heart img{
+    height: 100%;
+    width: 100%;
+}

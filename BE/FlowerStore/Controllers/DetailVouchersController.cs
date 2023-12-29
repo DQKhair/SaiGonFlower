@@ -69,6 +69,7 @@ namespace FlowerStore.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> addDetailVoucher(DetailVoucher detailVoucher)
         {
@@ -107,7 +108,7 @@ namespace FlowerStore.Controllers
             var _detailVoucher = await _context.DetailVouchers.SingleOrDefaultAsync(dv => dv.VoucherId == voucherId && dv.CustomerId == customerId);
             try
             {
-                if(_detailVoucher == null)
+                if (_detailVoucher == null)
                 {
                     return NotFound();
                 }
@@ -116,8 +117,9 @@ namespace FlowerStore.Controllers
                     _detailVoucher!.Quantity -= 1;
                     await _context.SaveChangesAsync();
                     return NoContent();
-                }    
-            }catch
+                }
+            }
+            catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="./css/header.css">
+    <!-- <link rel="stylesheet" href="./css/info.css"> -->
 </head>
 <body>
     <header>
@@ -79,11 +80,18 @@
                 </a>
               </li>
               <li class="heart-icon">
-                <img src="imgs/icons/heart.svg" alt="" />
+                <a href="./like.html"> <img src="imgs/icons/heart.svg" alt="" /></a>
+               
               </li>
               <li class="profile-icon">
-                <img src="imgs/icons/profile.svg" alt="" />
+                  <img src="imgs/icons/profile.svg" alt="" />
               </li>
+              <div id="info-block">
+                <ul>
+                  <li><a id="btnLogin" href="./login.html">Login</a></li>
+                  <li><a id="btnSignup" href="./signup.html">Signup</a></li>
+                </ul>
+              </div>
             </ul>
           </div>
         </nav>
@@ -91,5 +99,7 @@
 
       <script src="./js/header.js"></script>
       <script src="./js/cart.js"></script>
+      <!-- <script src="./js/token.js"></script> -->
+      <script src="./js/info.js"></script>
 </body>
 </html>

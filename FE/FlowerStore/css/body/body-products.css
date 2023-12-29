@@ -24,12 +24,12 @@
 
 .products-list .products-card{
     width: 100%;
-    height: 500px;   
+    height: 400px;   
     margin: 8% 0;
 }
 
 .products-card .card-img{
-    height: 380px;
+    height: 300px;
     width: 70%;
     margin: auto;
 }
@@ -42,7 +42,7 @@
 .products-card .card-content{
     position: relative;
     width: 70%;
-    height: 120px;
+    height: 100px;
     margin: auto;
     border: 1px solid gainsboro;
     border-top: none;
@@ -82,12 +82,9 @@
 .card-body .card-heart{
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 
-.card-body .card-heart img{
-    height: 100%;
-    width: 100%;
-}
 
 
 
@@ -320,19 +317,18 @@
 
     .products-list .products-card{
         width: 85%;
-        height: 85%;  
-        margin: 4% 0; 
-        margin: auto;
+        height: 320px;
+        margin: 8% auto; 
     }
     
     .products-card .card-img{
-        height: 70%;
+        height: 220px;
         width: 85%;
     }
     
     .products-card .card-content{
         width: 85%;
-        height: 30%;
+        height: 100px;
     }
 
     .card-content .card-name{

@@ -6,6 +6,8 @@ $(document).ready(()=>{
         voucherTable.empty();
 
         $.get("https://localhost:7126/api/Vouchers",(data)=>{
+        voucherTable.empty();
+
             $.each(data, (index,voucher) =>{
                 const dataString = voucher.dateExpire;
                 const dateObject = new Date(dataString)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowerStore.Models;
 using FlowerStore.Temp;
+using Newtonsoft.Json;
 
 namespace FlowerStore.Controllers
 {
@@ -98,21 +99,29 @@ namespace FlowerStore.Controllers
         // PUT: api/Imports/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutImport(int id, Import import)
+        public async Task<IActionResult> PutImport(int id, ImportDetails_Temp temp)
         {
-            if (id != import.ImportId)
+            var import = _context.Imports.Find(id);
+            if (temp.IestatusId == 1)
             {
-                return BadRequest();
+                
+                for (int i = 0; i < temp.MaterialId!.Length; i++)
+                {
+                    var material = _context.Materials.Find(temp.MaterialId[i]);
+                    if (material!.Quantity > 0)
+                        material!.Quantity -= temp.Quantity![i];
+                    else
+                        return BadRequest(new { success = false, mess = "Số lượng nguyên liệu không đủ" });
+                }
+
+                await _context.SaveChangesAsync();
+                import!.ExportDate = DateTime.Now;
+                await _context.Database.ExecuteSqlInterpolatedAsync($"UpdateImportStatus {id} ,{temp.IestatusId}, {import.ExportDate}");
             }
-            if (import.IestatusId == 2)
+            else if (temp.IestatusId == 3)
             {
-                import.ExportDate = DateTime.Now;
-                await _context.Database.ExecuteSqlInterpolatedAsync($"UpdateImportStatus {id} ,{import.IestatusId}, {import.ExportDate}");
-            }
-            else if (import.IestatusId == 3)
-            {
-                import.ImportDate = DateTime.Now;
-                await _context.Database.ExecuteSqlInterpolatedAsync($"UpdateImportStatus {id} ,{import.IestatusId}, {import.ImportDate}");
+                import!.ImportDate = DateTime.Now;
+                await _context.Database.ExecuteSqlInterpolatedAsync($"UpdateImportStatus {id} ,{temp.IestatusId}, {import.ImportDate}");
             }
 
 

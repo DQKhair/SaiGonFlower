@@ -2,17 +2,24 @@ $(document).ready(function () {
     var productTable = $("#productTable tbody");
 
     function reFreshDisplay() {
+        
+    
         // Hàm hiển thị sản phẩm trong bảng
         function displayProduct(data) {
+            
             productTable.empty();
             $.each(data, (index, product) => {
+                
                 var actions =
                     '<div class="actions">' +
-                    '<span class="delete-button btn btn-outline-primary mx-2" data-productid="' +
-                    product.productId +
-                    '">Xóa</span>' +
+                    '<i class="bx bx-edit fs-4 text-center"'+
+                          'style="cursor: pointer"' +
+                          'data-bs-toggle="modal"' +
+                          'data-bs-target="#sua-form"'+
+                          'data-product-id="'+ product.productId +
+                          '"data-product-name="'+product.productName+'"></i> '
                     "</div>";
-
+    
                 var image = product.image1
                     ? '<img src="https://localhost:7126' +
                     product.image1 +
@@ -21,6 +28,11 @@ $(document).ready(function () {
                     '" style="max-width: 100px; max-height: 100px;" />'
                     : "N/A";
 
+                    var quantity = product.quantity !== null ? product.quantity : 'Xem chi tiết tại cửa hàng';
+                    var storeInfo = product.storeName !== null
+                        ? product.storeName + ' - ' + (product.storeDistrict !== null ? product.storeDistrict : 'Xem chi tiết tại cửa hàng')
+                        : 'Xem chi tiết tại cửa hàng';
+    
                 productTable.append(
                     "<tr>" +
                     "<td>" +
@@ -32,17 +44,20 @@ $(document).ready(function () {
                     "<td>" +
                     product.price +
                     " $ </td>" +
-                    " <td>" + 
+                    " <td>" +
                     product.categoryName +
                     "</td>" +
                     "<td>" +
                     image +
                     "</td>" +
                     "<td>" +
-                    product.quantity +
+                    quantity +
                     "</td>" +
                     "<td>" +
-                    product.storeName +
+                    product.recipeName +
+                    "</td>" +
+                    "<td>" +
+                    storeInfo  +
                     "</td>" +
                     "<td>" +
                     actions +
@@ -51,13 +66,14 @@ $(document).ready(function () {
                 );
             });
         }
+    
+        
 
         // Gọi API để lấy danh sách sản phẩm và hiển thị trên bảng
         var token = localStorage.getItem("token");
         var decodedToken = parseJwt(token);
         var userRole = decodedToken.role;
         var userId = decodedToken.UserId;
-        console.log(userRole);
 
         var apiUrl = "";
         if (userRole === "Company") {
@@ -84,109 +100,343 @@ $(document).ready(function () {
             });
         }
     }
-    reFreshDisplay();
+    reFreshDisplay()
+
+    
+
+
+
+
+    var token = localStorage.getItem("token");
+    var decodedToken = parseJwt(token);
+    var userId = decodedToken.UserId;
+    $("#StoreId").attr("value", userId);
+
+    //end xử lý thêm
+
+    // sửa sp
+
+
+    
+   
+    $(this).on("click", ".bx-edit", function (){
+        let productId  = $(this).data('product-id');
+        
+        if (userRole === "Company") {
+            $("#sua__product-form").show();
+            $("#sua__product-form1").hide();
+
+            $.ajax({
+                url: 'https://localhost:7126/api/Products/' + productId, // Thay đổi đường dẫn API của bạn
+                type: 'GET',
+                success: function (data) {
+                    // Cập nhật giá trị của các trường input và phần tử khác trong modal
+                    
+                    $('#productName-sua').val(data.productName);
+                    $('#price-sua').val(data.price);
+                    $('#productid-sua').val(data.productId);
+                    $.get('https://localhost:7126/api/Categories',data => {
+                        getcate(data)
+        
+                    })
+        
+                    function getcate(data){
+                        $('#categoryId').empty();
+                        $.each(data, (index, product) => {
+                            $('#categoryId-sua').append(`<option value="${product.categoryId}">${product.categoryName}</option>`)
+                            
+                        });
+        
+                    };
+                    
+                    if (data.image1) {
+                        $('.modal-body img').attr('src', 'https://localhost:7126' + data.image1);
+                    } else {
+                        $('.modal-body img').attr('src', ''); // Nếu không có hình ảnh, xóa ảnh trống
+                    }
+        
+                    // Mở modal chỉnh sửa
+                    $('#sua-form').modal('show');
+                },
+                error: function () {
+                    alert('Lỗi khi tải thông tin sản phẩm.');
+                }
+            });
+        
+        
+            $("#saveEditButton").click( function () {
+                const formData = new FormData();
+                const name = $("#productName-sua").val();
+                const gia = $("#price-sua").val();
+                const cate = $("#categoryId-sua").val();
+                // const image = $("#image-sua").val();
+                const image = document.getElementById("image-sua").files[0];
+                formData.append("productName", name);
+                formData.append("price", gia);
+                formData.append("CategoryId", cate);
+                formData.append("Images", image);
+                console.log(productId,name,gia,cate,image)
+            
+                $.ajax({
+                    url: 'https://localhost:7126/api/Products/' + productId,
+                    type: 'PUT',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        alert('Sửa thành công: ' + data);
+                        $('#sua-form').modal('hide');
+                        reFreshDisplay();
+                    },
+                    error: function () {
+                        alert('Lỗi khi cập nhật sản phẩm.');
+                    }
+                });
+            });
+        } else if (userRole === "Store") {
+        
+            $("#sua__product-form1").show();
+            $("#sua__product-form").hide();
+
+            $.ajax({
+                url: 'https://localhost:7126/api/Products/' + productId, // Thay đổi đường dẫn API của bạn
+                type: 'GET',
+                success: function (data) {
+                    // Cập nhật giá trị của các trường input và phần tử khác trong modal
+                    
+                    $('#productName-sua1').val(data.productName);
+                    
+                    
+                    if (data.image1) {
+                        $('.modal-body img').attr('src', 'https://localhost:7126' + data.image1);
+                    } else {
+                        $('.modal-body img').attr('src', ''); // Nếu không có hình ảnh, xóa ảnh trống
+                    }
+        
+                    // Mở modal chỉnh sửa
+                    $('#sua-form').modal('show');
+                },
+                error: function () {
+                    alert('Lỗi khi tải thông tin sản phẩm.');
+                }
+            });
+
+            $("#saveEditButton").click( function () {
+                const formData = new FormData();
+                const productId1 = productId;
+                console.log(productId1)
+                const storeId = userId;
+                const quantity = $("#quantity-sua").val();
+                // const image = $("#image-sua").val();
+                
+                
+                var postData = {
+                    storeId: parseInt(storeId),
+                    productId: parseInt(productId1),
+                    quantity: parseInt(quantity)
+                  };
+                  console.log(postData)
+            
+                $.ajax({
+                    url: 'https://localhost:7126/api/Products/UpdateQuantity' ,
+                    type: 'PUT',
+                    data: JSON.stringify(postData),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+                        alert('Sửa thành công! ' );
+                        $('#sua-form').modal('hide');
+                        reFreshDisplay();
+                    },
+                    error: function () {
+                        alert('Lỗi khi cập nhật sản phẩm.');
+                    }
+                });
+            });
+        }
+
+
+        
+});
+
+    
+//Form thêm sản phẩm
+var token = localStorage.getItem("token");
+var decodedToken = parseJwt(token);
+var userRole = decodedToken.role;
+var userId = decodedToken.UserId;
+
+if (userRole === "Company") {
+    $("#QLSP__product-form").show();
+    $("#QLSP__product-form1").hide();
 
     document.getElementById("addProduct").addEventListener("click", function () {
-        const productName = document.getElementById("productName").value;
+        const productName = document.getElementById("productName1").value;
         const price = parseFloat(document.getElementById("price").value);
         const discount = parseFloat(document.getElementById("discount").value);
-        const categoryId = document.getElementById("categoryId").value;
-        const recipeId = document.getElementById("recipeId").value;
-        const QuantityToProduce =
-            document.getElementById("QuantityToProduce").value;
-        const StoreId = document.getElementById("StoreId").value;
         const image = document.getElementById("image").files[0];
-        console.log(image);
-
+        
         const formData = new FormData();
         formData.append("ProductName", productName);
         formData.append("Price", price);
         const d = discount == 1 ? true : false;
         formData.append("Discount", d);
-        formData.append("CategoryId", categoryId);
-        formData.append("RecipeId", recipeId);
-        formData.append("QuantityToProduce", QuantityToProduce);
-        formData.append("StoreId", StoreId);
+        formData.append("CategoryId", categoryId.value);
+        formData.append("RecipeId", recipeId.value);
         formData.append("Images", image);
         // Gửi yêu cầu AJAX để thêm sản phẩm
         fetch("https://localhost:7126/api/Products/uploadfile", {
             method: "POST",
             body: formData,
+            
         })
-            .then((response) => response.json())
-            .then((data) => {
-                // Xử lý dữ liệu phản hồi (có thể cập nhật danh sách sản phẩm trên trang)
+        
+        .then((response) => {
+            
+            return response.json(); 
+        })
+        .then((data) => {
+            if (data.error) {
+                alert("Lỗi: " + data.error);
+            } else {
+                // Xử lý dữ liệu phản hồi thành công
+                reFreshDisplay();
                 alert("Thêm thành công sản phẩm: " + data.productName);
-                reFreshDisplay();
+                
                 console.log("Sản phẩm đã được thêm:", data);
-                // $("#staticBackdrop").hide();
-            })
-            .catch((error) => {
-                console.error("Lỗi khi thêm sản phẩm:", error);
-            });
-    });
-    var token = localStorage.getItem("token");
-    var decodedToken = parseJwt(token);
-    var userId = decodedToken.UserId;
-    console.log(userId);
-    $("#StoreId").attr("value", userId);
-
-    //end xử lý thêm
-
-    // Xử lý sự kiện khi nút xóa được nhấn
-    productTable.on("click", ".delete-button", function () {
-        var productId = $(this).data("productid");
-        $.ajax({
-            url: "https://localhost:7126/api/Products/" + productId, // Điều chỉnh URL dựa trên API của bạn
-            type: "DELETE",
-            success: function () {
-                // Xóa thành công, cập nhật bảng bằng cách loại bỏ sản phẩm đã xóa
-                $(this).closest("tr").remove();
-                reFreshDisplay();
-                alert("Xóa thành công!");
-            },
-            error: function (xhr, status, error) {
-                console.error("Lỗi khi xóa sản phẩm: " + error);
-            },
+            }
+        })
+        .catch((error) => {
+            alert("Lỗi khi thêm sản phẩm:" + error);
         });
+        
+    });
+  } else if (userRole === "Store") {
+    
+    $("#QLSP__product-form1").show();
+    $("#QLSP__product-form").hide();
+
+    $("#addProduct").click(function () {
+
+    
+        // Lấy thông tin từ các trường input
+        var productId = $("#productIdc").val();
+        var storeId = userId;
+        var quantity = $("#quantityc").val();
+  
+        // Dữ liệu gửi đi
+        var data = {
+          storeId: storeId,
+          quantity: quantity,
+        };
+  
+        // Gửi yêu cầu POST đến API
+        $.ajax({
+          url: 'https://localhost:7126/api/Products/AddQuantityAndStoreId/' + productId,
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function (response) {
+            // Xử lý khi yêu cầu thành công
+            alert("Thêm sản phẩm thành công!");
+            reFreshDisplay();
+          },
+          error: function (error) {
+            // Xử lý khi yêu cầu gặp lỗi
+        if (error.responseJSON && error.responseJSON.length > 0) {
+            // Hiển thị thông báo chi tiết từ danh sách nguyên liệu thiếu
+            alert("Lỗi khi thêm sản phẩm:\n" + error.responseJSON.join("\n"));
+        } else {
+            // Hiển thị thông báo lỗi chung
+            alert("Lỗi khi thêm sản phẩm: " + error.responseText);
+        }
+          }
+        });
+        
+    });
+      
+  } else {
+    // Xử lý khi không xác định được role hoặc role không hợp lệ
+    alert("Không xác định được role hoặc role không hợp lệ");
+  }
+  $.get('https://localhost:7126/api/Products',data => {
+    getProduct(data)
+    
+
+})
+
+function getProduct(data){
+    $('#categoryIdc').empty();
+    $.each(data, (index, product) => {
+        
+        $('#productIdc').append(`<option value="${product.productId}">${product.productName}</option>`)
+        if (product.image1) {
+            $('.modal-body img').attr('src', 'https://localhost:7126' + product.image1);
+          } else {
+            $('.modal-body img').attr('src', ''); // Nếu không có hình ảnh, xóa ảnh trống
+          }
     });
 
-    // Xử lý sự kiện khi nút sửa được nhấn
-    productTable.on("click", ".edit-button", function () {
-        var productId = $(this).data("productid");
-        var productName = $(this).closest("tr").find("td:eq(0)").text();
-        var productPrice = $(this).closest("tr").find("td:eq(1)").text();
+};
+  //thêm sto
 
-        // Hiển thị form chỉnh sửa
-        $("#editProductId").val(productId);
-        $("#editProductName").val(productName);
-        $("#editProductPrice").val(productPrice);
-        $("#editForm").show();
-    });
 
-    // Xử lý sự kiện khi nút "Save" trên form chỉnh sửa được nhấn
-    $("#saveEditButton").on("click", function () {
-        var productId = $("#editProductId").val();
-        var productName = $("#editProductName").val();
-        var productPrice = $("#editProductPrice").val();
 
-        // Gửi thông tin chỉnh sửa sản phẩm đến API và xử lý kết quả ở đây
-        // Sau khi chỉnh sửa thành công, cập nhật lại bảng và ẩn form chỉnh sửa
-    });
-
-    // Xử lý sự kiện khi nút "Cancel" trên form chỉnh sửa được nhấn
-    $("#cancelEditButton").on("click", function () {
-        // Ẩn form chỉnh sửa
-        $("#editForm").hide();
-    });
-});
-
-//Form thêm sản phẩm
-
-const QLSP_Form_product = $("#QLSP__product-form").hide();
-
-$(document).ready(() => {
+      //thêm com
     $("#QLSP__create_product").click(function () {
-        const QLSP_Form_product = $("#QLSP__product-form").show();
+
+        
+
+        $.get('https://localhost:7126/api/Stores',data => {
+            getStore(data)
+
+        })
+
+        function getStore(data){
+            $('#StoreId').empty();
+
+            $.each(data, (index, product) => {
+                $('#StoreId').append(`<option value="${product.storeId}">${product.storeName}</option>`)
+                
+            });
+
+        };
+
+        $.get('https://localhost:7126/api/Recipes',data => {
+
+            getRecip(data)
+
+        })
+
+        function getRecip(data){
+            $('#recipeId').empty();
+            $.each(data, (index, product) => {
+                $('#recipeId').append(`<option value="${product.recipeId}">${product.recipeName}</option>`)
+                
+            });
+
+        };
+
+        $.get('https://localhost:7126/api/Categories',data => {
+            getcate(data)
+
+        })
+
+        function getcate(data){
+            $('#categoryId').empty();
+            $.each(data, (index, product) => {
+                $('#categoryId').append(`<option value="${product.categoryId}">${product.categoryName}</option>`)
+                
+            });
+
+        };
     });
+
+
 });
+
+
+
+ 
+  
+

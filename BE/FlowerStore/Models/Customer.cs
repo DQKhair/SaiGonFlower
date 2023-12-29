@@ -9,6 +9,10 @@ namespace FlowerStore.Models
         {
             DetailVouchers = new HashSet<DetailVoucher>();
             Orders = new HashSet<Order>();
+            Likes = new HashSet<Like>();
+            ProductViews = new HashSet<ProductView>();
+            Reviews = new HashSet<Reviews>();
+
         }
 
         public int CustomerId { get; set; }
@@ -22,5 +26,9 @@ namespace FlowerStore.Models
 
         public virtual ICollection<DetailVoucher> DetailVouchers { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<ProductView> ProductViews { get; set; }
+        public virtual ICollection<Reviews> Reviews { get; set; }
+
     }
 }

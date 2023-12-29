@@ -42,7 +42,7 @@ namespace FlowerStore.Controllers
             var material = await _context.Materials.FindAsync(id);
 
             if (material == null)
-            {
+            {   
                 return NotFound();
             }
 
@@ -52,14 +52,17 @@ namespace FlowerStore.Controllers
         // PUT: api/Materials/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMaterial(int id, Material material)
+        public async Task<ActionResult<IEnumerable<Material>>> PutMaterial(int id, Material material)
         {
             if (id != material.MaterialId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(material).State = EntityState.Modified;
+            var oldMaterial = _context.Materials.Find(id);
+            oldMaterial!.MaterialName = material.MaterialName;
+
+            _context.Entry(oldMaterial).State = EntityState.Modified;
 
             try
             {
@@ -77,7 +80,7 @@ namespace FlowerStore.Controllers
                 }
             }
 
-            return NoContent();
+            return await _context.Materials.ToListAsync();
         }
 
         // POST: api/Materials
@@ -103,7 +106,9 @@ namespace FlowerStore.Controllers
             {
                 return NotFound();
             }
+
             var material = await _context.Materials.FindAsync(id);
+            
             if (material == null)
             {
                 return NotFound();

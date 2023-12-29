@@ -4,7 +4,6 @@ var userRole = decodedToken.role;
 var userId = decodedToken.UserId;
 
 if (userRole === "Store") {
-
   $.get(
     `https://localhost:7126/api/StockDetails/GetStockDetailByStore/${userId}`,
     function (response) {
@@ -35,7 +34,7 @@ $("#edit").on("click", () => {
   let id = $('#materialIdInput').val();
 
   $.ajax({
-    url: `https://localhost:44388/api/Materials/${id}`,
+    url: `https://localhost:7126/api/Materials/${id}`,
     type: "PUT",
     data: JSON.stringify(data),
     contentType: "application/json",
@@ -69,6 +68,7 @@ function renderList(response) {
   });
 }
 
+
 function renderMaterials(response) {
   
   $("#material-list").empty();
@@ -76,6 +76,8 @@ function renderMaterials(response) {
     var row = $('<tr>');
     row.append(`<td class='id'> ${item.materialId} </td>`);
     row.append(`<td> ${item.materialName} </td>`);
+    row.append(`<td> ${item.supplier} </td>`);
+    row.append(`<td> ${item.quantity} </td>`);
     row.append(`<td><i class='bx bx-edit fs-4 text-center' 
                           style='cursor: pointer' 
                           data-bs-toggle='modal' 
@@ -95,5 +97,7 @@ function listStore() {
 function listCompany() {
   $('#list-table thead tr').append(`<th scope="col">#</th>`)
   $('#list-table thead tr').append(`<th scope="col">Tên nguyên liệu</th>`)
+  $('#list-table thead tr').append(`<th scope="col">Nhà cung cấp</th>`)
+  $('#list-table thead tr').append(`<th scope="col">Số lượng</th>`)
   $('#list-table thead tr').append(`<th scope="col">Tùy chọn</th>`)
 }

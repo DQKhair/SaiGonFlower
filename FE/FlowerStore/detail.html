@@ -1,195 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Details</title>
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/details/body-top.css">
-    <link rel="stylesheet" href="css/details/body-bottom.css">
-    <link rel="stylesheet" href="css/footer.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/fbda8849fb.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/commonLayout.js"></script>
-    <script src="js/loadSetting.js"></script>
-  </head>
-  <body>
 
-    <header></header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Details</title>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/details/body-top.css">
+  <link rel="stylesheet" href="css/details/body-bottom.css">
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/fbda8849fb.js" crossorigin="anonymous"></script>
+  <script src="js/commonLayout.js"></script>
+  <script src="js/loadSetting.js"></script>
+</head>
 
-    <!-- Body -->
-    <div id="body" class="body">
+<body>
+  <style>
+   .custom-select select {
+  width: 25%;
+  padding: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
+}
+.container_search{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  display: none;
+  border-radius: 0.25rem;
+}
+.form_search{
+  width: 50%;
+  margin: 5% auto auto auto;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  height: 500px;
+  overflow: auto;
+  
 
-      <!-- Body top -->
-      <div class="body-top">
+}
+.header_form{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
 
-        <div class="top-left"></div>
+#SeeReviewsProduct{
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .container_seeReviewProduct{
+      position:fixed;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+    .container_seeReviewProduct .seeReviewProduct{
+      width: 80%;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 5% auto auto auto;
+    }
+    .seeReviewProduct .header_seeReviewsProduct{
+      display: flex;
+      justify-content: space-between;
+    }
+    .header_seeReviewsProduct div{
+      margin: 0 20px 0 20px;
+    }
+    .header_seeReviewsProduct #closeButton{
+      cursor: pointer;
+    }
 
-        <div class="top-right">
-          <div class="content">
-            <div class="content-title"></div>
-            <div class="content-price"></div>
-            <hr />
-            <div class="content-details">
-              <span>Design details:</span>
+  </style>
+  <header></header>
+
+  <!-- Body -->
+  <div id="body" class="body">
+
+    <!-- Body top -->
+    <div class="body-top">
+
+      <div class="top-left" id="top-left"></div>
+
+      <div class="top-right">
+        <div class="content">
+          <div class="content-title"></div>
+          <div class="content-category"></div>
+          <div class="content-price"></div>
+          <hr />
+
+          <div class="content-details">
+            <span>Details:</span>
+
+          </div>
+          <div class="content-details custom-select">
+            <select class="form-select" name="" id="SelectStoreName">
+              <option value="">Select store</option>
+            </select>
+          </div>
+
+          <div class="contentQuantity">
+            <p >Available quantity: <span id="quantityWithStore">0</span></p>
+          </div>
+          <div class="contentQuantity">
+          <p id="SeeReviewsProduct">Reviews</p>
+          </div>
+
+          <div class="content-info">
+            <p></p>
+          </div>
+          <div class="content-quantity">
+            <div class="quantity-title">
+              <span>Quantity:</span>
             </div>
-            <div class="content-info">
-              <p></p>
+            <div class="quantity-change">
+              <input id="quantity_cart_item" type="text" value="1">
+              <button type="button" class="btn-increase">+</button>
+              <button type="button" class="btn-decrease">-</button>
             </div>
-            <div class="content-quantity">
-                <div class="quantity-title">
-                    <span>Quantity:</span>
-                </div>
-                <div class="quantity-change">
-                    <input id="quantity_cart_item" type="text" value="1">
-                    <button type="button" class="btn-increase">+</button>
-                    <button type="button" class="btn-decrease">-</button>
-                </div>
-            </div>
-            <div class="content-btn">
-                <button id="btn_addToCart" class="btn-add">ADD TO CARD</button>
-                <button class="btn-order">ORDER NOW</button>
-            </div>
+          </div>
+
+          <div class="content-info">
+            <a href="" class="re-link store" style="color: #0168fa;
+            position: relative;
+            display: inline-block;text-decoration: none">
+              <span class="icon-location"><i class="fa-solid fa-location-dot"></i></span>
+              Find a store near you
+            </a>  
+          </div>
+
+          <div class="content-btn">
+            <button id="btn_addToCart" class="btn-add btn-order">ADD TO CARD</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Body bottom -->
-      <div class="body-bottom">
-        <div class="bottom-title">
-          <h1>OTHER PRODUCTS</h1>
+    <!-- Body bottom -->
+    <div class="body-bottom">
+      <div class="bottom-title">
+        <h1>OTHER PRODUCTS</h1>
+      </div>
+      <div class="bottom-content" id="bottom-content">
+
+        <div class="card">
+          <div class="card-img">
+            <img src="imgs/body/body-products/flower1.png" alt="">
+          </div>
+          <div class="card-body">
+            <div class="card-title">
+              <h4>LOREM IPSUM DOLOR</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-price">$ 27.00</div>
+              <div class="card-heart">
+                <img src="imgs/icons/heart.svg" alt="">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="bottom-content">
-
-          <div class="card">
-            <div class="card-img">
-              <img src="imgs/body/body-products/flower1.png" alt="">
-            </div>
-            <div class="card-body">
-            <div class="card-title">
-              <h4>LOREM IPSUM DOLOR</h4>
-            </div>
-            <div class="card-content">
-              <div class="card-price">$ 27.00</div>
-              <div class="card-heart">
-                <img src="imgs/icons/heart.svg" alt="">
-              </div>
-            </div>
-            </div>
-          </div>
-          
-          <div class="card">
-            <div class="card-img">
-              <img src="imgs/body/body-products/flower1.png" alt="">
-            </div>
-            <div class="card-body">
-            <div class="card-title">
-              <h4>LOREM IPSUM DOLOR</h4>
-            </div>
-            <div class="card-content">
-              <div class="card-price">$ 27.00</div>
-              <div class="card-heart">
-                <img src="imgs/icons/heart.svg" alt="">
-              </div>
-            </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-img">
-              <img src="imgs/body/body-products/flower1.png" alt="">
-            </div>
-            <div class="card-body">
-            <div class="card-title">
-              <h4>LOREM IPSUM DOLOR</h4>
-            </div>
-            <div class="card-content">
-              <div class="card-price">$ 27.00</div>
-              <div class="card-heart">
-                <img src="imgs/icons/heart.svg" alt="">
-              </div>
-            </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-img">
-              <img src="imgs/body/body-products/flower1.png" alt="">
-            </div>
-            <div class="card-body">
-            <div class="card-title">
-              <h4>LOREM IPSUM DOLOR</h4>
-            </div>
-            <div class="card-content">
-              <div class="card-price">$ 27.00</div>
-              <div class="card-heart">
-                <img src="imgs/icons/heart.svg" alt="">
-              </div>
-            </div>
-            </div>
-          </div>
 
       </div>
 
     </div>
 
+
+      <!-- Modal -->
+      <div class="container_search" id="container_search" >
+        <div class="form_search">
+          <div class="header_form">
+            <h2 >Find a store near you</h2>
+            <h2 id="close_form" >x</h2>
+          </div>
+          <div class="" style="text-align: center; padding: 8px 24px 24px;">
+            <div id="searchForm" enctype="multipart/form-data" style="margin: 10px;">
+              <label for="productName">Choose a location near you</label>
+               
+              <select id="userDistrict" name="userDistrict" style="border: solid 1px; border-radius: 4%; border-color: gray; padding: 0.65%; margin-right: 1%;"> 
+                <option value="">Select district</option>
+                <option value="quận 1">District 1</option>
+                <option value="quận 2">District 2</option>
+                <option value="quận 3">District 3</option>
+                <option value="quận 4">District 4</option>
+                <option value="quận 5">District 5</option>
+                <option value="quận 6">District 6</option>
+                <option value="quận 7">District 7</option>
+                <option value="quận 8">District 8</option>
+                <option value="quận 9">District 9</option>
+                <option value="quận 10">District 10</option>
+                <option value="quận 11">District 11</option>
+                <option value="quận 12">District 12</option>
+                <option value="quận tân bình">Tân Bình District</option>
+                <option value="quận phú nhuận">Phú Nhuận District</option>
+                <option value="quận bình tân">Bình Tân District</option>
+                <option value="quận bình thạnh">Bình Thạnh District</option>
+              </select>
+      
+              
+            </div>  
+            <div class="cate-products" style="border-radius: 0.25rem; border: 1px solid #ccc;">
+  
+            </div> 
+          </div>
+
+        </div>
+      </div>
+
     <footer></footer>
-  </body>
 
-  <script>
-      
-      // const url = $(location).attr('href');
-      // Get Id by web url
-      const url = new URL(window.location.href);
-      const id = url.searchParams.get('id');
+    <div class="container_seeReviewProduct">
+      <div class="seeReviewProduct">
+        <div class="header_seeReviewsProduct">
+          <div><h3>List reviews product</h3></div>
+          <div><h3 id="closeButton">X</h3></div>
+        </div>
+        <hr>
+          <div id="body_seeReviewsProduct">
 
-      $.get(`https://localhost:7126/api/Products/${id}`,(response) => {
-        renderProduct(response)
-      }).fail( (status, error) => {
-        $('.body-top').remove();
-        $('.body-bottom').remove();
-      });
-
-
-      function renderProduct(response){
-        $('.top-left').append(`<img src="https://localhost:7126${response.image1}" alt="" />`);
-        const title = $('.content-title').append(`<h1>${response.productName}</h1>`);
-        const price = $('.content-price').append(`<div>${response.price}</div>`);
-        const detail = $('.content-detail').append(`<span>Design details:</span>`);
-        const info = $('.content-info').append('<p>');
-      }
-
-      $(".btn-increase").click( (e) => {
-            // get input 
-            let input = $(e.target).parent().children()[0];
-            // (int)
-            let value = input.value;
-            //convert to int
-            let newValue = parseInt(value) + 1;
-            input.value = newValue;
-        });
-
-        $(".btn-decrease").click((e) => {
-            var input = $(e.target).parent().children()[0];
-
-            var value = input.value;
+            <div class="cart_reviewer" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px; margin: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <div><p>Customer: <span>Name</span></p></div>
+                <div><p>Date: <span>1/1/2023</span></p></div>
+              </div>
+              <div><p>Product quality: <span>5 <i class="fa-regular fa-star"></i></span></p></div>
+              <div>Reviews: <span>Sản phẩm tốt</span></div>
+            </div>
             
-            var newValue = parseInt(value);
-            // check value not 0
-            if (value > 1) {
-                var newValue = parseInt(value) - 1;
-            }
-            input.value = newValue;
-        });
+          </div>
+      </div>
+    </div>
 
-      
-    
-  </script>
+</body>
+
+
+<script src="./js/detail.js"></script>
+
 </html>

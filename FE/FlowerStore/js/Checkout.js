@@ -24,7 +24,7 @@ $(document).ready(()=>{
         $("#methodPay").text(valueMethod==1? "Thanh toán khi nhận hàng" : "Thanh toán VNPay")
         $("#totalMoneyCheckout").text(`${userData.totalMoney.toLocaleString("vi-VN")} VNĐ`);
         $("#ValueVoucher").text(`${(userData.valueVoucher).toLocaleString("vi-VN")} VNĐ`)
-        $("#totalMoneyPayCheckout").text(`${(parseInt(userData.totalMoney) - 32000 - parseInt(userData.valueVoucher)).toLocaleString("vi-VN")} VNĐ`);
+        $("#totalMoneyPayCheckout").text(`${(parseInt(userData.totalMoney) + 32000 - parseInt(userData.valueVoucher)).toLocaleString("vi-VN")} VNĐ`);
     }
 
     function reFreshDisplay()
@@ -138,7 +138,8 @@ $(document).ready(()=>{
                     "phoneCusNonAccount": userData.customerPhoneNonAccount,
                     "addressCusNonAccount": userData.customerAddressNonAccount,
                     "customerId": null,
-                    "orderMethodId": userData.methodPayNonAccount
+                    "orderMethodId": userData.methodPayNonAccount,
+                    "storeId": userData.storeId
                 };
                 
                 createOrder();
@@ -184,13 +185,42 @@ $(document).ready(()=>{
                             data: JSON.stringify(dataJson2)
                         });
                         console.log(response2);
+
+                        const productIdsp3 = [];
+                        const storeidsp3 = [];
+                        const quantitysp3 = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                                productIdsp3.push(parseInt(index));
+                                storeidsp3.push(parseInt(cartItem.storeId))
+                                quantitysp3.push(parseInt(cartItem.quantity))
+                        })
+                        const dataJsonRes3 = {
+                            "productId" : productIdsp3,
+                            "storeId" : storeidsp3,
+                            "quantity" : quantitysp3
+                        }
+                        const response3 = await $.ajax({
+                            type:"PUT",
+                            url:"https://localhost:7126/api/Products/MinusProductCheckoutSuccess",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJsonRes3),
+                            success: (resp)=>{
+                                console.log(resp)
+                            },
+                            error: (error)=>{
+                                console.error("Lỗi số lượng sản phẩm không đủ",error)
+                                alert("Xin lỗi cửa hàng không số lượng đủ sản phẩm")
+                                RollbackOrderFail(orderId);
+                            }
+                        });
                         
-                       const response3 =  await $.get(`https://localhost:7126/api/VnPay/GetOrderVnPay/typePayment=${typePayment}&&locale_VN=${typeLanguage}&&orderId=${orderId}`,(data)=>{})
+                       const response4 =  await $.get(`https://localhost:7126/api/VnPay/GetOrderVnPay/typePayment=${typePayment}&&locale_VN=${typeLanguage}&&orderId=${orderId}`,(data)=>{})
                         
-                            console.log("Address:"+response3);
+                            console.log("Address:"+response4);
                             // localStorage.removeItem('cart');
                             // localStorage.removeItem('userCheckout');
-                            window.location.href = response3;
+                            window.location.href = response4;
                     }catch(error)
                     {
                         console.error("Lỗi thanh toánh",error);
@@ -217,7 +247,8 @@ $(document).ready(()=>{
             "phoneCusNonAccount": userData.customerPhoneNonAccount,
             "addressCusNonAccount": userData.customerAddressNonAccount,
             "customerId": userId,
-            "orderMethodId": userData.methodPayNonAccount
+            "orderMethodId": userData.methodPayNonAccount,
+            "storeId": userData.storeId
         };
 
         createOrder();
@@ -263,20 +294,49 @@ $(document).ready(()=>{
                             data: JSON.stringify(dataJson2)
                         });
 
+                        const productIdsp3 = [];
+                        const storeidsp3 = [];
+                        const quantitysp3 = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                                productIdsp3.push(parseInt(index));
+                                storeidsp3.push(parseInt(cartItem.storeId))
+                                quantitysp3.push(parseInt(cartItem.quantity))
+                        })
+                        const dataJsonRes3 = {
+                            "productId" : productIdsp3,
+                            "storeId" : storeidsp3,
+                            "quantity" : quantitysp3
+                        }
+                        const response3 = await $.ajax({
+                            type:"PUT",
+                            url:"https://localhost:7126/api/Products/MinusProductCheckoutSuccess",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJsonRes3),
+                            success: (resp)=>{
+                                console.log(resp)
+                            },
+                            error: (error)=>{
+                                console.error("Lỗi số lượng sản phẩm không đủ",error)
+                                alert("Xin lỗi cửa hàng không số lượng đủ sản phẩm")
+                                RollbackOrderFail(orderId);
+                            }
+                        });
+
                         const codeVoucher = parseInt(userData.codeVoucher);
                         console.log("codevc"+codeVoucher)
                         if(codeVoucher != null && codeVoucher != "" && codeVoucher != NaN && codeVoucher && "NaN")
                         {
                             const customerId = parseInt(userId);
-                            const dataJson3 = {
+                            const dataJson5 = {
                                 
                              };
-                            const response3 = await $.ajax({
+                            const response5 = await $.ajax({
                                 type:"PUT",
                                 url: `https://localhost:7126/UpdateVoucherForCus/voucherId=${codeVoucher}&&customerId=${customerId}`,
                                 contentType:"application/json",
                                 dataType: "json",
-                                data: JSON.stringify(dataJson3)
+                                data: JSON.stringify(dataJson5)
                             });
                         }
                             console.log(response2);
@@ -302,17 +362,6 @@ $(document).ready(()=>{
                 const totalMoneyPayCheckout = MatchesMethod(totalMoneyPayCheckoutNotMatch);
 
                 console.log(userData)
-                const dataJson = {
-                    "totalQuantity":userData.totalQuantity,
-                    "totalPrice": totalMoneyPayCheckout,
-                    "nameCusNonAccount": userData.customerNameNonAccount,
-                    "phoneCusNonAccount": userData.customerPhoneNonAccount,
-                    "addressCusNonAccount": userData.customerAddressNonAccount,
-                    "customerId": null,
-                    "orderMethodId": userData.methodPayNonAccount
-                };
-
-                
                 
                 
                 createOrder();
@@ -320,6 +369,17 @@ $(document).ready(()=>{
                 {
                     try
                     {
+                        const dataJson = {
+                            "totalQuantity":userData.totalQuantity,
+                            "totalPrice": totalMoneyPayCheckout,
+                            "nameCusNonAccount": userData.customerNameNonAccount,
+                            "phoneCusNonAccount": userData.customerPhoneNonAccount,
+                            "addressCusNonAccount": userData.customerAddressNonAccount,
+                            "customerId": null,
+                            "orderMethodId": userData.methodPayNonAccount,
+                            "storeId": userData.storeId
+                        };
+
                         const response1 = await $.ajax({
                             type:"POST",
                             url:"https://localhost:7126/api/Orders/PostOrderForCus",
@@ -354,6 +414,35 @@ $(document).ready(()=>{
                             dataType: "json",
                             data: JSON.stringify(dataJson2)
                         });
+                        const productIdsp3 = [];
+                        const storeidsp3 = [];
+                        const quantitysp3 = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                                productIdsp3.push(parseInt(index));
+                                storeidsp3.push(parseInt(cartItem.storeId))
+                                quantitysp3.push(parseInt(cartItem.quantity))
+                        })
+                        const dataJsonRes3 = {
+                            "productId" : productIdsp3,
+                            "storeId" : storeidsp3,
+                            "quantity" : quantitysp3
+                        }
+                        const response3 = await $.ajax({
+                            type:"PUT",
+                            url:"https://localhost:7126/api/Products/MinusProductCheckoutSuccess",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJsonRes3),
+                            success: (resp)=>{
+                                console.log(resp)
+                            },
+                            error: (error)=>{
+                                console.error("Lỗi số lượng sản phẩm không đủ",error)
+                                alert("Xin lỗi cửa hàng không số lượng đủ sản phẩm")
+                                RollbackOrderFail(orderId);
+                                
+                            }
+                        });
                             console.log(response2);
                             alert("Đặt hàng thành công");
                             localStorage.removeItem('cart');
@@ -386,7 +475,8 @@ $(document).ready(()=>{
             "phoneCusNonAccount": userData.customerPhoneNonAccount,
             "addressCusNonAccount": userData.customerAddressNonAccount,
             "customerId": userId,
-            "orderMethodId": userData.methodPayNonAccount
+            "orderMethodId": userData.methodPayNonAccount,
+            "storeId": userData.storeId
         };
 
         createOrder();
@@ -429,22 +519,52 @@ $(document).ready(()=>{
                             data: JSON.stringify(dataJson2)
                         });
 
+                        const productIdsp3 = [];
+                        const storeidsp3 = [];
+                        const quantitysp3 = [];
+                        $.each(parsedObject,(index,cartItem)=>{
+                                productIdsp3.push(parseInt(index));
+                                storeidsp3.push(parseInt(cartItem.storeId))
+                                quantitysp3.push(parseInt(cartItem.quantity))
+                        })
+                        const dataJsonRes3 = {
+                            "productId" : productIdsp3,
+                            "storeId" : storeidsp3,
+                            "quantity" : quantitysp3
+                        }
+                        const response3 = await $.ajax({
+                            type:"PUT",
+                            url:"https://localhost:7126/api/Products/MinusProductCheckoutSuccess",
+                            contentType:"application/json",
+                            dataType: "json",
+                            data: JSON.stringify(dataJsonRes3),
+                            success: (resp)=>{
+                                console.log(resp)
+                            },
+                            error: (error)=>{
+                                console.error("Lỗi số lượng sản phẩm không đủ",error)
+                                alert("Xin lỗi cửa hàng không số lượng đủ sản phẩm")
+                                RollbackOrderFail(orderId);
+                            }
+                        });
+
                         const codeVoucher = parseInt(userData.codeVoucher);
                         console.log("codevc"+codeVoucher)
                         if(codeVoucher != null && codeVoucher != "" && codeVoucher != NaN && codeVoucher && "NaN")
                         {
                             const customerId = parseInt(userId);
-                            const dataJson3 = {
+                            const dataJson4 = {
                                 
                              };
-                            const response3 = await $.ajax({
+                            const response4 = await $.ajax({
                                 type:"PUT",
                                 url: `https://localhost:7126/UpdateVoucherForCus/voucherId=${codeVoucher}&&customerId=${customerId}`,
                                 contentType:"application/json",
                                 dataType: "json",
-                                data: JSON.stringify(dataJson3)
+                                data: JSON.stringify(dataJson4)
                             });
                         }
+
                             console.log(response2);
                             alert("Đặt hàng thành công");
                             localStorage.removeItem('cart');
@@ -462,6 +582,50 @@ $(document).ready(()=>{
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(atob(base64));
+    }
+
+    function RollbackOrderFail(orderId)
+    {
+        const token = localStorage.getItem('token');
+        const dataLocalStorage = localStorage.getItem("userCheckout");
+        // const dataOrderIdJson = localStorage.getItem("orderId");
+
+        // const dataOrder = JSON.parse(dataOrderIdJson);
+        //     const orderId =  dataOrder.orderId;
+        const userData = JSON.parse(dataLocalStorage);
+            const codeVoucher = parseInt(userData.codeVoucher);
+  
+        if(codeVoucher != null && codeVoucher != "" && codeVoucher != NaN && codeVoucher && "NaN")
+        {
+
+            const decodedToken = parseJwt(token);
+            const userId = decodedToken.UserId;
+
+        $.ajax({
+            url:`https://localhost:7126/api/VnPay/rollbackVoucher/customerId=${userId}&&voucherId=${codeVoucher}`,
+            type:"PUT",
+            dataType:"json",
+            contentType: "application/json",
+            data: JSON.stringify({}),
+            success: (res)=>{
+                console.log(res);
+            },
+            error: (error)=>{
+                console.error("Lỗi refund quantity voucher",error);
+            }
+        })
+        }
+
+        $.ajax({
+            url:"https://localhost:7126/api/VnPay/rollbackOrder/"+orderId,
+            type:"DELETE",
+            success: (res)=>{
+                console.log(res);
+            },
+            error: (error)=>{
+                console.error("Lỗi xóa order",error);
+            }
+        })
     }
 
     function MatchesMethod(valueMatch)

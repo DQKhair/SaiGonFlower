@@ -20,6 +20,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="./assets/css/pagination/pagination.css" />
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -28,6 +29,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/chat.css">
 
 </head>
 
@@ -48,7 +50,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
-          <li class="breadcrumb-item active"><a href="./quanlydonhang_chitiet">Quản lý đơn hàng</a></li>
+          <li class="breadcrumb-item active"><a href="./quanlydonhang.html">Quản lý đơn hàng</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -57,31 +59,62 @@
     <section class="section dashboard">
       <div class="col-12">
         <div class="button-body">
-          <button  id="btn-import"
-          class="btn btn-primary mb-3"
-          data-bs-toggle="modal"
-          data-bs-target="#importForm" style="border-radius: 0.5rem; width: auto;">Lập phiếu đặt hàng</button>
-          <button type="submit" id="btn-Order" class="btn btn-primary mb-3" style="border-radius: 0.5rem; width: auto;"><a href="./quanlydonhang_hoadon.html" class="text-light">Hóa đơn</a></button>
+          <button  id="btn-import" class="btn btn-primary mb-3" data-bs-toggle="modal"
+          data-bs-target="#importForm" style="border-radius: 0.5rem; width: auto;">
+          Lập phiếu đặt hàng
+          </button>
         </div>
         <div class="card recent-sales overflow-auto">
           <div class="card-body">
-            <h5 class="card-title">Danh sách đơn hàng</h5>
+            <h5 class="fw-bold mt-4" style="color: #012970;">
+              Danh sách đơn hàng
+            </h5>
 
-            <table class="table table-hover">
+            <div id="list-option" class="d-flex justify-content-around my-3" style="margin-left: -2%;">
+              <div class="d-flex align-items-center ms-1">
+                <input id="waitConfirm" value="1" type="checkbox">
+                <label id="labelConfirm" for="waitConfirm" class="ms-2">Chờ xác nhận</label>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <input id="orderProcessing" value="2" class="" type="checkbox">
+                <label id="labelProcessing"  for="orderProcessing"class="ms-2">Đã xác nhận</label>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <input id="orderDelivering" value="3" class="" type="checkbox">
+                <label id="labelDelivering"  for="orderDelivering"class="ms-2">Đang vận chuyển</label>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <input id="orderSuccess" value="4" class="" type="checkbox">
+                <label id="labelSucces"  for="orderSuccess"class="ms-2">Đã giao hàng</label>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <input id="orderCancel" value="5" class="" type="checkbox">
+                <label id="labelCancel"  for="orderCancel"class="ms-2">Đã hủy</label>
+              </div>
+            </div>
+
+            <table class="table order-list">
               <thead>
-                <tr>
-                  <th>ID</th>
+                <tr class="text-center">
+                  <th>#</th>
                   <th>Thời gian đặt hàng</th>
                   <th>Khách hàng</th>
                   <th>Số điện thoại</th>
                   <th>Trạng thái đơn</th>
-                  <th></th>
+                  <th>Tùy chọn</th>
                 </tr>
               </thead>
-              <tbody id="orderTable">
+              <tbody id="order-list"></tbody>
 
-              </tbody>
             </table>
+
+            <div id="pagination">
+              <div id="order-pagination" class="ms-3 border-2"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -102,21 +135,24 @@ style="display: none"
       <div class="row">
         <div class="col-md-10">
           <label class="form-label  fw-semibold">Số điện thoại:</label>
-          <input type="text" class="form-control" id="inputPhoneNumber">
+          <input type="text" class="form-control" id="inputPhoneNumber" required>
         </div>
         <div class="col-md-2">
-          <button type="button" id="searchPhoneNumber" class="btn btn-outline-secondary" style="margin-top: 30%">Tìm kiếm</button>
+          <button type="button" id="searchPhoneNumber" 
+            class="btn btn-outline-secondary" style="margin-top: 30%">
+            Tìm kiếm
+          </button>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-md-6">
            <label class="form-label  fw-semibold">Tên khách hàng:</label>
-           <input type="text" class="form-control" id="inputCusName">
+           <input type="text" class="form-control" id="inputCusName" required>
          </div v>
          <div class="col-6">
            <label class="form-label  fw-semibold">Địa chỉ:</label>
-           <input type="text" class="form-control" id="inputAddress">
+           <input type="text" class="form-control" id="inputAddress" required>
          </div>
       </div>
 
@@ -127,7 +163,7 @@ style="display: none"
         </div>
         <div class="form-group col-md-6">
           <label class="fw-semibold">Chọn số lượng sản phẩm:</label>
-          <select value="" class="form-select my-2" id="select-quantity"></select>
+          <select value="" class="form-select my-2" id="select-quantity" required></select>
         </div>
       </div>
       
@@ -141,12 +177,10 @@ style="display: none"
           <h5 class="fw-semibold text-danger">Tổng tiền: <span id="totalPrice"></span></h5>
         </div>
         <div class="d-flex justify-content-between mx-auto my-3">
-         <button id="btnCancel" type="button" class="btn btn-outline-primary mx-1 px-5" data-bs-dismiss="modal" >
+         <p id="btnCancel" type="button" class="btn btn-outline-primary mx-1 px-5" data-bs-dismiss="modal" >
             Hủy
-          </button>
-          <button id="btnAddImport" type="button"  class="btn btn-primary mx-1 px-5" data-bs-dismiss="modal" >
-            Lưu
-          </button>
+          </p>
+          <p id="btnAddImport" class="btn btn-primary mx-1 px-5" data-bs-dismiss="modal">Lưu</p>
         </div>
       </form>
 
@@ -161,6 +195,8 @@ style="display: none"
 
   </main><!-- End #main -->
 
+  <div id="chat"></div>
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
   </footer><!-- End Footer -->
@@ -169,11 +205,17 @@ style="display: none"
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="./assets/vendor/pagination/pagination.min.js"></script>
+  <script
+  src="https://kit.fontawesome.com/fbda8849fb.js"
+  crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.12/signalr.min.js"></script> 
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="./assets/js/main.js"></script>
   <script src="./assets/js/adminLayout.js"></script>
   <script src="./assets/js/order.js"></script>
   <script src="./assets/js/orderDetail.js"></script>

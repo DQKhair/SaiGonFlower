@@ -1,0 +1,41 @@
+<body>
+  <div id="chatIcon" style="position: fixed; top: 75%; right: 2%; width: 3.5em; height: 3.5em; border-radius: 50%;
+background-color: #4154f1; color: white; text-align: center; cursor: pointer;">
+ <i style="position: absolute; width: 100%; height: 100%; font-size: 2em; top: 50%; right: 50%; transform: translateX(50%);" 
+   class="far fa-comment-dots fa-lg">
+ </i>
+</div>
+
+<div id="chatForm" style="position: fixed; bottom: 10%; right: 2%; width: 30%; 
+box-shadow: 0px 0px 10px 0px; background-color: white; border-radius: 10px; display: none;">
+ <div>
+
+   <div style="position: relative; text-align: center; padding: 1% 0;">
+     <h2 style="padding: 3% 0;">🗨️ Chat</h2>
+     <i id="btnCloseChat" style="position: absolute; top: 20%; right: 5%; font-size: 1.5em; cursor: pointer;" class="fas fa-times"></i>
+     <hr style="width: 90%; margin: auto;"/>
+   </div>
+
+   <div style="padding: 5% 0; width: 90%; margin: auto">
+
+
+    <div id="messList" style="width: 100%; padding: 2% 0;">
+    </div>
+
+   </div>
+
+   <div style="width: 95%; margin: auto; padding: 2% 0;">
+     <input id="messageInput" style="width: 80%; padding: 2% 0" type="text">
+     <button type="submit" id="send" style="width:17%; padding: 2% 0">Gửi</button>
+   </div>
+   
+
+ </div>
+</div>
+
+<script src="./assets/js/chat.js"></script>  
+ 
+</body>
+
+
+

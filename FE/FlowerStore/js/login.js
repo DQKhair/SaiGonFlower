@@ -32,10 +32,10 @@ $(document).ready(function () {
                     // Kiểm tra vai trò và điều hướng người dùng tương ứng
                     if (userRole === "Company" || userRole === "Store") {
                         // Chuyển hướng người dùng đến trang Company
-                        window.location.href = '/Admin/index.html'; // Điều chỉnh URL tương ứng
+                        window.location.href = './Admin/index.html'; // Điều chỉnh URL tương ứng
                     } else if (userRole === "Customer") {
                         // Chuyển hướng người dùng đến trang Customer
-                        window.location.href = '/index.html'; // Điều chỉnh URL tương ứng
+                        window.location.href = './index.html'; // Điều chỉnh URL tương ứng
                     } else {
                         alert('Vai trò không hợp lệ.');
                     }

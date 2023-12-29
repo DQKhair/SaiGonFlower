@@ -43,6 +43,7 @@
         flex: 4;
       }
 
+      .header_cart p:nth-child(6),
       .header_cart p:nth-child(2),
       .header_cart p:nth-child(3),
       .header_cart p:nth-child(4),
@@ -60,7 +61,7 @@
         flex-direction: row;
         align-items: center;
       }
-
+      .cartItem_storeId,
       .cart_productAction,
       .cart_productTotalMoney,
       .cart_productQuantity,
@@ -210,11 +211,12 @@
     <main class="body">
       <div id="cover_cartContent" class="mx-5 shadow p-3 mb-5 bg-body rounded">
         <div class="header_cart">
-          <p>Sản phẩm</p>
-          <p>Đơn giá</p>
-          <p>Số lượng</p>
-          <p>Số tiền</p>
-          <p>Thao tác</p>
+          <p>Product</p>
+          <p>Store's ID</p>
+          <p>Price</p>
+          <p>Quantity</p>
+          <p>Amount of money</p>
+          <p>Action</p>
         </div>
         <hr>
         <div id="tableCart">
@@ -245,18 +247,18 @@
             <span id="codeVoucherSpan"></span>
           </div>
           <div class="footerVoucherApply">
-            <p id="AddVoucherApply">Chọn mã voucher</p>
+            <p id="AddVoucherApply">Choose voucher</p>
           </div>
 
         </div>
         <div class="footerCart">
           <div class="totalItem">
             <h5 id="TotalQuantityPay">Tổng số lượng đơn hàng: 0</h5>
-            <h5>Voucher giảm giá: <span id="codeVoucherValue">0</span> VNĐ</h5>
+            <h5>Discount vouchers <span id="codeVoucherValue">0</span> VNĐ</h5>
             <h5 id="TotalMoneyPay">Tổng tiền đơn hàng: $0</h5>
           </div>
           <div class="btn_Buy">
-            <button data-bs-toggle="modal" data-bs-target="#ModalPayment" class="btn btn-danger w-50" style="height: 50px;">Mua hàng</button>
+            <button data-bs-toggle="modal" data-bs-target="#ModalPayment" class="btn btn-danger w-50" style="height: 50px;">Buy Product</button>
           </div>
         </div>
 
@@ -265,45 +267,45 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông tin khách hàng</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Infomation customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
                   <span id="alert_error" style="color: red;"></span>
                   <div class="mb-3">
-                    <label for="InputName" class="form-label">Tên khách hàng</label>
+                    <label for="InputName" class="form-label">Name customer</label>
                     <input type="text" class="form-control" id="inputName" required>
                   </div>
                   <div class="mb-3">
-                    <label for="InputPhoneNumber" class="form-label">Số điện thoaị</label>
+                    <label for="InputPhoneNumber" class="form-label">Phone</label>
                     <input type="tel" class="form-control" id="inputPhoneNumber" required>
                   </div>
                   <div class="mb-3">
-                    <label for="InputAddress" class="form-label">Địa chỉ giao hàng</label>
+                    <label for="InputAddress" class="form-label">Address delivery</label>
                     <input type="tel" class="form-control" id="inputAddress" required>
                   </div>
 
                  <!-- check raido -->
-                 <h5>Phương thức thanh toán: </h5>
+                 <h5>Payment method: </h5>
                  <div class="form-check">
                   <input class="form-check-input" type="radio" value="1" name="PaymentMethod" id="ThanhToanKhiNhanHang" checked>
                   <label class="form-check-label" for="ThanhToanKhiNhanHang">
-                    Thanh toán khi nhận hàng
+                    Payment on delivery
                   </label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="2" name="PaymentMethod" id="ThanhToanVNPay">
                   <label class="form-check-label" for="ThanhToanVNPay">
-                    Thanh toán VNPay
+                    Payment VNPay
                   </label>
                 </div>
                  <!-- end check radio -->
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                <button id="btnLoadCheckOut" type="submit" class="btn btn-danger">Thanh toán</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="btnLoadCheckOut" type="submit" class="btn btn-danger">Pay</button>
               </div>
             </div>
           </div>

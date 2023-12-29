@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Báo cáo thống kê</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="./assets/css/pagination/pagination.css" />
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="./assets/css/chat.css">
+  <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center"></header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Báo cáo thống kê</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+          <li class="breadcrumb-item active"><a href="./quanlydoanhthu.html">Báo cáo thống kê</a></li>
+        </ol>
+      </nav>
+      <div> 
+        <a class="btn btn-outline-primary" href="./quanlydoanhthu.html">Doanh thu</a>
+        <a class="btn btn-primary" href="./thongketylemuahang.html">Tỷ lệ mua hàng/xem hàng</a>
+        <a class="btn btn-outline-primary" href="./thongkesanpham.html">Thống kê sản phẩm</a>
+      </div>
+    </div><!-- End Page Title -->
+
+
+    <section class="section dashboard">
+     
+      <div class="card recent-sales overflow-auto mt-4">
+        <div class="card-body">
+  
+          <h4 class="text-center p-3 fw-semibold">Chi tiết thống kê</h4>
+
+          <div class="row">
+            <div class="col-6">
+              <label for="detailCusId" class="form-label fw-semibold">Mã khách hàng:</label>
+              <span id="detailCusId"></span>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-12">
+              <label for="detailCusUsername" class="form-label fw-semibold">Tên tài khoản:</label>
+              <span id="detailCusUsername"></span>
+            </div>
+          </div>
+          
+          <div class="row mt-2">
+            <div class="col-12">
+              <label for="detailCusName" class="form-label fw-semibold">Tên khách hàng:</label>
+              <span id="detailCusName"></span>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-12">
+              <label for="detailCusPhone" class="fw-semibold">Số điện thoại:</label>
+              <span id="detailCusPhone"></span>
+            </div>
+          </div>
+
+
+          <table class="table mt-3">
+            <thead>
+              <tr class="text-center">
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượt xem</th>
+                <th>Số lượt mua</th>
+                <th>Tỷ lệ (%)</th>
+              </tr>
+            </thead>
+            <tbody id="purchaseByCusStatistics" class="text-center"></tbody>
+
+          </table>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <div id="chat"></div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="./assets/vendor/pagination/pagination.min.js"></script>
+  <script
+  src="https://kit.fontawesome.com/fbda8849fb.js"
+  crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.12/signalr.min.js"></script> 
+
+  <!-- Template Main JS File -->
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/adminLayout.js"></script>
+  
+</body>
+
+<script>
+$(document).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const purchaseByCusStatistics = $("#purchaseByCusStatistics");
+    var customerId = localStorage.getItem('customerId');
+    if (customerId) {
+
+    function displayPurchaseByCusStatistics() {
+      purchaseByCusStatistics.empty();
+      $.get("https://localhost:7126/api/ProductViews/getRateStatisticsByCustomer/" + customerId, function(ProductViews) {
+
+        if (ProductViews.length > 0) {
+          const firstProductView = ProductViews[0];
+          $("#detailCusId").text(firstProductView.customerId);
+          $("#detailCusUsername").text(firstProductView.customerUsername);
+          $("#detailCusName").text(firstProductView.customerName);
+          $("#detailCusPhone").text(firstProductView.customerPhone);
+        }
+       
+        $.each(ProductViews, function(index, data) {
+          const tr = $("<tr></tr>");
+          const productId = $("<td></td>").text(data.productId);
+          const productName = $("<td></td>").text(data.productName);
+          const viewCount = $("<td></td>").text(data.viewCount);
+          const purchaseCount = $("<td></td>").text(data.purchaseCount);
+          const rate = $("<td></td>").text((data.purchaseCount / data.viewCount).toFixed(2) + "%"); 
+  
+          tr.append(productId, productName, viewCount, purchaseCount, rate);
+          purchaseByCusStatistics.append(tr);
+        });
+      })
+    }
+    displayPurchaseByCusStatistics();
+  }
+})
+
+</script>
+
+
+</html>

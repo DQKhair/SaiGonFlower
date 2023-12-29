@@ -118,6 +118,12 @@
     width: 100%;
 }
 
+.notice-products{
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+}
+
 @media only screen and (max-width: 576px) {
     .body .cate-title{
         font-size: 14px !important;

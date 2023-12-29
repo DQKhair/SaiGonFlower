@@ -21,6 +21,7 @@ namespace FlowerStore.Controllers
             _context = context;
         }
 
+
         // GET: api/OrderDetails
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetails()

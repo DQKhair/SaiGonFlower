@@ -22,20 +22,34 @@ namespace FlowerStore.Controllers
 
         // GET: api/News
         [HttpGet]
-        public ActionResult<News> GetNews()
+        public async Task<ActionResult<IEnumerable<News>>> GetNews()
         {
-          
-            return  _context.News.OrderBy(x => x.NewsId).Last();
+            var autoUpdate = _context.News.OrderBy(x => x.NewsId).Where(x => x.Status == true).Take(10).ToList();
+            foreach (var news in autoUpdate)
+            {
+                if (news.ExpireDate <= news.NewsDate)
+                    news.Status = false;
+            }
+            _context.SaveChanges();
+            var list = _context.News.OrderByDescending(x => x.NewsDate).ToListAsync();
+            return await list;
+        }
+
+        [HttpGet("/api/News/Web")]
+        public ActionResult<IEnumerable<News>> GetNewWebs()
+        {
+            var list = _context.News.Where(x => x.Status == true).ToList();
+            return list;
         }
 
         // GET: api/News/5
         [HttpGet("{id}")]
         public async Task<ActionResult<News>> GetNews(int id)
         {
-          if (_context.News == null)
-          {
-              return NotFound();
-          }
+            if (_context.News == null)
+            {
+                return NotFound();
+            }
             var news = await _context.News.FindAsync(id);
 
             if (news == null)
@@ -56,7 +70,12 @@ namespace FlowerStore.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(news).State = EntityState.Modified;
+            var update = _context.News.Find(id);
+            update!.Content = news.Content;
+            update!.ExpireDate = news.ExpireDate;
+            update.Title = news.Title;
+
+            _context.Entry(update).State = EntityState.Modified;
 
             try
             {
@@ -82,7 +101,9 @@ namespace FlowerStore.Controllers
         [HttpPost]
         public async Task<ActionResult<News>> PostNews(News news)
         {
+
             news.NewsDate = DateTime.Now;
+            news.Status = true;
             _context.News.Add(news);
             await _context.SaveChangesAsync();
 

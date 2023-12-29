@@ -1,0 +1,11 @@
+.body{
+    width: 100%;
+}
+    
+#account{
+    width: 80%;
+    height: 100%;
+    display: flex;
+}
+/* code timeline */
+

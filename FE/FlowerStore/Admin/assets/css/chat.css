@@ -1,0 +1,44 @@
+#messList{
+    height: 400px;
+    width: 90%;
+    margin: auto;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.msg-box{
+    padding: 10px;
+    width: 45%;
+    border: 1px solid black;
+    font-size: 20px;
+    margin: 20px 15px;
+    border-radius: 5px;
+    clear: both;
+    word-break: break-all;
+    box-shadow: 3px 3px #8b8b8b;
+}
+
+.received{
+    float: left;
+    background-color: rgba(0, 0, 0, .8);
+    color: white;
+  }
+  
+  .send{
+    float: right;
+    background-color: #4154f1;
+    color: white;
+  }
+
+  #send{
+    border-radius: 5px;
+    background-color: #4154f1;
+    color: white;
+    border: #4154f1;
+  }
+
+  #send:active{
+    background-color: #4d5df0;
+    border: #4d5df0;
+  }

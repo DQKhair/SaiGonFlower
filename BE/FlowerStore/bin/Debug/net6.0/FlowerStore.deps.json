@@ -10,13 +10,14 @@
         "dependencies": {
           "BCrypt.Net": "0.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.23",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "Microsoft.EntityFrameworkCore": "6.0.23",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.23",
           "Microsoft.EntityFrameworkCore.Sqlite": "6.0.23",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.23",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
-          "Swashbuckle.AspNetCore": "6.5.0",
-          "VNPayPackage": "2.1.0"
+          "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
           "FlowerStore.dll": {}
@@ -607,7 +608,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "Microsoft.AspNetCore.Http.Abstractions/2.1.1": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "System.Text.Encodings.Web": "6.0.0"
@@ -2737,18 +2738,6 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      },
-      "VNPayPackage/2.1.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "runtime": {
-          "lib/net6.0/VNPayPackage.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.0"
-          }
-        }
       }
     }
   },
@@ -3143,12 +3132,12 @@
       "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.23",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.23.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+    "Microsoft.AspNetCore.Http.Abstractions/2.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
-      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
-      "hashPath": "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512"
+      "sha512": "sha512-kQUEVOU4loc8CPSb2WoHFTESqwIa8Ik7ysCBfTwzHAd0moWovc9JQLmhDIHlYLjHbyexqZAlkq/FPRUZqokebw==",
+      "path": "microsoft.aspnetcore.http.abstractions/2.1.1",
+      "hashPath": "microsoft.aspnetcore.http.abstractions.2.1.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Http.Features/2.2.0": {
       "type": "package",
@@ -4388,13 +4377,6 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
-    },
-    "VNPayPackage/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-jfUENvVapSfPzh7puB+Dx2zU18mZeqb9wnHhH7RntFoDRa1INZX0TRvAUmLuEudvJ6VF1JJ4w2hS7crAxpmfAA==",
-      "path": "vnpaypackage/2.1.0",
-      "hashPath": "vnpaypackage.2.1.0.nupkg.sha512"
     }
   }
 }

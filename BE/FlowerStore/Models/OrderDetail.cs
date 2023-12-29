@@ -17,7 +17,6 @@ namespace FlowerStore.Models
 
     public partial class OrderDetailNewById
     {
-
         public int OrderDetailId { get; set; }
         public int? Quantity { get; set; }
         public double? Price { get; set; }

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Báo cáo thống kê</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="./assets/css/pagination/pagination.css" />
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/chat.css">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center"></header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Báo cáo thống kê</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+          <li class="breadcrumb-item active"><a href="./quanlydoanhthu.html">Báo cáo thống kê</a></li>
+        </ol>
+      </nav>
+      <div> 
+        <a class="btn btn-primary" href="./quanlydoanhthu.html">Doanh thu</a>
+        <a class="btn btn-outline-primary" href="./thongketylemuahang.html">Tỷ lệ mua hàng/xem hàng</a>
+        <a class="btn btn-outline-primary" href="./thongkesanpham.html">Thống kê sản phẩm</a>
+      </div>
+    </div><!-- End Page Title -->
+
+
+    <section class="section dashboard">
+      <div class="row my-4">
+        <!-- <div class="col-4">
+            <label class="form-label  fw-semibold">Tháng:</label>
+            <select id="selectMonthRevenue" class="form-select">
+                <option value="1">Tháng 1</option>
+                <option value="2">Tháng 2</option>
+                <option value="3">Tháng 3</option>
+                <option value="4">Tháng 4</option>
+                <option value="5">Tháng 5</option>
+                <option value="6">Tháng 6</option>
+                <option value="7">Tháng 7</option>
+                <option value="8">Tháng 8</option>
+                <option value="9">Tháng 9</option>
+                <option value="10">Tháng 10</option>
+                <option value="11">Tháng 11</option>
+                <option value="12">Tháng 12</option>
+            </select>
+
+          </div>
+          <div class="col-4">
+            <label class="form-label  fw-semibold">Năm:</label>
+            <input type="text" id="inputYearRevenue" class="form-control">
+          </div>
+          <div class="col-3" style="margin-top:3.3% ;">
+            <button class="btn btn-primary" id="btnShowRevenueByDay">Xem doanh thu</button>
+          </div> -->
+        <div class="col-4">
+          <label class="form-label fw-semibold">Từ ngày:</label>
+          <input type="date" id="inputStartDate" class="form-control">
+        </div>
+        <div class="col-4">
+          <label class="form-label fw-semibold">Đến ngày:</label>
+          <input type="date" id="inputEndDate" class="form-control">
+        </div>
+        <div class="col-3" style="margin-top:3.3%;">
+          <button class="btn btn-primary" id="btnShowRevenueByDay">Xem doanh thu</button>
+        </div>
+
+      </div>
+      <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+
+          <table class="table m-3">
+            <thead>
+              <tr class="text-center">
+                <th>#</th>
+                <th>Thời gian</th>
+                <th>Tổng số đơn</th>
+                <th>Doanh thu</th>
+                <th>Lợi nhuận</th>
+                <th>Tùy chọn</th>
+              </tr>
+            </thead>
+            <tbody id="revenueMonthTable"></tbody>
+
+          </table>
+
+          <div class="row fs-6 fw-semibold text-danger">
+            <div class="col-3">
+              <label class="">Tổng:</label>
+            </div>
+            <div class="col-7 d-flex justify-content-between px-4">
+              <span id="totalCountRevenueMonth" class="mx-5"></span>
+              <span id="totalRevenueMonth"></span>
+              <span id="totalProfitMonth"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <div id="chat"></div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="./assets/vendor/pagination/pagination.min.js"></script>
+  <script
+  src="https://kit.fontawesome.com/fbda8849fb.js"
+  crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.12/signalr.min.js"></script> 
+
+  <!-- Template Main JS File -->
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/adminLayout.js"></script>
+  <script src="./assets/js/statisticOrder.js"></script>
+
+</body>
+
+</html>

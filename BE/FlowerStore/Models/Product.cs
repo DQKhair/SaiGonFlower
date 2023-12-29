@@ -9,6 +9,11 @@ namespace FlowerStore.Models
         {
             OrderDetails = new HashSet<OrderDetail>();
             StoreDetails = new HashSet<StoreDetail>();
+            Likes = new HashSet<Like>();
+            ProductViews = new HashSet<ProductView>();
+            Reviews = new HashSet<Reviews>();
+            StaticProducts = new HashSet<StaticProduct>();
+
         }
 
         public int ProductId { get; set; }
@@ -26,5 +31,13 @@ namespace FlowerStore.Models
         public virtual Recipe? Recipe { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<StoreDetail> StoreDetails { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<ProductView> ProductViews { get; set; }
+        public virtual ICollection<Reviews> Reviews { get; set; }
+
+        public virtual ICollection<StaticProduct> StaticProducts { get; set; }
+
+
+
     }
 }

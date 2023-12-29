@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gFCVAF+xEhR8BXjpyBwSPVxK+luPLp16Y8cVwfaQupI=",
+  "Hash": "nD1FbSykKUtjRNTwW8BDKrdxaoW0b4Zg2Q6W8lhn/YI=",
   "Source": "FlowerStore",
   "BasePath": "_content/FlowerStore",
   "Mode": "Default",
@@ -16,23 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\banner-deals.png",
-      "SourceId": "FlowerStore",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\",
-      "BasePath": "_content/FlowerStore",
-      "RelativePath": "images/banner-deals.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\banner-deals.png"
-    },
     {
       "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_1.png",
       "SourceId": "FlowerStore",
@@ -134,6 +117,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\flo_14.png"
+    },
+    {
+      "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_15.png",
+      "SourceId": "FlowerStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\",
+      "BasePath": "_content/FlowerStore",
+      "RelativePath": "images/flo_15.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\flo_15.png"
+    },
+    {
+      "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_16.png",
+      "SourceId": "FlowerStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\",
+      "BasePath": "_content/FlowerStore",
+      "RelativePath": "images/flo_16.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\flo_16.png"
     },
     {
       "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\flo_2.png",
@@ -287,6 +304,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sale_1.jpg"
+    },
+    {
+      "Identity": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\images\\sale_2.png",
+      "SourceId": "FlowerStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\2023-2024\\HK1\\ecommerce\\DoAn\\saigonflowerstore\\BE\\FlowerStore\\wwwroot\\",
+      "BasePath": "_content/FlowerStore",
+      "RelativePath": "images/sale_2.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sale_2.png"
     }
   ]
 }

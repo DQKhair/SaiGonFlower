@@ -30,4 +30,17 @@ namespace FlowerStore.Models
         public virtual ICollection<StockDetail> StockDetails { get; set; }
         public virtual ICollection<StoreDetail> StoreDetails { get; set; }
     }
+
+    public class ProductOfStore
+    {
+        public int StoreId { get; set; }
+        public object? StoreDetail { get; set; }
+    }
+    public class ProductOfStoreNew
+    {
+        public int StoreDetailId { get; set; }
+        public int? ProductIdStore { get; set; }
+        public int? QuantityProduct { get; set; }
+
+    }
 }

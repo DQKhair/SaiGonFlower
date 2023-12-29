@@ -127,6 +127,7 @@ body{
     list-style: none;
     display: flex;
     padding-left: 0;
+    position: relative;
 }
 
 .header-icon .list-icon li{
@@ -158,6 +159,40 @@ body{
     height: 17px;
     top: 30%;
     right: 10%;
+}
+
+.list-icon #info-block{
+    display: none;
+    position: absolute;
+    right: -13%;
+    margin-top: 2%;
+    top: 100%;
+    width: 70px;
+    z-index: 50;
+    background: white;
+    padding: 3% 6%;
+    box-shadow: 0px 0px 10px 5px gainsboro;
+    border-radius: 2px;
+}
+
+#info-block ul{
+    padding-left: 0;
+}
+
+#info-block ul li{
+    list-style-type: none;
+    padding: 15% 0;
+}
+
+#info-block li a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#info-block li a:hover{
+    color: #9A2B41;
 }
 
 

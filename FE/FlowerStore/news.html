@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Details</title>
     <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/details/body-top.css">
-    <link rel="stylesheet" href="css/details/body-bottom.css">
+    <link rel="stylesheet" href="css/details/body-top.css" />
+    <link rel="stylesheet" href="css/details/body-bottom.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="./Admin/assets/css/pagination/pagination.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat"
@@ -21,30 +22,54 @@
     <script src="js/loadSetting.js"></script>
   </head>
   <body>
-
     <header></header>
 
     <!-- Body -->
     <div id="body" class="body">
+      <h2 style="text-align: center; margin: 2% 0;">News</h2>
 
-        <div id="newsRoot"></div>
+      <div id="newsRoot"></div>
 
+      <div id="pagination" style="width: 50%;margin:auto; display: flex; justify-content: center;">
+        <div id="newsPagination" class="ms-3 border-2"></div>
+      </div>
     </div>
 
-
     <footer></footer>
+    
+
+    <script src="./Admin/assets/vendor/pagination/pagination.min.js"></script>
+    <script>
+      list();
+  
+      function list() {
+        $("#newsPagination").pagination({
+          dataSource: function (done) {
+            $.get(`https://localhost:7126/api/News/Web`, (data) => {
+              done(data);
+            }).fail((error) => {});
+          },
+          pageSize: 3,
+          pageRange: 2,
+          pageNumber: 1,
+          autoHidePrevious: true,
+          autoHideNext: true,
+  
+          // Need to fix for more effective
+          callback: function (data, pagination) {
+  
+            renderList(data);
+          },
+          className: "paginationjs-theme-blue paginationjs-big",
+        });
+      }
+  
+      function renderList(data) {
+        $("#newsRoot").empty();
+        $.each(data, (index, item) => {
+          $("#newsRoot").append(`<div class='py-3'>${item.content}</div>`);
+        });
+      }
+    </script>
   </body>
-  <script>
-        $.get(`https://localhost:7126/api/News`, data => {
-            renderNews(data)
-            // console.log(data)
-        }).fail(error => {
-
-        })
-
-        function renderNews(data) {
-            console.log(data)
-            $('#newsRoot').append(`<div>${data.content}</div>`);
-        }
-  </script>
 </html>

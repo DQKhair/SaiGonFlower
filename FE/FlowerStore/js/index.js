@@ -1,55 +1,151 @@
-$(document).ready(function () {
-  // Khi trang web tải xong, gửi yêu cầu GET đến API của bạn
-  $.ajax({
-    url: "https://localhost:7126/api/Products", // Thay thế bằng đúng URL API của bạn
-    type: "GET",
-    dataType: "json",
-    success: function (data) {
-      // Xử lý dữ liệu từ API ở đây
+$(document).ready(function () { 
+
+  if(localStorage.getItem("token") == null){
+    $.get(`https://localhost:7126/api/Products`, data=>{
       displayProducts(data);
-    },
-    error: function (error) {
-      console.log("Lỗi khi gửi yêu cầu đến API: ", error);
-    },
-  });
-  
-  function displayProducts(data) {
-    $(".products-list").empty();
-    if($(".products-list").empty()){
-    $.each(data, function (index, product) {
-      var productCard = $('<div class="products-card"></div>');
-      var cardImg = $(
-        `<div class="card-img"><a href='./detail.html?id=${product.productId}'>
-        <img src="https://localhost:7126${product.image1}" alt="" /></a></div>`
-      );
-      var cardContent = $('<div class="card-content"></div>');
-      var cardName = $(
-        `<div class="card-name"><a href='./detail.html?id=${product.productId}' class="detail-link" 
-        data-id='${product.productId}'>${product.productName}</a></div>`
-      );
-      var cardBody = $('<div class="card-body"></div>');
-      var cardPrice = $(
-        '<div class="card-price"><p> ' + product.price + " VND</p></div>"
-      );
-      var cardHeart = $(
-        '<div class="card-heart"><img src="imgs/icons/heart.svg" alt="" /></div>'
-      );
-  
-      cardContent.append(cardName);
-      cardBody.append(cardPrice);
-      cardBody.append(cardHeart);
-      cardContent.append(cardBody);
-      productCard.append(cardImg);
-      productCard.append(cardContent);
-      $(".products-list").append(productCard);
-  
-    })
-  };
+    }).fail(error =>{console.log("Lỗi khi gửi yêu cầu đến API: ", error);})
+
+    
+    function displayProducts(data) {
+      $(".products-list").empty();
+
+      $.each(data, function (index, product) {
+        var productCard = $('<div class="products-card"></div>');
+        var cardImg = $(`<div class="card-img"><a href='./detail.html?id=${product.productId}'>
+        <img src="https://localhost:7126${product.image1}" alt="" /></a></div>`);
+        var cardContent = $('<div class="card-content"></div>');
+        var cardName = $(`<div class="card-name"><a href='./detail.html?id=${product.productId}' 
+        class="detail-link" data-id='${product.productId}'>${product.productName}</a></div>`);
+        var cardBody = $('<div class="card-body"></div>');
+        var cardPrice = $('<div class="card-price"><p> ' + product.price + " VND</p></div>");
+        var cardHeart = $(`<div class="card-heart"><i class="far fa-heart fa-lg btnLike" 
+        data-id="${product.productId}"></i></div>`);
+    
+        cardBody.append(cardPrice,cardHeart);
+        cardContent.append(cardName,cardBody);
+        productCard.append(cardImg,cardContent);
+        $(".products-list").append(productCard);
+   
+      })
+
+      $('.btnLike').click(e => {
+          window.location.href="./login.html"
+      })
+    };
   }
 
+  if(localStorage.getItem("token") != null){
+    const token = localStorage.getItem("token");
+    const decodedToken = parseJwt(token);
+    const userId = parseInt(decodedToken.UserId);
+    console.log("id ne" + userId)
+
+    var productIds =[];
+
+    getFavoriteProductIds(displayProducts)
+
+    function getFavoriteProductIds(callback){
+      $.get(`https://localhost:7126/api/Likes/List/${userId}`, data=>{
+        productIds = data.map(item => item.productId);
+        callback();
+      }).fail(error =>{})
+    }
+    
+    $.get(`https://localhost:7126/api/Products`, data=>{
+      displayProducts(data);
+    }).fail(error =>{console.log("Lỗi khi gửi yêu cầu đến API: ", error);})
+
+    
+    function displayProducts(data) {
+      $(".products-list").empty();
+  
+      if($(".products-list").empty()){
+      $.each(data, function (index, product) {
+        const checkLike = productIds.includes(product.productId);
+
+  
+        var productCard = $('<div class="products-card"></div>');
+        var cardImg = $(`<div class="card-img"><a href='./detail.html?id=${product.productId}'>
+        <img src="https://localhost:7126${product.image1}" alt="" /></a></div>`);
+        var cardContent = $('<div class="card-content"></div>');
+        var cardName = $(`<div class="card-name"><a href='./detail.html?id=${product.productId}' 
+        class="detail-link" data-id='${product.productId}'>${product.productName}</a></div>`);
+        var cardBody = $('<div class="card-body"></div>');
+        var cardPrice = $('<div class="card-price"><p> ' + product.price + " VND</p></div>");
+        if(checkLike){
+          var cardHeart = $(`<div class="card-heart"><i class="fas fa-heart fa-lg btnLike" 
+          data-id="${product.productId}" data-status="true"></i></div>`).css('color', '#ff2e4d');
+        }
+        else{
+          var cardHeart = $(`<div class="card-heart"><i class="far fa-heart fa-lg btnLike" 
+          data-id="${product.productId}" ></i></div>`);
+        }
+    
+        cardBody.append(cardPrice,cardHeart);
+        cardContent.append(cardName,cardBody);
+        productCard.append(cardImg,cardContent);
+        $(".products-list").append(productCard);
+   
+      })
+  
+      $('.btnLike').click(e => {
+        $(e.target).toggleClass('far fa-heart fa-lg fas fa-heart fa-lg')
+        if($(e.target).hasClass('fas fa-heart fa-lg'))
+          $(e.target).css('color', '#ff2e4d');
+        else
+          $(e.target).css('color', 'black');
+  
+          if($(e.target).data("status") == null){
+            var data = {
+              customerId: userId,
+              productId: $(e.target).data("id"),
+              likeStatus: true
+            }
+
+            $.ajax({
+              url: `https://localhost:7126/api/Likes`,
+              type: "POST",
+              data: JSON.stringify(data),
+              contentType: "application/json",
+              dataType: "json",
+              success: (response) => {
+
+              },
+              error: function (error) {
+                
+              },
+            });
+            return;
+          }
+          
+          if($(e.target).data("status") != null){
+
+            var data = {
+              customerId: userId,
+              productId: $(e.target).data("id"),
+            }
+
+            $.ajax({
+              url: `https://localhost:7126/api/Likes`,
+              type: "PUT",
+              data: JSON.stringify(data),
+              contentType: "application/json",
+              dataType: "json",
+              success: (response) => {
+                
+              },
+              error: error => {
+                console.log(error)
+              },
+            });
+            
+          }
+        })
+      };
+    
+  }
+  }
 });
-
-
 
 
 // đếm số lượng
@@ -128,6 +224,13 @@ $.ajax({
       }
   });
 
+}
+
+
+function parseJwt(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(atob(base64));
 }
 
 

@@ -41,6 +41,11 @@ namespace FlowerStore.Models
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
         public virtual DbSet<RecipeDetail> RecipeDetails { get; set; } = null!;
         public virtual DbSet<CountIndex> CountIndex { get; set; } = null!;
+        public virtual DbSet<Like> Likes { get; set; } = null!;
+        public virtual DbSet<ProductView> ProductViews { get; set; } = null!;
+        public virtual DbSet<Reviews> Reviews { get; set; } = null!;
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -196,9 +201,10 @@ namespace FlowerStore.Models
 
             modelBuilder.Entity<Material>(entity =>
             {
+                entity.HasKey(e => e.MaterialId);
                 entity.Property(e => e.MaterialId).HasColumnName("Material_Id");
-
                 entity.Property(e => e.MaterialName).HasMaxLength(50);
+                entity.Property(e => e.Supplier).HasMaxLength(100);
             });
 
             modelBuilder.Entity<News>(entity =>
@@ -389,6 +395,61 @@ namespace FlowerStore.Models
                 entity.Property(e => e.Date).HasColumnType("date");
 
             });
+
+            modelBuilder.Entity<Like>(entity =>
+            {
+                //entity.HasKey(l => l.LikeId).HasName("LikeId");
+                entity.HasOne(p => p.Product)
+                        .WithMany(p => p.Likes)
+                        .HasForeignKey(p => p.ProductId)
+                        .HasConstraintName("FK_Likes_ProductId_540C7B00");
+
+                entity.HasOne(c => c.Customer)
+                        .WithMany(c => c.Likes)
+                        .HasForeignKey(c => c.CustomerId)
+                        .HasConstraintName("FK_Likes_CustomerI_55009F39");
+
+            });
+
+
+            modelBuilder.Entity<ProductView>(entity =>
+            {
+
+                entity.Property(pv => pv.ViewCount)
+                    .IsRequired();
+                entity.Property(pv => pv.PurchaseCount)
+                    .IsRequired();
+
+                entity.HasOne(pv => pv.Products)
+                    .WithMany(p => p.ProductViews)
+                    .HasForeignKey(pv => pv.ProductId)
+                    .HasConstraintName("FK_ProductView_Products");
+
+                entity.HasOne(pv => pv.Customers)
+                    .WithMany(c => c.ProductViews)
+                    .HasForeignKey(pv => pv.CustomerId)
+                    .HasConstraintName("FK_ProductView_Customers");
+            });
+
+            modelBuilder.Entity<Reviews>(entity =>
+            {
+                entity.HasOne(c => c.Customer)
+                      .WithMany(r => r.Reviews)
+                      .HasForeignKey(c => c.CustomerId)
+                      .HasConstraintName("FK_Reviews_Customers");
+
+                entity.HasOne(c => c.Product)
+                      .WithMany(r => r.Reviews)
+                      .HasForeignKey(c => c.ProductId)
+                      .HasConstraintName("FK_Reviews_Products");
+
+                entity.HasOne(c => c.Order)
+                      .WithMany(r => r.Reviews)
+                      .HasForeignKey(c => c.OrderId)
+                      .HasConstraintName("FK_Reviews_Orders");
+            });
+
+
             OnModelCreatingPartial(modelBuilder);
         }
 

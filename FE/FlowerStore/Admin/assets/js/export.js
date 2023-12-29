@@ -73,7 +73,6 @@ if(userRole === "Company"){
                                         data-created-date='${item.formatCreatedDate}'
                                         data-iestatus-id = '${item.iestatusId}'>
                                   </i>
-                                  <i class='bx bx-trash fs-4 ms-3 text-center'></i>
                               </td>`);
                   $("#import-list").append(row);
                 });
@@ -82,12 +81,10 @@ if(userRole === "Company"){
                   $("#importIdInput").val($(e.target).data("import-id"));
                   $("#createdDate").text($(e.target).data("created-date"));
                   $('#iestatusId').val($(e.target).data("iestatus-id"));
-                    if($('#iestatusId').val() == 3){
-                        $('#btnValid').remove()                       
-                    }
-                    if ($('#iestatusId').val() < 3){
-                        $('#btnValid').remove() 
-                        
+                    if($('#iestatusId').val() <= 3){
+                        $('#btnValid').remove()   
+                        $('#detailClose').parent().removeClass('justify-content-between');
+                        $('#detailClose').parent().addClass('justify-content-center');
                     }
                     if ($('#iestatusId').val() == 1){
                         if($('#btnValid').length == 1){
@@ -117,9 +114,10 @@ if(userRole === "Company"){
                       const divParent = $(`<div></div>`).addClass('w-50 my-2');
                       const div = $(`<div></div>`).addClass('d-flex justify-content-evenly align-item-center');
                       const label = $(`<label>Tên nguyên liệu: </label>`).addClass('form-label ms-4 ps-3');
-                      const input1 = $(`<input value='${item.materialName}' readonly></input>`).addClass('form-control w-50');
+                      const input1 = $(`<input id='${item.materialId}' value='${item.materialName}' readonly></input>`)
+                      .addClass('form-control w-50 mate-id');
                       const input2 = $(`<input style='width: 15%' value='${item.quantity}' readonly></input>`)
-                      .addClass('form-control mx-2 text-center');
+                      .addClass('form-control mx-2 text-center mate-quan');
                         
                       div.append(input1,input2)
                       divParent.append(label,div);

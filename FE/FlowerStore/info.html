@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info</title>
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/details/body-top.css">
+    <link rel="stylesheet" href="css/details/body-bottom.css">
+    <link rel="stylesheet" href="css/footer.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/fbda8849fb.js"
+      crossorigin="anonymous"
+    ></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <script src="js/commonLayout.js"></script>
+    <script src="js/loadSetting.js"></script>
+  </head>
+  <body>
+    <style>
+      .TimeLine_container{
+        background-color: #fff;
+      }
+      ul {
+  list-style: none;
+  margin: 0 !important;
+}
+
+a {
+  text-decoration: none !important;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+}
+
+button:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  margin: 0;
+}
+p {
+  font-size: 14px;
+  line-height: 26px;
+  margin: 0;
+}
+.container {
+  width: 100%;
+  max-width: 1140px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.timelines h2 {
+  text-align: center;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 40px;
+  font-size: 32px;
+}
+.d-flex-2 {
+  display: flex;
+  align-items: center;
+}
+.timeline-area {
+  padding: 80px 0;
+}
+.all-timelines {
+  position: relative;
+}
+.timelines h2 {
+  text-align: center;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+.all-timelines::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 100%;
+  width: 2px;
+  background: #efa22f;
+  top: 20px;
+}
+.single-timeline {
+  margin-bottom: 22px;
+}
+.timeline-blank {
+  width: 50%;
+}
+.timeline-text {
+  width: 50%;
+  padding-left: 30px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+}
+.timeline-text h6 {
+  color:#000;
+  font-weight: 900;
+  display: inline-block;
+  font-size: 1rem;
+}
+.timeline-text span {
+  color: #000;
+  display: block;
+  width: 100%;
+}
+.single-timeline:nth-child(even) .timeline-text span {
+  text-align: right;
+}
+.t-square {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: -6px;
+  background: #efa22f;
+}
+.single-timeline:nth-child(even) {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+.single-timeline:nth-child(even) .t-square {
+  right: -6px;
+  left: unset;
+}
+.single-timeline:nth-child(even) .timeline-text {
+  padding-left: 0;
+  padding-right: 30px;
+  text-align: right;
+}
+
+@media all and (max-width: 991px) {
+}
+@media all and (max-width: 768px) {
+  .all-timelines::before {
+    right: unset;
+    top: 0;
+  }
+  .single-timeline:nth-child(2n) .timeline-text {
+    padding-left: 30px;
+    padding-right: 0;
+    text-align: left;
+  }
+  .single-timeline:nth-child(2n) .t-square {
+    left: -6px;
+    right: unset;
+  }
+  .timeline-blank {
+    display: none;
+  }
+  .timeline-text {
+    width: 100%;
+  }
+  .single-timeline:nth-child(even) .timeline-text span {
+    text-align: left !important;
+  }
+}
+@media all and (max-width: 575px) {
+}
+@media all and (max-width: 360px) {
+  .all-timelines::before {
+    top: 32px;
+  }
+}
+      </style>
+    <header></header>
+
+    <!-- Body -->
+    <div id="body" class="body p-5">
+
+        <div class="container_InfoCus mx-auto" style="width: 80%;">
+            <div class="pagetitle">
+                <h1>Profile</h1>
+                <nav>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">Profile</li>
+                  </ol>
+                </nav>
+              </div><!-- End Page Title -->
+          
+              <section class="section profile">
+                <div class="row">
+                  <div class="col-xl-8 w-100">
+          
+                    <div class="card">
+                      <div class="card-body pt-3" style="border: 1px solid #fff;">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+          
+                          <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                          </li>
+
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                          </li>
+
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-ordertrack">History order</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Order tracking</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                          </li>
+          
+                        </ul>
+                        <div class="tab-content pt-2">
+                          <!-- Over View -->
+                          <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <h5 class="card-title">Profile Details</h5>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">ID</div>
+                                        <div class="col-lg-9 col-md-8" id="customerId"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Full Name</div>
+                                        <div class="col-lg-9 col-md-8" id="customerName"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Phone</div>
+                                        <div class="col-lg-9 col-md-8" id="customerPhone"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Address</div>
+                                        <div class="col-lg-9 col-md-8" id="customerAddress"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Point</div>
+                                        <div class="col-lg-9 col-md-8" id="customerPoint"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">User Name</div>
+                                        <div class="col-lg-9 col-md-8" id="customerUserName"></div>
+                                    </div>
+                          </div>
+                          
+                          <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                            <!-- Profile Edit Form -->
+                            <form>
+                                <!-- <div class="row mb-3">
+                                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
+                                        Image</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <img src="/Admin/assets/img/profile-img.jpg" alt="Profile">
+                                        <div class="pt-2">
+                                            <a href="#" class="btn btn-primary btn-sm"
+                                                title="Upload new profile image"><i
+                                                    class="bi bi-upload"></i></a>
+                                            <a href="#" class="btn btn-danger btn-sm"
+                                                title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="row mb-3">
+                                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="fullName" type="text" class="form-control" id="fullName"
+                                            value="">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">PhoneNumber</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="phone" type="text" class="form-control" id="Phone"
+                                        value="" pattern="[0-9]{10,11}" title="Số điện thoại phải từ 10 đến 11 chữ số." maxlength="11">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Address"
+                                        class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="address" type="text" class="form-control" id="Address"
+                                            value="">
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save
+                                        Changes</button>
+                                </div>
+                            </form><!-- End Profile Edit Form -->
+
+                        </div>
+
+            <!-- Khai -->
+            <div class="tab-pane fade profile-edit pt-3" id="profile-ordertrack">
+          
+              <!-- Profile Edit Form -->
+              <div class="table-responsive">
+                  <table class="table text-center">
+                      <thead>
+                        <tr>
+                          <th scope="col">Code order</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Total quantity</th>
+                          <th scope="col">total money</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="listHistoryOrder">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td colspan="2">Larry the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+
+            </div>
+
+            <div class="tab-pane fade pt-3" id="profile-settings">
+              <div class="table-responsive">
+                <table class="table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">Code order</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Method</th>
+                      <th>Action</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="listOrderTracking">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td colspan="2">Larry the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- End Khai -->
+                          <div class="tab-pane fade pt-3" id="profile-change-password">
+                            <!-- Change Password Form -->
+                            <form id="changePasswordForm">
+                              <div class="row mb-3">
+                                  <label for="currentPassword"
+                                      class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                  <div class="col-md-8 col-lg-9">
+                                      <input name="currentPassword" type="password" class="form-control"
+                                          id="currentPassword">
+                                  </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                  <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                                      Password</label>
+                                  <div class="col-md-8 col-lg-9">
+                                      <input name="newPassword" type="password" class="form-control"
+                                          id="newPassword">
+                                  </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                  <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter
+                                      New Password</label>
+                                  <div class="col-md-8 col-lg-9">
+                                      <input name="renewPassword" type="password" class="form-control"
+                                          id="renewPassword">
+                                  </div>
+                              </div>
+
+                              <div class="text-center">
+                                  <button type="button" class="btn btn-primary" id="changePasswordBtn">Change
+                                      Password</button>
+                              </div>
+                          </form><!-- End Change Password Form -->
+                          </div>
+          
+                        </div><!-- End Bordered Tabs -->
+          
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>
+              </section>
+        </div>
+    </div>
+
+<!-- modal bootstrap -->
+<!-- Modal -->
+<div class="modal fade" id="OrderDetailForCus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 " id="exampleModalLabel">Detail order</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-sm">
+                <div class="container my-3">
+                  <p class="fs-5">Order's ID: <span id="orderIdDetail" style="font-style: italic; font-size: 1rem;">Abc</span></p>
+                  <p class="fs-5">Customer's ID: <span id="customerIdDetail" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                  <p class="fs-5">Customer name: <span id="customerNameDetail" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                  <p class="fs-5">Address: <span id="addressDetail" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                  <p class="fs-5">Phone: <span id="phoneDetail" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                </div>
+                  <div class="table-responsive">
+                    <table class="table text-center">
+                      <thead>
+                        <tr>
+                          <th scope="col">Product name</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Price</th>
+                        </tr>
+                      </thead>
+                      <tbody id="container_detailHistory">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td colspan="2">Larry the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- order tracking  -->
+<!-- Modal -->
+<div class="modal fade w-100" id="OrderTrackingForCus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 fw-" id="exampleModalLabel">Detail order</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm TimeLine_container">
+
+              <div class="timeline-area">
+                <div class="container">
+                  <div class="timelines">
+                    <h2>Detail status</h2>
+                  </div>
+                  <div class="all-timelines" id="content_timelineForCus">
+
+                    <!--SINGLE TIMELINE-->
+                    <div class="single-timeline d-flex-2">
+                      <div class="timeline-blank"></div>
+                      <div class="timeline-text d-flex-2">
+                        <span>
+                          <h6>April 2019</h6> — The launch of Aryacoin; AYA ICO, resulting in over 30BTC collected
+                        </span>
+                        <div class="t-square"></div>
+                      </div>
+                    </div>
+                
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="OrderReviewsForCus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 " id="exampleModalLabel">Reviews order</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm">
+              <div class="container my-3">
+                <p class="fs-5">Order's ID: <span id="orderIdReviews" style="font-style: italic; font-size: 1rem;">Abc</span></p>
+                <p class="fs-5">Customer's ID: <span id="customerIdReviews" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                <p class="fs-5">Customer name: <span id="customerNameReviews" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                <p class="fs-5">Address: <span id="addressReviews" style="font-style: italic; font-size: 1rem;">abc</span></p>
+                <p class="fs-5">Phone: <span id="phoneReviews" style="font-style: italic; font-size: 1rem;">abc</span></p>
+              </div>
+                <div class="table-responsive">
+                  <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody id="container_ReviewsHistory">
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="container my-3">
+                  <form id="submitReviews">
+                    <div class="container_reviewsPro m-5">
+
+                      <div class="card_Reviews border border-1 p-5 mb-2">
+
+                        <div class="row">
+                          <div class="col"> 
+                            <div class="mb-3">
+                            <input type="text" class="form-control" id="proId" value="0" readonly hidden>
+                          </div>
+                        </div>
+                          <div class="col"> 
+                            <div class="mb-3">
+                            <label for="proName" class="form-label">Product</label>
+                            <input type="text" class="form-control" id="proName" value="Rose" readonly>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="mb-3">
+                            <label for="proName" class="form-label">Vote star</label>
+                            <select id="reviewsStar" class="form-select" aria-label="Default select example" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option selected value="5">5</option>
+                          </select>
+                          </div>
+                        </div>
+                        </div>
+
+                       <div class="col-12">
+                        <div class="mb-3">
+                          <label for="contentReviews" class="form-label">Content reviews</label>
+                          <textarea class="form-control" id="contentReviews" rows="3" required></textarea>
+                        </div>
+                       </div>
+                      </div>
+
+                    </div>
+                      <button  style="margin-left: 50%;transform: translateX(-50%);" type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end modal bootstrap -->
+
+    <footer></footer>
+    <script src="./js/infoCus.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+
+  <script>
+    $(document).ready(function () {
+        // Replace 'YOUR_API_URL' with the actual URL of your API endpoint
+        var apiUrl = 'https://localhost:7126/api/Customers/';
+
+        // Replace 'CUSTOMER_ID' with the actual customer ID you want to retrieve
+        var token = localStorage.getItem("token");
+
+        if (token) {
+            var decodedToken = parseJwt(token);
+            var userId = decodedToken.UserId;
+            console.log(userId);
+
+            // Gọi API để lấy thông tin khách hàng dựa trên userId
+            $.get(apiUrl + userId, function (data) {
+                // Xử lý dữ liệu trả về từ API
+                displayCustomerInfo(data);
+            })
+                .fail(function () {
+                    // Xử lý trường hợp lỗi
+                    $('#customerId').text('Không thể tải thông tin khách hàng.');
+                });
+        } else {
+            // Xử lý trường hợp không có token
+            $('#customerId').text('Không có token.');
+        }
+
+
+        //edit
+        var apiUrl = 'https://localhost:7126/api/Customers/';
+
+        $.get(apiUrl + userId, function (data) {
+            // Hiển thị dữ liệu từ cơ sở dữ liệu vào các trường input
+            $('#fullName').val(data.customerName);
+            $('#Phone').val(data.customerPhone);
+            $('#Address').val(data.customerAddress);
+        })
+
+        // Click event for the Save Changes button
+        $('#saveChangesBtn').on('click', function () {
+            // Get the form data
+            var formData = {
+                CustomerName: $('#fullName').val(),
+                CustomerPhone: $('#Phone').val(),
+                CustomerAddress: $('#Address').val()
+            };
+
+            // Get the customer ID from your authentication token or wherever it's available
+            var token = localStorage.getItem("token");
+            var decodedToken = parseJwt(token);
+            var customerId = decodedToken.UserId;
+
+             // Validate định dạng số điện thoại
+             if (!isValidPhoneNumber(formData.CustomerPhone)) {
+                alert('Phone number format is incorrect. The phone number must have 10 to 11 digits.');
+                return;
+            }
+
+
+            // Make the AJAX request to update the customer
+            $.ajax({
+                url: apiUrl + customerId,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function () {
+                    alert('Profile updated successfully!');
+                    // Optionally, you can redirect or perform other actions after successful update
+                },
+                error: function () {
+                    alert('Profile update failed. Please try again.');
+                }
+            });
+        });
+
+           // Hàm kiểm tra định dạng số điện thoại
+           function isValidPhoneNumber(phoneNumber) {
+            // Loại bỏ các ký tự không phải số từ chuỗi
+            var numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+            // Kiểm tra xem số điện thoại có độ dài từ 10 đến 11 chữ số hay không
+            return numericPhoneNumber.length >= 10 && numericPhoneNumber.length <= 11;
+        }
+
+
+        //pass
+        var apiUrl = 'https://localhost:7126/api/Customers/';
+
+            // Replace 'CUSTOMER_ID' with the actual customer ID you want to retrieve
+            var token = localStorage.getItem("token");
+            var decodedToken = parseJwt(token);
+            var customerId = decodedToken.UserId;
+
+            // Click event for the Change Password button
+            $('#changePasswordBtn').on('click', function () {
+                // Get the form data
+                var formData = {
+                    CurrentPassword: $('#currentPassword').val(),
+                    NewPassword: $('#newPassword').val(),
+                    RenewPassword: $('#renewPassword').val()
+                };
+                console.log(formData);
+                if ($('#newPassword').val() != $('#renewPassword').val()) {
+                    alert('New password and confirm password do not match.');
+                    return; // Stop execution if passwords do not match
+                }
+
+                  // Validate password format
+                  if (!isValidPassword(formData.NewPassword)) {
+                    alert('Password does not meet the requirements. Password must have at least 8 characters, including uppercase letters, lowercase letters, numbers and special characters.');
+                    return;
+                }
+
+                // Make the AJAX request to change the password
+                $.ajax({
+                    url: apiUrl + customerId + '/changepassword',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        alert(response);
+                        // Optionally, you can redirect or perform other actions after successful password change
+                    },
+                    error: function (error) {
+                        alert('Failed to change password. ' + error.responseText);
+                    }
+                });
+            });
+    });
+
+        // Function to validate password format
+        function isValidPassword(password) {
+        // Use a regular expression to check the password format
+        var passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+    }
+
+    // Hàm hiển thị thông tin khách hàng
+    function displayCustomerInfo(customer) {
+        $('#customerId').text(customer.customerId);
+        $('#customerName').text(customer.customerName);
+        $('#customerPhone').text(customer.customerPhone);
+        $('#customerAddress').text(customer.customerAddress);
+        $('#customerPoint').text(customer.customerPoint);
+        $('#customerUserName').text(customer.customerUserName);
+    }
+
+    // Hàm parse JWT
+    function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+</script>
+
+</html>

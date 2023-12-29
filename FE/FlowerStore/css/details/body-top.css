@@ -47,7 +47,9 @@
 .top-right .content .content-price{
     font-size: 25px;
     margin-top: 5%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    color: #9a2b41;
 }
 
 .top-right .content hr{

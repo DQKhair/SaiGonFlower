@@ -666,10 +666,10 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "Microsoft.AspNetCore.Http.Abstractions/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "Microsoft.AspNetCore.Http.Features": "2.1.1",
           "System.Text.Encodings.Web": "4.5.0"
         },
         "compile": {
@@ -4079,23 +4079,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
-      },
-      "VNPayPackage/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "compile": {
-          "lib/net6.0/VNPayPackage.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/VNPayPackage.dll": {
-            "related": ".xml"
-          }
-        }
       }
     }
   },
@@ -4920,16 +4903,16 @@
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
-      "sha512": "Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+    "Microsoft.AspNetCore.Http.Abstractions/2.1.1": {
+      "sha512": "kQUEVOU4loc8CPSb2WoHFTESqwIa8Ik7ysCBfTwzHAd0moWovc9JQLmhDIHlYLjHbyexqZAlkq/FPRUZqokebw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "path": "microsoft.aspnetcore.http.abstractions/2.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.xml",
-        "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.abstractions.2.1.1.nupkg.sha512",
         "microsoft.aspnetcore.http.abstractions.nuspec"
       ]
     },
@@ -11615,33 +11598,20 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
-    },
-    "VNPayPackage/2.1.0": {
-      "sha512": "jfUENvVapSfPzh7puB+Dx2zU18mZeqb9wnHhH7RntFoDRa1INZX0TRvAUmLuEudvJ6VF1JJ4w2hS7crAxpmfAA==",
-      "type": "package",
-      "path": "vnpaypackage/2.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net6.0/VNPayPackage.dll",
-        "lib/net6.0/VNPayPackage.xml",
-        "vnpaypackage.2.1.0.nupkg.sha512",
-        "vnpaypackage.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "BCrypt.Net >= 0.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.23",
+      "Microsoft.AspNetCore.Http.Abstractions >= 2.1.1",
+      "Microsoft.AspNetCore.Http.Features >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 6.0.23",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.23",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.23",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.23",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.16",
-      "Swashbuckle.AspNetCore >= 6.5.0",
-      "VNPayPackage >= 2.1.0"
+      "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
   "packageFolders": {
@@ -11691,6 +11661,14 @@
             "target": "Package",
             "version": "[6.0.23, )"
           },
+          "Microsoft.AspNetCore.Http.Abstractions": {
+            "target": "Package",
+            "version": "[2.1.1, )"
+          },
+          "Microsoft.AspNetCore.Http.Features": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.23, )"
@@ -11716,10 +11694,6 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.5.0, )"
-          },
-          "VNPayPackage": {
-            "target": "Package",
-            "version": "[2.1.0, )"
           }
         },
         "imports": [
@@ -11733,24 +11707,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.21, 6.0.21]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.21, 6.0.21]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.21, 6.0.21]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.21, 6.0.21]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -11759,7 +11715,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   },

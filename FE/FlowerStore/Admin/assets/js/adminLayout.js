@@ -7,6 +7,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('#chat').load('./assets/components/chat.html');
+}); 
+
+$(document).ready(function() {
     $('#sidebar').load('./assets/components/sidebar.html');
 });
 

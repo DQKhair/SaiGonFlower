@@ -9,5 +9,7 @@ namespace FlowerStore.Temp
         public int? ImportId { get; set; }
         public int[]? MaterialId { get; set; }
 
-    } 
+        public int? IestatusId { get; set; }
+
+    }
 }

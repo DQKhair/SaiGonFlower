@@ -28,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/chat.css">
 
 </head>
 
@@ -54,10 +55,151 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-    
+      <div class="col-12">
+        <div class="button-body">
+          <button data-bs-toggle="modal" data-bs-target="#ModalCreateVoucher" type="submit" id="addOrder" class="btn btn-primary mb-3" style="border-radius: 0.5rem; width: auto;">Thêm khách hàng</button>
+        </div>
+        <div class="card recent-sales overflow-auto">
+          <div class="card-body">
+              <h5 class="fw-bold mt-4" style="color: #012970;">Danh sách khách hàng</h5>
+  
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Tên khách hàng</th>
+                          <th>Số điện thoại</th>
+                          <th>Địa chỉ</th>
+                          <th>Status</th>
+                          <th>Point</th>
+                          <th>UserName</th>
+                          <th>Tùy chọn</th>
+                      </tr>
+                  </thead>
+                  <tbody id="customerTable">
+  
+                  </tbody>
+              </table>
+  
+          </div>
+      </div>
+      </div>
     </section>
 
+
+    <!-- Modal Create -->
+<div class="modal fade" id="ModalCreateVoucher" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelAddVoucher">Thêm khách hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form id="addCustomerForm">
+          <div class="mb-3">
+              <label for="InputVoucherName" class="form-label">Họ và Tên</label>
+              <input type="text" class="form-control" id="customerName" required>
+          </div>
+          <div class="mb-3">
+              <label for="InputVoucherPoint" class="form-label">Số điện thoại</label>
+              <input type="text" class="form-control" id="customerPhone" required>
+          </div>
+          <div class="mb-3">
+              <label for="InputVoucherValue" class="form-label">Địa chỉ</label>
+              <input type="text" class="form-control" id="customerAddress" required>
+          </div>
+          <div class="mb-3">
+              <label for="InputVoucherQuantity" class="form-label">UserName</label>
+              <input type="text"  class="form-control" id="customerUserName1" required>
+          </div>
+          <div class="mb-3">
+              <label for="InputVoucherExpire" class="form-label">Password</label>
+              <input type="password" class="form-control" id="customerPassword1" required>
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            <button type="button" id="add_voucher" class="btn btn-primary " data-bs-dismiss="modal" >Thêm</button>
+          </div>
+      </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- End modal Create -->
+
+<!-- Modal Edit -->
+<div class="modal fade" id="ModalEditVoucher" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelEditVoucher">Sửa khách hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        
+        <form id="updateCustomerForm">
+            <div class="mb-3">
+                <label for="InputVoucherName" class="form-label">Tên khách hàng</label>
+                <input type="text" class="form-control" id="customerName2" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputVoucherPoint" class="form-label">Số điện thoại</label>
+                <input type="text" class="form-control" id="customerPhone2" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputVoucherValue" class="form-label">Địa chỉ</label>
+                <input type="text" class="form-control" id="customerAddress2" required>
+            </div>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            <button type="button" id="Edit_voucher" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>
+          </div>
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- End Model edit -->
+
+<!-- Modal Edit -->
+<div class="modal fade" id="ModalEditVoucher1" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelEditVoucher">Đổi mật khẩu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        
+        <form id="updateCustomerForm1">
+            <h5>Bạn có muốn reset password tài khoản này</h5>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            <button type="button" id="Edit_voucher1" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>
+          </div>
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- End Model edit -->
+
   </main><!-- End #main -->
+
+  <div id="chat"></div>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -67,12 +209,17 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script
+  src="https://kit.fontawesome.com/fbda8849fb.js"
+  crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.12/signalr.min.js"></script> 
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="./assets/js/main.js"></script>
   <script src="./assets/js/adminLayout.js"></script>
+  <script src="./assets/js/customer.js"></script>
 
 </body>
 

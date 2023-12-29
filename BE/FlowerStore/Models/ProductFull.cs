@@ -21,6 +21,7 @@ namespace FlowerStore.Models
 
         public int StoreId { get; set; }
 
+        public string? StoreDistrict { get; set; }
 
         public int? Quantity { get; set; }
     }

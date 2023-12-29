@@ -13,48 +13,53 @@ $(document).ready(()=>{
         const url = new URL(window.location.href);
         const id = url.searchParams.get('id');
         let quantity = $("#quantity_cart_item").val();
-
-        console.log(typeof(quantity))
-
-        $.get("https://localhost:7126/api/Products/"+id,(data)=>{
-            console.log(data);
-            
-            var retrievedObject = localStorage.getItem("cart");
-            
-            var parsedObject = JSON.parse(retrievedObject);
-            var productId = data.productId;
-            
-
-            if(retrievedObject == null || retrievedObject == undefined || retrievedObject == "null" || retrievedObject == "undefined")
-            {
-                var dataLocalStorage = { [productId]: { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity } };
-                var jsonString = JSON.stringify(dataLocalStorage);
-                localStorage.setItem("cart", jsonString);
-                alert("Thêm thành công sản phẩm "+ data.productName);
-            }else
-            {
-
-                if(parsedObject && parsedObject.hasOwnProperty(productId))
+        const selectValue = $("#SelectStoreName").val();
+        if(selectValue == "" || selectValue == null || selectValue == undefined || selectValue == "undefined")
+        {
+            alert("Vui lòng chọn cửa hàng");
+        }else
+        {
+            $.get("https://localhost:7126/api/Products/"+id,(data)=>{
+                console.log(data);
+                
+                var retrievedObject = localStorage.getItem("cart");
+                
+                var parsedObject = JSON.parse(retrievedObject);
+                var productId = data.productId;
+                
+    
+                if(retrievedObject == null || retrievedObject == undefined || retrievedObject == "null" || retrievedObject == "undefined")
                 {
-                    console.log(typeof(parsedObject[productId].quantity ))
-                    
-                    let quantityExists = parseInt(parsedObject[productId].quantity) + parseInt(quantity)
-    
-                    console.log(quantityExists);
-    
-                    parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantityExists };
-    
+                    var dataLocalStorage = { [productId]: { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity,storeId: selectValue } };
+                    var jsonString = JSON.stringify(dataLocalStorage);
+                    localStorage.setItem("cart", jsonString);
+                    alert("Thêm thành công sản phẩm "+ data.productName);
                 }else
-                { 
-                    parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity };
+                {
+    
+                    if(parsedObject && parsedObject.hasOwnProperty(productId))
+                    {
+                        console.log(typeof(parsedObject[productId].quantity ))
+                        
+                        let quantityExists = parseInt(parsedObject[productId].quantity) + parseInt(quantity)
+        
+                        console.log(quantityExists);
+        
+                        parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantityExists,storeId: selectValue };
+        
+                    }else
+                    { 
+                        parsedObject[productId] = { productName: data.productName, Price: data.price, image1: data.image1, categoryId: data.categoryId, quantity: quantity,storeId: selectValue };
+                    }
+                    var jsonString = JSON.stringify(parsedObject);
+                    localStorage.setItem("cart", jsonString);
+                    alert("Thêm thành công sản phẩm "+ data.productName);
+                    reFreshDisplay()
                 }
-                var jsonString = JSON.stringify(parsedObject);
-                localStorage.setItem("cart", jsonString);
-                alert("Thêm thành công sản phẩm "+ data.productName);
-                reFreshDisplay()
-            }
-            
-        })
+                
+            })
+        }
+
     })
 
     //End add product vào local storage
@@ -99,6 +104,8 @@ $(document).ready(()=>{
                         const p_cartItem_productName = $("<p></p>").text(product.productName);
                     const div_cartItem_img = $("<div></div>").addClass("cartItem_img");
                         const img_cartItem_img = $("<img />").attr({"src":"https://localhost:7126"+product.image1,"alt":"hình ảnh sản phẩm trong giỏ hàng"});
+                    const div_cartItem_storeId = $("<div></div>").addClass("cartItem_storeId")
+                        const p_cartItem_storeId = $("<p></p>").text(product.storeId)
                 const div_cart_productPrice = $("<div></div>").addClass("cart_productPrice");
                     const p_cart_productPrice = $("<p></p>").text(product.Price.toLocaleString("vi-VN") + " VNĐ");
                 const div_cart_productQuantity = $("<div></div>").addClass("cart_productQuantity");
@@ -112,10 +119,11 @@ $(document).ready(()=>{
                 div_cart_productTotalMoney.append(p_MoneyTotal);
                 div_cart_productQuantity.append(input_quantity);
                 div_cart_productPrice.append(p_cart_productPrice);
+                div_cartItem_storeId.append(p_cartItem_storeId);
                 div_cartItem_img.append(img_cartItem_img);
                 div_cartItem_productName.append(p_cartItem_productName);
                 div_cart_product.append(div_cartItem_img,div_cartItem_productName);
-                div_container_cartItem.append(div_cart_product,div_cart_productPrice,div_cart_productQuantity,div_cart_productTotalMoney,div_cart_productAction);
+                div_container_cartItem.append(div_cart_product,div_cartItem_storeId,div_cart_productPrice,div_cart_productQuantity,div_cart_productTotalMoney,div_cart_productAction);
                 $("#tableCart").append(div_container_cartItem,br);
                 
                 //handle update giá trị
@@ -166,8 +174,8 @@ $(document).ready(()=>{
             })
             //Show Total Pay
 
-            TotalMoneyPay.text(`Tổng tiền đơn hàng: ${(totalMoneyMethodPay).toLocaleString("vi-VN")} VNĐ`).attr("style","color:red");
-            TotalQuantityPay.text(`Tổng thanh toán ( ${countQuantityItemCart} sản phẩm )`);
+            TotalMoneyPay.text(`Total amount of the order: ${(totalMoneyMethodPay).toLocaleString("vi-VN")} VNĐ`).attr("style","color:red");
+            TotalQuantityPay.text(`Total number of payment orders ( ${countQuantityItemCart} Product )`);
 
     }
 
@@ -200,57 +208,79 @@ $(document).ready(()=>{
             $("#btnLoadCheckOut").click((e)=>{
                
                 e.preventDefault();
-                
-            //Begin add vào localStorage
-            const nameCus = $("#inputName").val();
-            const phoneCus = $("#inputPhoneNumber").val();
-            const addressCus = $("#inputAddress").val();
-            const methodPay = $("input[name='PaymentMethod']:checked").val();
-            const totalMoneyPay = $("#TotalMoneyPay").text();
-            const codeVoucherSpan = $("#codeVoucherSpan").text();
-            const valueVoucherNotMathch = $("#codeVoucherValue").text();
-            const valueVoucher = MatchesMethod(valueVoucherNotMathch)
-            const totalQuantityProductNotMatch = $("#TotalQuantityPay").text();
-            const totalQuantityProduct = MatchesMethod(totalQuantityProductNotMatch);
-            // Sử dụng biểu thức chính quy để tìm số trong chuỗi
-            var matches = totalMoneyPay.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
 
-                // Lấy số từ kết quả tìm được và chuyển đổi thành số
-                // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
-            var totalPrice = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
-              
-            if(nameCus == "" || phoneCus == "" || addressCus == "")
-            {
-                $("#alert_error").text("Vui lòng điền đủ thông tin!")
-            }else
-            {
-                console.log(nameCus)
-            const dataLocalStorageUserCheckout = {
-                "customerNameNonAccount": nameCus,
-                 "customerPhoneNonAccount": phoneCus,
-                 "customerAddressNonAccount": addressCus,
-                 "methodPayNonAccount": methodPay,
-                 "totalMoney": totalPrice,
-                 "codeVoucher": codeVoucherSpan,
-                 "valueVoucher": valueVoucher,
-                 "totalQuantity":totalQuantityProduct
+                let retrievedObject = localStorage.getItem("cart");
+                let parsedObject = JSON.parse(retrievedObject);
+                const checkStoreId = [];
+                var valueStoreId = 0;
+                
+                $.each(parsedObject,(index,cartItem)=>{
+                        checkStoreId.push(parseInt(cartItem.storeId))
+                })
+                const firstValue = checkStoreId[0];
+                let allSame = true;
+                for (let i = 1; i < checkStoreId.length; i++) {
+                    if (checkStoreId[i] !== firstValue) {
+                        allSame = false;
+                        break;
+                    }
                 }
-            const checkLocalStorage = localStorage.getItem("userCheckout");
-            if(checkLocalStorage == null || !checkLocalStorage)
-            {
-                dataJson = JSON.stringify(dataLocalStorageUserCheckout);
-                localStorage.setItem("userCheckout",dataJson)
-            }else
-            {
-                localStorage.removeItem("userCheckout");
-                dataJson = JSON.stringify(dataLocalStorageUserCheckout);
-                localStorage.setItem("userCheckout",dataJson)
-            }
-            //End add vào localStorage
-            window.location.href = "../checkout.html";
-            }
-    
-            
+                
+                if (allSame) {
+                    valueStoreId = parseInt(checkStoreId[0]);
+
+                    //Begin add vào localStorage
+                    const nameCus = $("#inputName").val();
+                    const phoneCus = $("#inputPhoneNumber").val();
+                    const addressCus = $("#inputAddress").val();
+                    const methodPay = $("input[name='PaymentMethod']:checked").val();
+                    const totalMoneyPay = $("#TotalMoneyPay").text();
+                    const codeVoucherSpan = $("#codeVoucherSpan").text();
+                    const valueVoucherNotMathch = $("#codeVoucherValue").text();
+                    const valueVoucher = MatchesMethod(valueVoucherNotMathch)
+                    const totalQuantityProductNotMatch = $("#TotalQuantityPay").text();
+                    const totalQuantityProduct = MatchesMethod(totalQuantityProductNotMatch);
+                    // Sử dụng biểu thức chính quy để tìm số trong chuỗi
+                    var matches = totalMoneyPay.match(/\d{1,3}(?:\.\d{3})*(?:,\d+)?/);
+
+                        // Lấy số từ kết quả tìm được và chuyển đổi thành số
+                        // Loại bỏ dấu chấm ngăn cách và thay thế dấu phẩy bằng dấu chấm
+                    var totalPrice = parseFloat(matches[0].replace(/\./g, '').replace(',', '.')); 
+              
+                    if(nameCus == "" || phoneCus == "" || addressCus == "")
+                    {
+                        $("#alert_error").text("Vui lòng điền đủ thông tin!")
+                    }else
+                    {
+                        console.log(nameCus)
+                        const dataLocalStorageUserCheckout = {
+                        "customerNameNonAccount": nameCus,
+                        "customerPhoneNonAccount": phoneCus,
+                        "customerAddressNonAccount": addressCus,
+                        "methodPayNonAccount": methodPay,
+                        "totalMoney": totalPrice,
+                        "codeVoucher": codeVoucherSpan,
+                        "valueVoucher": valueVoucher,
+                        "totalQuantity":totalQuantityProduct,
+                        "storeId" : valueStoreId
+                        }
+                    const checkLocalStorage = localStorage.getItem("userCheckout");
+                    if(checkLocalStorage == null || !checkLocalStorage)
+                    {
+                        dataJson = JSON.stringify(dataLocalStorageUserCheckout);
+                        localStorage.setItem("userCheckout",dataJson)
+                    }else
+                    {
+                        localStorage.removeItem("userCheckout");
+                        dataJson = JSON.stringify(dataLocalStorageUserCheckout);
+                        localStorage.setItem("userCheckout",dataJson)
+                    }
+                    //End add vào localStorage
+                    window.location.href = "../checkout.html";
+                    }
+                } else {
+                    alert("Store codes do not match");
+                }
             })
         }
         // end click btn checkout

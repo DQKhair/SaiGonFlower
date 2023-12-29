@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowerStore.Models;
+using FlowerStore.Temp;
 
 namespace FlowerStore.Controllers
 {
@@ -49,36 +50,7 @@ namespace FlowerStore.Controllers
             return customer;
         }
 
-        // PUT: api/Customers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
-        {
-            if (id != customer.CustomerId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(customer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+      
 
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -147,32 +119,89 @@ namespace FlowerStore.Controllers
             return NoContent();
         }
 
-        //// đăng ký
-        //[HttpPost]
-        //public async Task<IActionResult> Register(Customer customer)
-        //{
-        //    // Kiểm tra xem email và số điện thoại đã được sử dụng chưa
-        //    var existingUser = await _context.Customers
-        //        .FirstOrDefaultAsync(c => c.CustomerPhone == customer.CustomerPhone || c.CustomerUserName == customer.CustomerUserName);
+        // PUT: api/Customers/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public IActionResult UpdateCustomer(int id, [FromBody] CustomerUpdateModel updateModel)
+        {
+            var customer = _context.Customers.Find(id);
 
-        //    if (existingUser != null)
-        //    {
-        //        return BadRequest("Email hoặc số điện thoại đã được sử dụng.");
-        //    }
+            if (customer == null)
+            {
+                return NotFound(); // Trả về 404 nếu không tìm thấy khách hàng
+            }
 
-        //    // Mã hóa mật khẩu sử dụng BCrypt.Net
-        //    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(customer.CustomerPassword);
+            // Cập nhật thông tin khách hàng chỉ nếu các thuộc tính không null
+            if (updateModel.CustomerName != null)
+            {
+                customer.CustomerName = updateModel.CustomerName;
+            }
 
-        //    // Gán mật khẩu đã mã hóa lại cho customer
-        //    customer.CustomerPassword = hashedPassword;
+            if (updateModel.CustomerPhone != null)
+            {
+                customer.CustomerPhone = updateModel.CustomerPhone;
+            }
 
-        //    // Thêm người dùng mới vào cơ sở dữ liệu
-        //    _context.Customers.Add(customer);
-        //    await _context.SaveChangesAsync();
+            if (updateModel.CustomerAddress != null)
+            {
+                customer.CustomerAddress = updateModel.CustomerAddress;
+            }
 
-        //    return Ok("Đăng ký thành công.");
-        //}
+            _context.SaveChanges(); // Lưu các thay đổi vào cơ sở dữ liệu
 
+            return Ok(); // Trả về 200 OK nếu cập nhật thành công
+        }
+
+
+        [HttpPut("ResetPasswordCustomer/{id}")]
+        public async Task<IActionResult> ResetPasswordStore(int id, Store store)
+        {
+            var _store = await _context.Customers.SingleOrDefaultAsync(s => s.CustomerId == id);
+            try
+            {
+                if (_store == null)
+                {
+                    return BadRequest();
+                }
+                _store.CustomerPassword = BCrypt.Net.BCrypt.HashPassword("kh@123");
+                await _context.SaveChangesAsync();
+                return NoContent();
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("{id}/changepassword")]
+        public IActionResult ChangePassword(int id, [FromBody] ChangePasswordModel changePasswordModel)
+        {
+            var customer = _context.Customers.Find(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra mật khẩu hiện tại
+            if (!BCrypt.Net.BCrypt.Verify(changePasswordModel.CurrentPassword, customer.CustomerPassword))
+            {
+                return BadRequest("Mật khẩu hiện tại không đúng");
+            }
+
+            // Mã hóa mật khẩu mới
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(changePasswordModel.NewPassword);
+
+            // Cập nhật mật khẩu trong cơ sở dữ liệu
+            customer.CustomerPassword = hashedPassword;
+
+            _context.SaveChanges();
+
+            return Ok("Mật khẩu đã được thay đổi thành công");
+        }
+       
+        //Khai
         [HttpPut("ChangePoint/{id}")]
         public async Task<IActionResult> HandlePointChange(int id, Customer customer)
         {
@@ -195,6 +224,123 @@ namespace FlowerStore.Controllers
             }
 
         }
+
+
+        //Customer history and order detail
+        [HttpGet("GetInfoCusById/{id}")]
+        public async Task<IActionResult> GetInfoCusById(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var _customer = await _context.Customers.Where(c => c.CustomerId == id).FirstOrDefaultAsync();
+            return Ok(_customer);
+        }
+
+        [HttpGet("GetOrderCusById/{id}")]
+        public async Task<IActionResult> GetOrderCusById(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var _order = await _context.Orders.Where(c => c.CustomerId == id && c.OrderStatusId == 4 || c.OrderStatusId == 5 || c.OrderStatusId == 6).Include(m => m.OrderMethod).Include(s => s.OrderStatus).ToListAsync();
+            var _orderForCusList = new List<GetOrderForCus>();
+            foreach (var item in _order)
+            {
+                var orderForCus = new GetOrderForCus
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalQuantity = item.TotalQuantity,
+                    TotalPrice = item.TotalPrice,
+                    NameCusNonAccount = item.NameCusNonAccount,
+                    PhoneCusNonAccount = item.PhoneCusNonAccount,
+                    AddressCusNonAccount = item.AddressCusNonAccount,
+                    CustomerId = item.CustomerId,
+                    OrderStatusId = item.OrderStatusId,
+                    StatusName = item.OrderStatus!.OrderStatusName!,
+                    OrderMethodId = item.OrderMethodId,
+                    MethodName = item.OrderMethod!.OrderMethodName!,
+                    StoreId = item.StoreId
+                };
+                _orderForCusList.Add(orderForCus);
+            }
+            return Ok(_orderForCusList);
+        }
+
+        [HttpGet("GetOrderTrackingCusById/{id}")]
+        public async Task<IActionResult> GetOrderTrackingCusById(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var _order = await _context.Orders.Where(c => c.CustomerId == id && c.OrderStatusId != 4 && c.OrderStatusId != 5 && c.OrderStatusId != 6).Include(m => m.OrderMethod).Include(s => s.OrderStatus).ToListAsync();
+            var _orderForCusList = new List<GetOrderForCus>();
+            foreach (var item in _order)
+            {
+                var orderForCus = new GetOrderForCus
+                {
+                    OrderId = item.OrderId,
+                    OrderDate = item.OrderDate,
+                    TotalQuantity = item.TotalQuantity,
+                    TotalPrice = item.TotalPrice,
+                    NameCusNonAccount = item.NameCusNonAccount,
+                    PhoneCusNonAccount = item.PhoneCusNonAccount,
+                    AddressCusNonAccount = item.AddressCusNonAccount,
+                    CustomerId = item.CustomerId,
+                    OrderStatusId = item.OrderStatusId,
+                    StatusName = item.OrderStatus!.OrderStatusName!,
+                    OrderMethodId = item.OrderMethodId,
+                    MethodName = item.OrderMethod!.OrderMethodName!,
+                    StoreId = item.StoreId
+                };
+                _orderForCusList.Add(orderForCus);
+            }
+            return Ok(_orderForCusList);
+        }
+
+        [HttpGet("GetOrderDetailCusById/{orderId}")]
+        public async Task<ActionResult> GetOrderDetailCusById(int? orderId)
+        {
+            if (orderId == null)
+            {
+                return NotFound();
+            }
+            var _order = await _context.OrderDetails.Where(c => c.OrderId == orderId).Include(p => p.Product).Include(o => o.Order).Include(c => c.Order!.Customer).ToListAsync();
+            var _orderDetailList = new List<GetOrderDetailForCus>();
+            foreach (var item in _order)
+            {
+                var orderDetailForCus = new GetOrderDetailForCus
+                {
+                    OrderDetailId = item.OrderDetailId,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                    ProductName = item.Product!.ProductName!,
+                    CustomerName =item.Order?.NameCusNonAccount??item.Order?.Customer?.CustomerName??"",
+                    CustomerAddress = item.Order?.AddressCusNonAccount??item.Order?.Customer?.CustomerAddress ?? "",
+                    CustomerPhone = item.Order?.PhoneCusNonAccount?? item.Order?.Customer?.CustomerPhone ?? "",
+                    CustomerId = item.Order?.CustomerId
+                };
+                _orderDetailList.Add(orderDetailForCus);
+            }
+            return Ok(_orderDetailList);
+        }
+        [HttpGet("GetOrderTracking/{orderId}")]
+        public async Task<IActionResult> GetOrderTracking(int? orderId)
+        {
+            if (orderId == null)
+            {
+                return NotFound();
+            }
+            var _order = await _context.Orders.SingleOrDefaultAsync(o => o.OrderId == orderId);
+            return Ok(_order);
+        }
+        //End Customer history and order detail
 
 
         private bool CustomerExists(int id)

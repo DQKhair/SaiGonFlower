@@ -453,6 +453,40 @@ h6 {
   color: #012970;
 }
 
+
+.search-form1 {
+  width: 25%;
+}
+
+.search-form1 input {
+  border: 0;
+  font-size: 14px;
+  color: #012970;
+  border: 1px solid rgba(1, 41, 112, 0.2);
+  padding: 7px 38px 7px 8px;
+  border-radius: 3px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.search-form1 input:focus,
+.search-form1 input:hover {
+  outline: none;
+  box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+  border: 1px solid rgba(1, 41, 112, 0.3);
+}
+
+.search-form1 button {
+  border: 0;
+  padding: 0;
+  margin-left: -30px;
+  background: none;
+}
+
+.search-form1 button i {
+  color: #012970;
+}
+
 /*--------------------------------------------------------------
 # Header Nav
 --------------------------------------------------------------*/

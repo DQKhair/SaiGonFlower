@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowerStore.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FlowerStore.Controllers
 {
@@ -160,6 +161,147 @@ namespace FlowerStore.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
+        }
+
+
+        //Store Profile
+        [HttpGet("GetProfileStore/{storeId}")]
+        public async Task<IActionResult> GetProfileStore(int? storeId)
+        {
+            if (storeId == null)
+            {
+                return NotFound();
+            }
+            var _store = await _context.Stores.SingleOrDefaultAsync(s => s.StoreId == storeId);
+            try
+            {
+                if (_store == null)
+                {
+                    return NotFound();
+                }
+                return Ok(_store);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        //End store profile
+
+
+        //// PUT: Update Product Quantity
+        [HttpPut("UpdateProductQuantity/StoreId={storeId}&&ProductId={productId}")]
+        public async Task<IActionResult> UpdateProductQuantity(int storeId, int productId, [FromBody] ProductOfStoreNew productDetail)
+        {
+            var store = await _context.Stores.Include(x => x.StoreDetails).FirstOrDefaultAsync(x => x.StoreId == storeId);
+            if (store == null)
+            {
+                return NotFound();
+            }
+
+            var storeDetail = store.StoreDetails.FirstOrDefault(x => x.ProductId == productId);
+            if (storeDetail == null)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+                if (productDetail.QuantityProduct <= storeDetail.Quantity)
+                {
+                    storeDetail.Quantity -= Convert.ToInt32(productDetail.QuantityProduct);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return BadRequest("Số lượng sản phẩm không đủ");
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StoreDetailExists(storeId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(productDetail);
+        }
+
+        //// PUT: Refund Product Quantity
+        [HttpPut("RefundProductQuantity/StoreId={storeId}&&ProductId={productId}")]
+        public async Task<IActionResult> RefundProductQuantity(int storeId, int productId, [FromBody] ProductOfStoreNew productDetail)
+        {
+            var store = await _context.Stores.Include(x => x.StoreDetails).FirstOrDefaultAsync(x => x.StoreId == storeId);
+            if (store == null)
+            {
+                return NotFound();
+            }
+
+            var storeDetail = store.StoreDetails.FirstOrDefault(x => x.ProductId == productId);
+            if (storeDetail == null)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+                if (productDetail.QuantityProduct <= storeDetail.Quantity)
+                {
+                    storeDetail.Quantity += Convert.ToInt32(productDetail.QuantityProduct);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StoreDetailExists(storeId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(productDetail);
+        }
+
+        [HttpDelete("DeleteOrder/{orderId}")]
+        public async Task<IActionResult> DeleteOrder(int orderId)
+        {
+            var orderDetails = await _context.OrderDetails.Where(x => x.OrderId == orderId).ToListAsync();
+
+            if (orderDetails.Any())
+            {
+                _context.OrderDetails.RemoveRange(orderDetails);
+            }
+
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == orderId);
+
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Tạo đơn không thành công!");
+        }
+
+        private bool StoreDetailExists(int id)
+        {
+            return (_context.StoreDetails?.Any(e => e.StoreDetailId == id)).GetValueOrDefault();
         }
 
     }
